@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CrmDemo.Views.Dashboards.OrdersByStatePage"
+             xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+             xmlns:dxc="clr-namespace:DevExpress.Maui.Charts;assembly=DevExpress.Maui.Charts"
+             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+             Title="Orders by State">
+    <Grid RowDefinitions="{dx:OnOrientation Landscape='*', Portrait='*,*'}" ColumnDefinitions="{dx:OnOrientation Landscape='*,*', Portrait='*'}">
+        <dxc:PieChartView SelectionChanged="PieChartView_SelectionChanged">
+            <dxc:PieChartView.Series>
+                <dxc:DonutSeries>
+                    <dxc:DonutSeries.Data>
+                        <dxc:PieSeriesDataAdapter DataSource="{Binding TrafficChannelsData}" LabelDataMember="ChannelName" ValueDataMember="Value"/>
+                    </dxc:DonutSeries.Data>
+                    <dxc:DonutSeries.Label>
+                        <dxc:PieSeriesLabel Position="Inside" TextPattern="{}{V}">
+                            <dxc:PieSeriesLabel.Style>
+                                <dxc:PieSeriesLabelStyle>
+                                    <dxc:PieSeriesLabelStyle.TextStyle>
+                                        <dxc:TextStyle Size="12" Color="Black" />
+                                    </dxc:PieSeriesLabelStyle.TextStyle>
+                                </dxc:PieSeriesLabelStyle>
+                            </dxc:PieSeriesLabel.Style>
+                        </dxc:PieSeriesLabel>
+                    </dxc:DonutSeries.Label>
+                    <dxc:DonutSeries.CenterLabel>
+                        <dxc:PieCenterTextLabel TextPattern="Orders"/>
+                    </dxc:DonutSeries.CenterLabel>
+                </dxc:DonutSeries>
+            </dxc:PieChartView.Series>
+            <dxc:PieChartView.Legend>
+                <dxc:Legend Orientation="TopToBottom" HorizontalPosition="RightOutside" VerticalPosition="Center">
+                    <dxc:Legend.Style>
+                        <dxc:LegendStyle ItemsVerticalIndent="20" IndentFromDiagram="20" BackgroundColor="{dx:ThemeColor Surface}" >
+                            <dxc:LegendStyle.TextStyle>
+                                <dxc:TextStyle Size="14" Color="{dx:ThemeColor OnSurface}" />
+                            </dxc:LegendStyle.TextStyle>
+                        </dxc:LegendStyle>
+                    </dxc:Legend.Style>
+                </dxc:Legend>
+            </dxc:PieChartView.Legend>
+            <dxc:PieChartView.ChartStyle>
+                <dxc:PieChartStyle Palette="{Binding TrafficColors}" BackgroundColor="{dx:ThemeColor Surface}"/>
+            </dxc:PieChartView.ChartStyle>
+        </dxc:PieChartView>
+        <dxcv:DXCollectionView Grid.Row="{dx:OnOrientation Landscape='0', Portrait='1'}" Grid.Column="{dx:OnOrientation Landscape='1', Portrait='0'}" ItemsSource="{Binding SegmentOrders}">
+            <dxcv:DXCollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="12" RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+                        <Label
+                            Text="{Binding Employee.FullName}"
+                            FontSize="16" FontAttributes="Bold"
+                            TextColor="{dx:ThemeColor Key=OnSurface}"/>
+                        <Label
+                            Grid.Row="1"
+                            Text="{Binding Items.Count, StringFormat='{0} items'}"
+                            FontSize="14"
+                            TextColor="{dx:ThemeColor Key=OnSurfaceVariant}"/>
+                        <Label
+                            Grid.Column="1" Grid.RowSpan="2"
+                            Text="{Binding TotalAmount, StringFormat='{0:c}'}"
+                            FontSize="16" FontAttributes="Bold"
+                            TextColor="{dx:ThemeColor Key=OnSurface}"
+                            VerticalOptions="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </dxcv:DXCollectionView.ItemTemplate>
+        </dxcv:DXCollectionView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CrmDemo.Views.Customers.CustomersFilterForm"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core">
+    <ContentView.Resources>
+        <Style TargetType="dxe:FormItemBase">
+            <Setter Property="ImageColor" Value="{dx:ThemeColor Key=OnSurfaceVariant}" />
+        </Style>
+    </ContentView.Resources>
+    <VerticalStackLayout>
+        <dxe:FilterRadioListPickerItem FieldName="FullName"
+                                       Text="Name"
+                                       ShowValuesOutOfFilter="true"
+                                       ShowValueCounts="false"
+                                       ShowRadioButtons="false"
+                                       ImageSource="noavatar"
+                                       PickerTitle="Name" />
+        <dxe:FilterNumericRangeItem Text="Orders Total Amount" FieldName="OrdersAmount" EditorDisplayFormat="c0"/>
+        <dxe:FilterRadioListPickerItem FieldName="City"
+                                       Text="City"
+                                       PickerTitle="City"
+                                       ShowValuesOutOfFilter="false"
+                                       ShowValueCounts="false"
+                                       ShowRadioButtons="false"
+                                       ImageSource="filteringui_location" />
+        <dxe:FilterRadioListPickerItem FieldName="Company"
+                                       Text="Company"
+                                       ShowValuesOutOfFilter="false"
+                                       ShowValueCounts="false"
+                                       ImageSource="editorscompany"
+                                       ShowRadioButtons="false" />
+        <dxe:FilterCheckItem Text="Has Unpaid Invoices" FieldName="HasUnpaidInvoices"/>
+    </VerticalStackLayout>
+</ContentView>

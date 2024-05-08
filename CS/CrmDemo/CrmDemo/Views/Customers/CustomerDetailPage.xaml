@@ -1,0 +1,199 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+             xmlns:dxg="clr-namespace:DevExpress.Maui.DataGrid;assembly=DevExpress.Maui.DataGrid"
+             xmlns:model="clr-namespace:CrmDemo.DataModel.Models;assembly=CrmDemo.DataModel"
+             xmlns:viewsCommon="clr-namespace:CrmDemo.Views.Common"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             Title="Customer"
+             x:Class="CrmDemo.Views.Customers.CustomerDetailPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding EditCommand}" Text="Edit" IconImageSource="edit" />
+        <ToolbarItem Clicked="DeleteItemClick" Text="Delete" IconImageSource="delete" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <Style TargetType="dxe:FormItem" x:Key="overviewFormItem">
+            <Setter Property="TextColor" Value="{dx:ThemeColor OnSurface}"/>
+            <Setter Property="ImageColor" Value="{dx:ThemeColor OnSurface}" />
+            <Setter Property="InlineContentTextColor" Value="{dx:ThemeColor OnSurfaceVariant}" />
+            <Setter Property="Padding" Value="0,16" />
+            <Setter Property="ShowSeparator" Value="False" />
+            <Setter Property="ImageWidth" Value="36" />
+            <Setter Property="ImageMargin" Value="0" />
+            <Setter Property="ImageHeight" Value="36" />
+            <Setter Property="HorizontalSpacing" Value="16" />
+        </Style>
+        <Style TargetType="dxe:FormItem" x:Key="infoFormItem">
+            <Setter Property="TextColor" Value="{dx:ThemeColor OnSurface}"/>
+            <Setter Property="ImageColor" Value="{dx:ThemeColor OnSurface}" />
+            <Setter Property="DetailColor" Value="{dx:ThemeColor OnSurfaceVariant}" />
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="ShowSeparator" Value="False" />
+            <Setter Property="ImageWidth" Value="36" />
+            <Setter Property="ImageMargin" Value="0" />
+            <Setter Property="ImageHeight" Value="36" />
+            <Setter Property="HorizontalSpacing" Value="16" />
+        </Style>
+        <Style TargetType="dx:DXButton" x:Key="ActionButtonStyle">
+            <Setter Property="IconHeight" Value="32" />
+            <Setter Property="IconWidth" Value="32" />
+            <Setter Property="Padding" Value="18,10" />
+            <Setter Property="ButtonType" Value="Outlined" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid IgnoreSafeArea="True">
+        <dxco:TabView HeaderPanelPadding="0" ItemHeaderPadding="4,0" ItemHeaderWidth="*" HeaderPanelBackgroundColor="{dx:ThemeColor Key=Surface}"
+                SwipeEnabled="False">
+            <dxco:TabViewItem HeaderText="Overview" >
+                <ScrollView BackgroundColor="{dx:ThemeColor Surface}">
+                    <VerticalStackLayout>
+                        <Grid WidthRequest="100" HeightRequest="100" BackgroundColor="{dx:ThemeColor PrimaryContainer}" Margin="0,24,0,0">
+                            <Grid.Clip>
+                                <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"/>
+                            </Grid.Clip>
+
+                            <dx:DXImage Source="noavatar40" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="Center" TintColor="{dx:ThemeColor OnPrimaryContainer}"/>
+                            <Image Source="{Binding Item.Avatar.ThumbnailImageSource}" WidthRequest="100" HeightRequest="100" Aspect="AspectFill"/>
+                        </Grid>
+                        
+                        <Label Text="{Binding Item.FullName}" TextColor="{dx:ThemeColor OnSurface}" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,10,0,16"/>
+                        
+                        <dx:DXStackLayout HorizontalOptions="Center" Margin="16,0,16,24" Orientation="Horizontal" ItemSpacing="14">
+                            <dx:DXButton Icon="phone" Style="{StaticResource ActionButtonStyle}" Clicked="CallClick"/>
+                            <dx:DXButton Icon="mail" Style="{StaticResource ActionButtonStyle}" Clicked="MailClick"/> 
+                            <dx:DXButton Icon="message" Style="{StaticResource ActionButtonStyle}" Clicked="MessageClick"/>
+                        </dx:DXStackLayout>
+
+                        <toolkit:Expander IsExpanded="True" x:Name="checkListExpander">
+                            <toolkit:Expander.Header>
+                                <Grid ColumnDefinitions="Auto,*,Auto" BackgroundColor="{dx:ThemeColor SurfaceContainerHigh}">
+                                    <dx:DXImage Source="downarrow" TintColor="{dx:ThemeColor Key=OnSurfaceVariant}" HeightRequest="16" WidthRequest="16" VerticalOptions="Center" Margin="16,0">
+                                        <dx:DXImage.Triggers>
+                                            <DataTrigger Binding="{Binding Source={x:Reference checkListExpander}, Path=IsExpanded}" Value="False" TargetType="Image">
+                                                <Setter Property="Source" Value="rightarrow"/>
+                                            </DataTrigger>
+                                        </dx:DXImage.Triggers>
+                                    </dx:DXImage>
+                                    <Label Text="Associated tasks" TextColor="{dx:ThemeColor OnSurface}" VerticalOptions="Center" Grid.Column="1" FontSize="16" />
+                                    <dx:DXButton ButtonType="Text" Icon="add" IconColor="{dx:ThemeColor Key=OnSurfaceVariant}" Padding="4" Margin="16,10"
+                                        IconWidth="24" IconHeight="24" BackgroundColor="Transparent" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                                        VerticalOptions="Center" Grid.Column="2" Clicked="OnAddTaskButtonClicked" />
+                                </Grid>
+                            </toolkit:Expander.Header>
+
+                            <dxg:DataGridView x:Name="checkListItemsGrid" ItemsSource="{Binding Item.AssociatedCheckList}" ReduceHeightToContent="True"
+                                    CustomCellAppearance="OnDataGridViewCustomCellAppearance" EditorShowMode="Tap" AllowDragDropRows="True"
+                                    IsColumnHeaderVisible="False" VerticalLineThickness="0" SelectionMode="None" FullSwipeMode="None" Tap="OnCheckListItemsGridTap">
+                                <dxg:DataGridView.CellAppearance>
+                                    <dxg:CellAppearance HorizontalLineThickness="0"/>
+                                </dxg:DataGridView.CellAppearance>
+                                <dxg:DataGridView.EndSwipeItems>
+                                    <dxg:SwipeItem Caption="Delete" Tap="OnDeleteTaskSwipeItemTap" BackgroundColor="{dx:ThemeColor Key=Error}" FontColor="{dx:ThemeColor Key=OnError}" />
+                                </dxg:DataGridView.EndSwipeItems>
+                                <dxg:DataGridView.Columns>
+                                    <dxg:CheckBoxColumn FieldName="IsChecked" Width="30" IsReadOnly="True"/>
+                                    <dxg:TextColumn FieldName="Description" />
+                                </dxg:DataGridView.Columns>
+                            </dxg:DataGridView>
+                        </toolkit:Expander>
+
+                        <Label Text="Relationships" BackgroundColor="{dx:ThemeColor SurfaceContainerHigh}" TextColor="{dx:ThemeColor OnSurface}" FontSize="16" Padding="16"/>
+                        <dxe:FormListPickerItem x:Name="pickerItem" Style="{StaticResource overviewFormItem}" ImageSource="noavatar" ImageWidth="24" ImageHeight="24" Text="Assigned to" TextFontSize="16" ItemsSource="{Binding DataControlContext.Employees}"
+                                AllowTap="True" ShowArrow="True" IsMultipleSelectionEnabled="False" Margin="16,0"
+                                SelectedItem="{Binding CustomerEmployee, Mode=TwoWay}" InlineContent="{Binding CustomerEmployee}" DisplayMember="FullName">
+                            <dxe:FormListPickerItem.PickerSelectedItemTemplate>
+                                <DataTemplate x:DataType="{x:Type model:Person}">
+                                    <Grid ColumnDefinitions="Auto,*" Padding="5" BackgroundColor="{dx:ThemeColor Key=OnSurface, Alpha=0.12}">
+                                        <Image HeightRequest="40" WidthRequest="40" Source="{Binding Avatar.ThumbnailImageSource, FallbackValue=noavatar}" Aspect="AspectFill"
+                                                VerticalOptions="Center" Margin="10">
+                                            <Image.Clip>
+                                                <EllipseGeometry RadiusX="20" RadiusY="20" Center="20, 20" />
+                                            </Image.Clip>
+                                        </Image>
+                                        <Label Text="{Binding FullName}" FontAttributes="Bold" TextColor="{dx:ThemeColor OnSurface}" Grid.Column="1" VerticalOptions="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </dxe:FormListPickerItem.PickerSelectedItemTemplate>
+                            <dxe:FormListPickerItem.InlineContentTemplate>
+                                <DataTemplate x:DataType="{x:Type model:Employee}">
+                                    <Grid WidthRequest="32" HeightRequest="32" BackgroundColor="{dx:ThemeColor PrimaryContainer}">
+                                        <Grid.Clip>
+                                            <EllipseGeometry Center="16,16" RadiusX="16" RadiusY="16"/>
+                                        </Grid.Clip>
+                                        <dx:DXImage Source="noavatar" WidthRequest="18" HeightRequest="18" VerticalOptions="Center" HorizontalOptions="Center" TintColor="{dx:ThemeColor OnPrimaryContainer}"/>
+                                        <Image Source="{Binding Avatar.ThumbnailImageSource}" WidthRequest="32" HeightRequest="32" Aspect="AspectFill"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </dxe:FormListPickerItem.InlineContentTemplate>
+                            <dxe:FormListPickerItem.ItemTemplate>
+                                <DataTemplate x:DataType="{x:Type model:Person}">
+                                    <Grid ColumnDefinitions="Auto,*" Padding="5">
+                                        <Image HeightRequest="40" WidthRequest="40" Source="{Binding Avatar.ThumbnailImageSource, FallbackValue=noavatar}" Aspect="AspectFill"
+                                                VerticalOptions="Center" Margin="10">
+                                            <Image.Clip>
+                                                <EllipseGeometry RadiusX="20" RadiusY="20" Center="20, 20" />
+                                            </Image.Clip>
+                                        </Image>
+                                        <Label Text="{Binding FullName}" FontAttributes="Bold" TextColor="{dx:ThemeColor OnSurface}" Grid.Column="1" VerticalOptions="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </dxe:FormListPickerItem.ItemTemplate>
+                        </dxe:FormListPickerItem>
+
+                        <dxe:FormItem Style="{StaticResource overviewFormItem}" Margin="16,0" ImageSource="orders" ImageWidth="24" ImageHeight="24" Text="Orders" TextFontSize="16" TapCommand="{Binding DataControlContext.NavigateToRelatedOrdersCommand}" TapCommandParameter="{Binding Item}" ShowArrow="True" AllowTap="True">
+                            <dxe:FormItem.InlineContent>
+                                <MultiBinding StringFormat="{}{0:N2} ({1})">
+                                    <Binding Path="Item.OrdersAmount"/>
+                                    <Binding Path="Item.Orders.Count"/>
+                                </MultiBinding>
+                            </dxe:FormItem.InlineContent>
+                        </dxe:FormItem>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </dxco:TabViewItem>
+
+            <dxco:TabViewItem HeaderText="Info">
+                <ScrollView>
+                    <VerticalStackLayout BackgroundColor="{dx:ThemeColor Surface}" Padding="24,0">
+                        <dxe:FormItem Style="{StaticResource infoFormItem}" Text="Phone" Detail="{Binding Item.Phone}" DetailColor="{dx:ThemeColor Primary}" ShowArrow="True">
+                            <dxe:FormItem.ArrowTemplate>
+                                <DataTemplate>
+                                    <dx:DXButton ButtonType="ToolButton" Icon="copy" Clicked="CopyPhoneClick"/>
+                                </DataTemplate>
+                            </dxe:FormItem.ArrowTemplate>
+                        </dxe:FormItem>
+                        <dxe:FormItem Style="{StaticResource infoFormItem}" Text="Email" Detail="{Binding Item.Email}" DetailColor="{dx:ThemeColor Primary}" ShowArrow="True">
+                            <dxe:FormItem.ArrowTemplate>
+                                <DataTemplate>
+                                    <dx:DXButton ButtonType="ToolButton" Icon="copy" Clicked="CopyEmailClick"/>
+                                </DataTemplate>
+                            </dxe:FormItem.ArrowTemplate>
+                        </dxe:FormItem>
+                        <dxe:FormItem Style="{StaticResource infoFormItem}" Text="Address">
+                            <dxe:FormItem.Detail>
+                                <MultiBinding StringFormat="{}{0}, {1}, {2}">
+                                    <Binding Path="Item.Address.Street"/>
+                                    <Binding Path="Item.Address.City"/>
+                                    <Binding Path="Item.Address.Country"/>
+                                </MultiBinding>
+                            </dxe:FormItem.Detail>
+                        </dxe:FormItem>
+                        <dxe:FormItem Style="{StaticResource infoFormItem}" Text="Zip Code" Detail="{Binding Item.Address.ZipCode}"/>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </dxco:TabViewItem>
+        </dxco:TabView>
+
+        <dxco:DXPopup x:Name="popup" AllowScrim="True" VerticalAlignment="Bottom" Margin="16" CornerRadius="16">
+            <VerticalStackLayout Padding="24,10">
+                <Label Text="Do you want to delete the record?" Margin="0,20" HorizontalTextAlignment="Center" FontAttributes="Bold" />
+                <dx:DXSeparator />
+                <dx:DXButton Content="Delete" ButtonType="Text" FontSize="16" Clicked="DeleteConfirmedClick"/>
+                <dx:DXButton Content="Cancel" ButtonType="Text" FontSize="16" Clicked="CancelDeleteClick" Margin="0,8,0,0" />
+            </VerticalStackLayout>
+        </dxco:DXPopup>
+    </Grid>
+</ContentPage>

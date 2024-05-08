@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dxe="clr-namespace:DevExpress.Maui.Editors;assembly=DevExpress.Maui.Editors"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:dxcr="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+             xmlns:dxc="clr-namespace:DevExpress.Maui.Charts;assembly=DevExpress.Maui.Charts"
+             x:Class="CrmDemo.Views.Employees.EmployeeDetailPage"
+             BackgroundColor="{dxcr:ThemeColor SurfaceContainer}"
+             Title="Employee">
+
+    <ContentPage.Resources>
+        <Style TargetType="dxe:FormItem" x:Key="overviewFormItem">
+            <Setter Property="TextColor" Value="{dxcr:ThemeColor OnSurface}"/>
+            <Setter Property="ImageColor" Value="{dxcr:ThemeColor OnSurface}" />
+            <Setter Property="InlineContentTextColor" Value="{dxcr:ThemeColor OnSurfaceVariant}" />
+            <Setter Property="Padding" Value="0,16" />
+            <Setter Property="ShowSeparator" Value="False" />
+            <Setter Property="ImageWidth" Value="36" />
+            <Setter Property="ImageMargin" Value="0" />
+            <Setter Property="ImageHeight" Value="36" />
+            <Setter Property="HorizontalSpacing" Value="16" />
+        </Style>
+        <Style TargetType="dxe:FormItem" x:Key="infoFormItem">
+            <Setter Property="TextColor" Value="{dxcr:ThemeColor OnSurface}"/>
+            <Setter Property="ImageColor" Value="{dxcr:ThemeColor OnSurface}" />
+            <Setter Property="DetailColor" Value="{dxcr:ThemeColor OnSurfaceVariant}" />
+            <Setter Property="Padding" Value="16" />
+            <Setter Property="ShowSeparator" Value="False" />
+            <Setter Property="ImageWidth" Value="36" />
+            <Setter Property="ImageMargin" Value="0" />
+            <Setter Property="ImageHeight" Value="36" />
+            <Setter Property="HorizontalSpacing" Value="16" />
+        </Style>
+        <Style TargetType="dxcr:DXButton" x:Key="ActionButtonStyle">
+            <Setter Property="IconHeight" Value="32" />
+            <Setter Property="IconWidth" Value="32" />
+            <Setter Property="Padding" Value="18,10" />
+            <Setter Property="ButtonType" Value="Outlined" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid IgnoreSafeArea="True">
+        <dxco:TabView HeaderPanelPadding="0" ItemHeaderPadding="4,0" ItemHeaderWidth="*" HeaderPanelBackgroundColor="{dxcr:ThemeColor Surface}">
+            <dxco:TabViewItem HeaderText="Overview">
+                <ScrollView BackgroundColor="{dxcr:ThemeColor Surface}">
+                    <VerticalStackLayout>
+                        <Image WidthRequest="100" HeightRequest="100" Margin="0,24,0,0" Source="{Binding Item.Avatar.ThumbnailImageSource, FallbackValue=noavatar}" Aspect="AspectFill">
+                            <Image.Clip>
+                                <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50" />
+                            </Image.Clip>
+                        </Image>
+                        
+                        <Label Text="{Binding Item.FullName}" TextColor="{dxcr:ThemeColor OnSurface}" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,10,0,16"/>
+                        
+                        <dxcr:DXStackLayout HorizontalOptions="Center" Margin="16,0,16,38" Orientation="Horizontal" ItemSpacing="14">
+                            <dxcr:DXButton Icon="phone" Style="{StaticResource ActionButtonStyle}" Clicked="CallClick"/>
+                            <dxcr:DXButton Icon="mail" Style="{StaticResource ActionButtonStyle}" Clicked="MailClick"/>
+                            <dxcr:DXButton Icon="message" Style="{StaticResource ActionButtonStyle}" Clicked="MessageClick"/>
+                        </dxcr:DXStackLayout>
+
+                        <Label Text="Relationships" BackgroundColor="{dxcr:ThemeColor SurfaceContainerHigh}" TextColor="{dxcr:ThemeColor OnSurface}" FontSize="16" Padding="16"/>
+                        <dxe:FormItem Style="{StaticResource overviewFormItem}" ImageSource="noavatar" Text="Assigned Customers" ShowArrow="True" AllowTap="True"
+                                    TapCommand="{Binding DataControlContext.NavigateToRelatedCustomersCommand}" TapCommandParameter="{Binding Item}" ImageWidth="24" 
+                                    ImageHeight="24" InlineContent="{Binding Item.AssociatedCustomers.Count}" Margin="16,0"/>
+                        <dxe:FormItem Style="{StaticResource overviewFormItem}" ImageSource="orders" Text="Assigned Orders" ShowArrow="True" AllowTap="True"
+                                    TapCommand="{Binding DataControlContext.NavigateToRelatedOrdersCommand}" TapCommandParameter="{Binding Item}" ImageWidth="24"
+                                    ImageHeight="24" InlineContent="{Binding Item.AssociatedOrders.Count}" Margin="16,0"/>
+
+                        <Label Text="Processed Orders" TextColor="{dxcr:ThemeColor OnSurface}" Margin="16,12" FontSize="14" FontAttributes="Bold"/>
+                        <dxc:ChartView Grid.Row="2" Margin="16,0,16,16" HeightRequest="300">
+                            <dxc:ChartView.AxisX>
+                                <dxc:DateTimeAxisX MeasureUnit="Month">
+                                    <dxc:DateTimeAxisX.Style>
+                                        <dxc:AxisStyle MajorTickmarksVisible="True" MinorTickmarksVisible="True"/>
+                                    </dxc:DateTimeAxisX.Style>
+
+                                    <dxc:DateTimeAxisX.Label>
+                                        <dxc:AxisLabel>
+                                            <dxc:AxisLabel.Style>
+                                                <dxc:AxisLabelStyle>
+                                                    <dxc:AxisLabelStyle.TextStyle>
+                                                        <dxc:TextStyle Color="{dxcr:ThemeColor OnSurface}" Size="13"/>
+                                                    </dxc:AxisLabelStyle.TextStyle>
+                                                </dxc:AxisLabelStyle>
+                                            </dxc:AxisLabel.Style>
+                                        </dxc:AxisLabel>
+                                    </dxc:DateTimeAxisX.Label>
+                                </dxc:DateTimeAxisX>
+                            </dxc:ChartView.AxisX>
+                            <dxc:ChartView.AxisY>
+                                <dxc:NumericAxisY>
+                                    <dxc:NumericAxisY.Label>
+                                        <dxc:AxisLabel>
+                                            <dxc:AxisLabel.Style>
+                                                <dxc:AxisLabelStyle>
+                                                    <dxc:AxisLabelStyle.TextStyle>
+                                                        <dxc:TextStyle Color="{dxcr:ThemeColor OnSurface}" Size="13"/>
+                                                    </dxc:AxisLabelStyle.TextStyle>
+                                                </dxc:AxisLabelStyle>
+                                            </dxc:AxisLabel.Style>
+                                        </dxc:AxisLabel>
+                                    </dxc:NumericAxisY.Label>
+                                    <dxc:NumericAxisY.Title>
+                                        <dxc:AxisTitle Text="Count"/>
+                                    </dxc:NumericAxisY.Title>
+                                </dxc:NumericAxisY>
+                            </dxc:ChartView.AxisY>
+                            <dxc:ChartView.ChartStyle>
+                                <dxc:ChartStyle BackgroundColor="{dxcr:ThemeColor Surface}" />
+                            </dxc:ChartView.ChartStyle>
+                            <dxc:ChartView.Series>
+                                <dxc:BarSeries>
+                                    <dxc:BarSeries.Data>
+                                        <dxc:SeriesDataAdapter DataSource="{Binding Path=Context.ProcessedOrdersStats}" ArgumentDataMember="Date">
+                                            <dxc:SeriesDataAdapter.ValueDataMembers>
+                                                <dxc:ValueDataMember Type="Value" Member="Count"/>
+                                            </dxc:SeriesDataAdapter.ValueDataMembers>
+                                        </dxc:SeriesDataAdapter>
+                                    </dxc:BarSeries.Data>
+                                    <dxc:BarSeries.PointColorizer>
+                                        <dxc:ColorEachPointColorizer x:Name="col"/>
+                                    </dxc:BarSeries.PointColorizer>
+                                    <dxc:BarSeries.HintOptions>
+                                        <dxc:SeriesHintOptions PointTextPattern="{}{V}"/>
+                                    </dxc:BarSeries.HintOptions>
+                                </dxc:BarSeries>
+                            </dxc:ChartView.Series>
+                            <dxc:ChartView.Hint>
+                                <dxc:Hint Enabled="True" ShowMode="OnTap" />
+                            </dxc:ChartView.Hint>
+                        </dxc:ChartView>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </dxco:TabViewItem>
+            
+            <dxco:TabViewItem HeaderText="Info">
+                <ScrollView>
+                    <VerticalStackLayout BackgroundColor="{dxcr:ThemeColor Surface}" Padding="24,0">
+                        <dxe:FormItem Style="{StaticResource infoFormItem}" Text="Phone" Detail="{Binding Item.Phone}" DetailColor="{dxcr:ThemeColor Primary}" ShowArrow="True">
+                            <dxe:FormItem.ArrowTemplate>
+                                <DataTemplate>
+                                    <dxcr:DXButton ButtonType="ToolButton" Icon="copy" Clicked="CopyPhoneClick"/>
+                                </DataTemplate>
+                            </dxe:FormItem.ArrowTemplate>
+                        </dxe:FormItem>
+                        <dxe:FormItem Style="{StaticResource infoFormItem}" Text="Email" Detail="{Binding Item.Email}" DetailColor="{dxcr:ThemeColor Primary}" ShowArrow="True">
+                            <dxe:FormItem.ArrowTemplate>
+                                <DataTemplate>
+                                    <dxcr:DXButton ButtonType="ToolButton" Icon="copy" Clicked="CopyEmailClick"/>
+                                </DataTemplate>
+                            </dxe:FormItem.ArrowTemplate>
+                        </dxe:FormItem>
+                        <dxe:FormItem Style="{StaticResource infoFormItem}" Text="Address">
+                            <dxe:FormItem.Detail>
+                                <MultiBinding StringFormat="{}{0}, {1}, {2}">
+                                    <Binding Path="Item.Address.Street"/>
+                                    <Binding Path="Item.Address.City"/>
+                                    <Binding Path="Item.Address.Country"/>
+                                </MultiBinding>
+                            </dxe:FormItem.Detail>
+                        </dxe:FormItem>
+                        <dxe:FormItem Style="{StaticResource infoFormItem}" Text="Zip Code" Detail="{Binding Item.Address.ZipCode}"/>
+                    </VerticalStackLayout>
+                </ScrollView>
+            </dxco:TabViewItem>
+        </dxco:TabView>
+    </Grid>
+</ContentPage>

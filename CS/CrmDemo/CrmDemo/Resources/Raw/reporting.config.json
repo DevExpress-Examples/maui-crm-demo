@@ -1,0 +1,7 @@
+{
+    "SqlConnectionStrings": {
+        "test": "XpoProvider=SQLite;Data Source=/Users/aleksei.matosov/Projects/Maui/native-mobile/xamarin/Maui/Demos/CrmDemo/CrmDemo/Resources/Raw/devexpress_crm_database.db",
+        "crm": "XpoProvider=SQLite;Data Source=/Users/aleksei.matosov/Projects/Maui/native-mobile/xamarin/Maui/Demos/CrmDemo/CrmDemo/Resources/Raw/devexpress_crm_database.db"
+    },
+    "JsonConnectionStrings": {}
+}

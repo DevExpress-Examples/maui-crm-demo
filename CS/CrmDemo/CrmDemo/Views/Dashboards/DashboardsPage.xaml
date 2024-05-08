@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:CrmDemo.ViewModels.Dashboards"
+             xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+             x:Class="CrmDemo.Views.DashboardsPage">
+    <ContentPage.BindingContext>
+        <viewModels:DashboardsViewModel/>
+    </ContentPage.BindingContext>
+    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto, Auto, Auto" Padding="10" ColumnSpacing="10" RowSpacing="10">
+        <dx:DXButton Content="Orders by Employee" Style="{StaticResource dashboardButtonStyle}" Command="{Binding GoToOrdersByEmployeeCommand}" Icon="processed"/>
+        <dx:DXButton Content="Orders by Month" Grid.Column="1" Style="{StaticResource dashboardButtonStyle}" Command="{Binding GoToOrdersByMonthCommand}" Icon="closed"/>
+        <dx:DXButton Content="Orders by State" Grid.Row="1" Style="{StaticResource dashboardButtonStyle}" Command="{Binding GoToOrdersByStateCommand}" Icon="state"/>
+        <dx:DXButton Content="Order Aging" Grid.Column="1" Grid.Row="1" Style="{StaticResource dashboardButtonStyle}" Command="{Binding GoToOrderStateEvolutionCommand}" Icon="aging"/>
+        <dx:DXButton Content="Orders by City" Grid.Row="2" Style="{StaticResource dashboardButtonStyle}" Command="{Binding GoToOrdersByCountryCommand}" Icon="marketshare"/>
+        <dx:DXButton Content="Sales Correlation" Grid.Column="1" Grid.Row="2" Style="{StaticResource dashboardButtonStyle}" Command="{Binding GoToSalesTeamProductivityCommand}" Icon="sales"/>
+    </Grid>
+</ContentPage>

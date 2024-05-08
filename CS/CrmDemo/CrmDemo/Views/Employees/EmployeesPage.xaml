@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="clr-namespace:DevExpress.Maui.Core;assembly=DevExpress.Maui.Core"
+             xmlns:dxcv="clr-namespace:DevExpress.Maui.CollectionView;assembly=DevExpress.Maui.CollectionView"
+             xmlns:dxg="clr-namespace:DevExpress.Maui.DataGrid;assembly=DevExpress.Maui.DataGrid"
+             xmlns:dxco="clr-namespace:DevExpress.Maui.Controls;assembly=DevExpress.Maui.Controls"
+             xmlns:models="clr-namespace:CrmDemo.DataModel.Models;assembly=CrmDemo.DataModel"
+             xmlns:viewsEmp="clr-namespace:CrmDemo.Views.Employees"
+             xmlns:viewModels="clr-namespace:CrmDemo.ViewModels.Employees"
+             BackgroundColor="{dx:ThemeColor Surface}"
+             x:DataType="viewModels:EmployeesViewModel"
+             x:Class="CrmDemo.Views.EmployeesPage">
+
+    <Grid IgnoreSafeArea="{dx:OnOrientation Landscape=True, Portrait=False}">
+        <dxcv:DXCollectionView x:Name="collectionView" ItemsSource="{Binding Items}" UseRippleEffect="True"
+            DetailFormTemplate="{DataTemplate viewsEmp:EmployeeDetailPage}"
+            CreateDetailFormViewModel="OnCreateDetailFormViewModel"
+            GroupItemSeparatorThickness="0">
+
+            <dxcv:DXCollectionView.GroupDescription>
+                <dxcv:GroupDescription FieldName="Position"/>
+            </dxcv:DXCollectionView.GroupDescription>
+            <dxcv:DXCollectionView.GroupItemAppearance>
+                <dxcv:CollectionViewGroupItemAppearance BackgroundColor="Transparent" TextColor="{dx:ThemeColor OnSurface}" FontSize="16" FontAttributes="Bold" ContentPadding="24,16" />
+            </dxcv:DXCollectionView.GroupItemAppearance>
+
+            <dxcv:DXCollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Employee">
+                    <dx:DXStackLayout Orientation="Horizontal" Margin="16,14" ItemSpacing="16">
+                        <dx:DXStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference collectionView}, Path=Commands.ShowDetailForm}" CommandParameter="{Binding .}" />
+                        </dx:DXStackLayout.GestureRecognizers>
+
+                        <Image WidthRequest="40" HeightRequest="40" Source="{Binding Avatar.ThumbnailImageSource, FallbackValue=noavatar}" Aspect="AspectFill">
+                            <Image.Clip>
+                                <EllipseGeometry Center="20,20" RadiusX="20" RadiusY="20" />
+                            </Image.Clip>
+                        </Image>
+                        <dx:DXStackLayout ItemSpacing="4">
+                            <Label Text="{Binding FullName}" FontSize="16" TextColor="{dx:ThemeColor OnSurface}"/>
+                            <Label Text="{Binding Email}" FontSize="14" TextColor="{dx:ThemeColor OnSurfaceVariant}"/>
+                        </dx:DXStackLayout>
+                    </dx:DXStackLayout>
+                </DataTemplate>
+            </dxcv:DXCollectionView.ItemTemplate>
+        </dxcv:DXCollectionView>
+    </Grid>
+</ContentPage>
