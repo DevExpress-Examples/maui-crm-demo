@@ -1,7 +1,7 @@
 <!-- default badges list -->
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-# DevExpress Mobile UI for .NET MAUI
+# DevExpress CRM Demo for .NET MAUI
 
 This repository includes a sample CRM application created with the [DevExpress .NET MAUI UI](https://www.devexpress.com/maui/) component suite.
 
