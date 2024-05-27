@@ -82,7 +82,7 @@
             </dxg:DataGridView.Columns>
             <dxg:DataGridView.TotalSummaries>
                 <dxg:GridColumnSummary FieldName="Id" Type="Count" DisplayFormat="Count: {0}"/>
-                <dxg:GridColumnSummary FieldName="TotalAmount" Type="Sum" DisplayFormat="Total Amount: {0}"/>
+                <dxg:GridColumnSummary FieldName="TotalAmount" Type="Sum" DisplayFormat="Total: {0}"/>
             </dxg:DataGridView.TotalSummaries>
         </dxg:DataGridView>
 
@@ -90,8 +90,8 @@
 
         <dxco:DXPopup x:Name="sharePopup" AllowScrim="True" CloseOnScrimTap="True">
             <dx:DXStackLayout Margin="24" ItemSpacing="16">
-                <Label Text="Share the file" TextColor="{dx:ThemeColor OnSurface}" FontSize="24"/>
-                <Label Text="Select a format file to share" TextColor="{dx:ThemeColor OnSurfaceVariant}" FontSize="14"/>
+                <Label Text="Share File" TextColor="{dx:ThemeColor OnSurface}" FontSize="24"/>
+                <Label Text="Select the desired output format" TextColor="{dx:ThemeColor OnSurfaceVariant}" FontSize="14"/>
                 <Grid ColumnDefinitions="Auto,Auto" Margin="8,8,0,0" ColumnSpacing="8" HorizontalOptions="End">
                     <dx:DXButton Grid.Column="0" Padding="36,10" ButtonType="Text" Content="Excel" Icon="excel" Clicked="ExcelExportClicked"/>
                     <dx:DXButton Grid.Column="1" Padding="36,10" ButtonType="Text" Content="PDF" Icon="pdf" Clicked="PdfExportClicked"/>
