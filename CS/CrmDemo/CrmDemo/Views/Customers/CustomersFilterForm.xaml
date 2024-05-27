@@ -17,7 +17,7 @@
                                        ShowRadioButtons="false"
                                        ImageSource="noavatar"
                                        PickerTitle="Name" />
-        <dxe:FilterNumericRangeItem Text="Orders Total Amount" FieldName="OrdersAmount" EditorDisplayFormat="c0"/>
+        <dxe:FilterNumericRangeItem Text="Orders Total" FieldName="OrdersAmount" EditorDisplayFormat="c0"/>
         <dxe:FilterRadioListPickerItem FieldName="City"
                                        Text="City"
                                        PickerTitle="City"
