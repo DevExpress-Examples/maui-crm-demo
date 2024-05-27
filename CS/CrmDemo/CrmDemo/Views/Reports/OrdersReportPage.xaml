@@ -33,10 +33,10 @@
             <dxg:DataGridView x:Name="dataGrid" ItemsSource="{Binding Orders}" AutoGenerateColumnsMode="None" Grid.Row="1" Grid.ColumnSpan="2" >
                 <dxg:TextColumn FieldName="Employee.FullName" Caption="Employee" Width="175" ExportWidth="350" />
                 <dxg:TextColumn FieldName="Customer.FullName" Caption="Customer" Width="175" ExportWidth="350" />
-                <dxg:TextColumn FieldName="OrderDate" DisplayFormat="d" Width="150"  ExportWidth="300" />
+                <dxg:TextColumn FieldName="OrderDate" DisplayFormat="d" Width="120"  ExportWidth="300" />
                 <dxg:TextColumn FieldName="State" Width="125"  ExportWidth="250" />
                 <dxg:TextColumn FieldName="ItemsCount" HorizontalContentAlignment="Center" Width="125" ExportWidth="250" />
-                <dxg:NumberColumn FieldName="TotalAmount" DisplayFormat="N2" HorizontalContentAlignment="End" Width="150" ExportWidth="350" FixedStyle="End" />
+                <dxg:NumberColumn FieldName="TotalAmount" DisplayFormat="${0:n2}" Caption="Total" HorizontalContentAlignment="End" Width="120" ExportWidth="350" FixedStyle="End" />
                 <dxg:DataGridView.TotalSummaries>
                     <dxg:GridColumnSummary FieldName="TotalAmount" Type="Sum" DisplayFormat="Total: {0:n0}"  />
                 </dxg:DataGridView.TotalSummaries>
