@@ -9,7 +9,7 @@ This repository includes a sample CRM application created with the [DevExpress .
 
 Use the following link to obtain the CRM Demo on Test Flight/Google Play:
 
-[CRM Demo on Google Play](https://play.google.com/store/apps/details?id=com.devexpress.CrmDemo&pcampaignid=web_share) | CRM Demo on TestFlight
+[CRM Demo on Google Play](https://play.google.com/store/apps/details?id=com.devexpress.CrmDemo&pcampaignid=web_share) | [CRM Demo on TestFlight](https://testflight.apple.com/join/R4YeuQ49)
 
 The demo app includes the following features/capabilities: 
 
