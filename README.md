@@ -3,19 +3,19 @@
 <!-- default badges end -->
 # DevExpress Mobile UI for .NET MAUI
 
-This repository includes the CRM sample application created with our [DevExpress Mobile UI](https://www.devexpress.com/maui/) suite.
+This repository includes a sample CRM application created with the [DevExpress .NET MAUI UI](https://www.devexpress.com/maui/) component suite.
 
 ![DevExpress Mobile UI for .NET MAUI](./images/crm-overview.png)
 
-Refer to the following link to get the CRM Demo on Test Flight and Google Play:
+Use the following link to obtain the CRM Demo on Test Flight/Google Play:
 
 [CRM Demo on Google Play](https://play.google.com/store/apps/details?id=com.devexpress.CrmDemo&pcampaignid=web_share) | CRM Demo on TestFlight
 
-The demo shows the following features:
+The demo app includes the following features/capabilities: 
 
 ## CRUD Views
 
-Mobile-friendly CRUD flow with data retrieved from an SQLite database:
+Mobile-friendly CRUD flow (using an SQLite database): 
 
 ![DevExpress Mobile UI for .NET MAUI](./images/crm-crud.png)
 
@@ -23,7 +23,7 @@ Mobile-friendly CRUD flow with data retrieved from an SQLite database:
 
 ## Filtering UI
 
-Basic and advanced filtering elements:
+Basic and advanced .NET MAUI filtering UI elements:
 
 ![DevExpress Mobile UI for .NET MAUI](./images/crm-filter-elements.png)
 
@@ -31,7 +31,7 @@ Basic and advanced filtering elements:
 
 ## CollectionView Master-Detail
 
-Master-detail view that uses the BottomSheet control to display the selected item's details:
+Master-detail view that leverages the DevExpress .NET MAUI BottomSheet control to display selected item info:
 
 ![DevExpress Mobile UI for .NET MAUI](./images/crm-master-detail.png)
 
@@ -39,7 +39,7 @@ Master-detail view that uses the BottomSheet control to display the selected ite
 
 ## DataGrid Export
 
-Export DataGrid's data to Excel and PDF:
+Export .NET MAUI DataGrid data to Excel and PDF:
 
 ![DevExpress Mobile UI for .NET MAUI](./images/crm-export-data.png)
 
@@ -47,13 +47,13 @@ Export DataGrid's data to Excel and PDF:
 
 ## Import to a DataGrid
 
-Import Excel file data to DataGrid:
+Import Excel file data and display it within the DevExpress .NET MAUI DataGrid:
 
 ![DevExpress Mobile UI for .NET MAUI](./images/crm-import-from-excel.png)
 
 ## Document Processing
 
-Document processing via the Office File API library:
+Document processing using the DevExpress Office File API library:
 
 ![DevExpress Mobile UI for .NET MAUI](./images/crm-document-processing.png)
 
@@ -61,7 +61,7 @@ Document processing via the Office File API library:
 
 ## Reporting
 
-Report generation powered by our Reporting suite:
+Report generation powered by DevExpress Reports:
 
 ![DevExpress Mobile UI for .NET MAUI](./images/crm-reports.png)
 
@@ -77,7 +77,7 @@ Material Design 3 theme support:
 
 ## Data Visualization
 
-Data visualization with charts and circular gauge:
+Data visualization using charts and circular gauge:
 
 ![DevExpress Mobile UI for .NET MAUI](./images/crm-charts.png)
 
@@ -85,11 +85,11 @@ Data visualization with charts and circular gauge:
 
 ## Requirements
 
-To build the project, please register the DevExpress NuGet Gallery in Visual Studio and restore NuGet packages used in this solution. See the following topic for more information: [Get Started with DevExpress Mobile UI for .NET MAUI](https://docs.devexpress.com/MAUI/403249/get-started).
+To build the project, please register the DevExpress NuGet Gallery in Visual Studio and restore NuGet packages used in this solution. See the following topic for more information in this regard: [Get Started with DevExpress Mobile UI for .NET MAUI](https://docs.devexpress.com/MAUI/403249/get-started).
 
-> The DevExpress .NET MAUI PDF Viewer and HTML Edit controls require a license to our [Universal Subscription](https://www.devexpress.com/subscriptions/universal.xml). Without a valid license, you cannot use these controls within your .NET MAUI application.
+> The DevExpress .NET MAUI PDF Viewer and HTML Edit controls require a DevExpress [Universal Subscription](https://www.devexpress.com/subscriptions/universal.xml). Without a valid/active license, you cannot use these controls within your .NET MAUI application.
 
-You can also refer to the following YouTube video to get started with the DevExpress .NET MAUI Controls: [Setting up a .NET MAUI Project](https://www.youtube.com/watch?v=juJvl5UicIQ).
+If you are new to our .NET MAUI product line, please refer to the following YouTube video to get started and learn some of what’s possible when using our .NET MAUI libraries: [Setting up a .NET MAUI Project](https://www.youtube.com/watch?v=juJvl5UicIQ).
 
 ## Documentation
 
