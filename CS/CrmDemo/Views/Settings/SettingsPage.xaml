@@ -1,0 +1,90 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:viewModels="clr-namespace:CrmDemo.ViewModels.Settings"
+             Shell.BackgroundColor="{dx:ThemeColor Surface}"
+             BackgroundColor="{dx:ThemeColor Surface}"
+             x:DataType="viewModels:SettingsViewModel"
+             x:Class="CrmDemo.Views.SettingsPage">
+    <ContentPage.Resources>
+        <Style TargetType="dx:FormItemBase" ApplyToDerivedTypes="True" x:Key="baseStyle">
+            <Setter Property="DetailColor" Value="{dx:ThemeColor OnSurfaceVariant}" />
+            <Setter Property="DetailFontSize" Value="15" />
+            <Setter Property="TextColor" Value="{dx:ThemeColor OnSurface}" />
+            <Setter Property="ShowSeparator" Value="False" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+        <Style TargetType="dx:FormSwitchItem">
+            <Setter Property="Padding" Value="0,8,0,8" />
+            <Setter Property="HorizontalSpacing" Value="20" />
+        </Style>
+        <Style TargetType="dx:FormItem" BasedOn="{StaticResource baseStyle}">
+            <Setter Property="Margin" Value="0,0,0,0" />
+        </Style>
+        <Style TargetType="dx:FormGroupItem">
+            <Setter Property="HeaderColor" Value="{dx:ThemeColor OnSurface}"/>
+            <Setter Property="HeaderFontAttributes" Value="Bold" />
+            <Setter Property="HeaderMargin" Value="0" />
+            <Setter Property="Padding" Value="0,25,0,25" />
+            <Setter Property="HeaderFontSize" Value="16" />
+            <Setter Property="ItemSpacing" Value="0" />
+        </Style>
+    </ContentPage.Resources>
+    <ScrollView>
+        <VerticalStackLayout Padding="20,0">
+            <dx:FormGroupItem ItemSpacing="28">
+                <dx:FormItem Detail="{Binding CurrentUser.Email}" Text="{Binding CurrentUser.FullName}" TextMargin="0,10,0,0" TextFontSize="18">
+                    <dx:FormItem.ImageTemplate>
+                        <DataTemplate>
+                            <Image Margin="0,0,10,0" Aspect="AspectFill" HeightRequest="60" Source="{Binding CurrentUser.Avatar.ThumbnailImageSource}" WidthRequest="60">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30" />
+                                </Image.Clip>
+                            </Image>
+                        </DataTemplate>
+                    </dx:FormItem.ImageTemplate>
+                </dx:FormItem>
+                <dx:FormItem Padding="0" Detail="{Binding CurrentUser.Position}" Text="Status" TextFontSize="16" TextFontAttributes="Bold"/>
+            </dx:FormGroupItem>
+
+            <dx:FormGroupItem Header="Notifications">
+                <dx:FormSwitchItem Text="Sound" IsToggled="True" ShowSeparator="False" Margin="0,16,0,0">
+                    <dx:FormSwitchItem.ImageTemplate>
+                        <DataTemplate>
+                            <dx:DXBorder CornerRadius="11" BackgroundColor="{dx:ThemeColor OnSurface, Alpha=0.08}" Padding="6" VerticalOptions="Center">
+                                <dx:DXImage WidthRequest="24" HeightRequest="24" Source="notification" TintColor="{dx:ThemeColor OnSurfaceVariant}"/>
+                            </dx:DXBorder>
+                        </DataTemplate>
+                    </dx:FormSwitchItem.ImageTemplate>
+                </dx:FormSwitchItem>
+                <dx:FormSwitchItem Text="Vibrate">
+                    <dx:FormSwitchItem.ImageTemplate>
+                        <DataTemplate>
+                            <dx:DXBorder CornerRadius="11" BackgroundColor="{dx:ThemeColor OnSurface, Alpha=0.08}" Padding="6" VerticalOptions="Center">
+                                <dx:DXImage WidthRequest="24" HeightRequest="24" Source="vibrate" TintColor="{dx:ThemeColor OnSurfaceVariant}" VerticalOptions="Center"/>
+                            </dx:DXBorder>
+                        </DataTemplate>
+                    </dx:FormSwitchItem.ImageTemplate>
+                </dx:FormSwitchItem>
+            </dx:FormGroupItem>
+
+            <Grid ColumnDefinitions="*,Auto" Margin="0,28">
+                <Label Text="Color Scheme" TextColor="{dx:ThemeColor OnSurface}" FontSize="16" FontAttributes="Bold" Grid.Column="0"/>
+                <Label Text="{Binding PreviewColorName}" TextColor="{dx:ThemeColor OnSurfaceVariant}" FontSize="13" Grid.Column="1"/>
+            </Grid>
+
+            <dx:ChoiceChipGroup SelectedIndex="{Binding SelectedColorIndex}" ItemsSource="{Binding Items}" ChipBorderColor="Transparent" ChipBorderThickness="2" Padding="0"
+                ChipSelectedBackgroundColor="Transparent" ChipSelectedBorderColor="{dx:ThemeColor OnSurface}" IsMultiline="True" ChipPadding="3"
+                ChipCornerRadius="28" SelectionChanged="Color_Changed">
+                <dx:ChoiceChipGroup.ChipContentTemplate>
+                    <DataTemplate x:DataType="viewModels:ColorModel">
+                        <dx:DXBorder CornerRadius="26" WidthRequest="52" HeightRequest="52" BackgroundColor="{Binding Color}">
+                            <Label Text="{Binding Name}" TextColor="White" FontSize="12" HorizontalTextAlignment="Center"
+                                VerticalTextAlignment="Center" WidthRequest="52" HeightRequest="52"/>
+                        </dx:DXBorder>
+                    </DataTemplate>
+                </dx:ChoiceChipGroup.ChipContentTemplate>
+            </dx:ChoiceChipGroup>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

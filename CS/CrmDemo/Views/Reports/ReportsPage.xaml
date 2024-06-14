@@ -1,0 +1,27 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:viewModels="clr-namespace:CrmDemo.ViewModels.Reports"
+             BackgroundColor="{dx:ThemeColor Surface}"
+             x:Class="CrmDemo.Views.ReportsPage">
+    <ContentPage.BindingContext>
+        <viewModels:ReportsViewModel/>
+    </ContentPage.BindingContext>
+    
+
+    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto, Auto, Auto" Padding="10" ColumnSpacing="10" RowSpacing="10">
+        <dx:DXButton Icon="processed" Content="Orders" Style="{StaticResource dashboardButtonStyle}" Command="{Binding GoToOrdersReportCommand}" />
+        <dx:DXButton Icon="closed" Content="Sales by Employee" Grid.Column="1" Style="{StaticResource dashboardButtonStyle}" Command="{Binding GoToSalesByEmployeeReportCommand}" />
+        <dx:DXButton Icon="state" Content="Order Details by Customer" Grid.Row="1" Style="{StaticResource dashboardButtonStyle}" Clicked="OnOrdersDetailsByCustomerButtonClicked" />
+        <dx:DXButton Icon="aging" Content="Order Aging by Customer" Grid.Column="1" Grid.Row="1" Style="{StaticResource dashboardButtonStyle}" Clicked="OnOrdersAgingByCustomerButtonClicked" />
+    
+        <dx:BottomSheet x:Name="bottomSheet" AllowedState="HalfExpanded" AllowDismiss="False">
+            <Grid>
+                <dx:DXStackLayout Margin="16,8" VerticalOptions="Start" Orientation="Horizontal" ItemAlignment="Center" ItemSpacing="8">
+                    <ActivityIndicator IsRunning="True"/>
+                    <Label Text="Generating a report" VerticalOptions="Center" FontSize="16" />
+                </dx:DXStackLayout>
+            </Grid>
+        </dx:BottomSheet>
+    </Grid>
+</ContentPage>

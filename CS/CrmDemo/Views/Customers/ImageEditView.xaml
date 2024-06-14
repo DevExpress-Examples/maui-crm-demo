@@ -1,0 +1,34 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    xmlns:dxi="clr-namespace:DevExpress.Maui.Core.Internal;assembly=DevExpress.Maui.Core"
+    xmlns:local="clr-namespace:CrmDemo.Views.Customers"
+    x:Class="CrmDemo.Views.Customers.ImageEditView"
+    BackgroundColor="{dx:ThemeNeutralColor Light=10, Dark=10}">
+
+    <ContentPage.Resources>
+        <local:FrameTypeToImageStringConverter x:Key="frameToImage" />
+    </ContentPage.Resources>
+
+    <dxi:DXPageExtension.ToolbarItems>
+        <dxi:DXToolbarItem Text="Reset" Clicked="OnResetClicked"/>
+        <dxi:DXToolbarItem IconImageSource="ic_check" Clicked="OnCropClicked" />
+    </dxi:DXPageExtension.ToolbarItems>
+
+    <Grid IgnoreSafeArea="True" RowDefinitions="*,Auto">
+        <dx:ImageEdit x:Name="editor"
+            MaxScaleFactor="3"
+            CropAreaBorderThickness="1"
+            CropAreaRatioX="1"
+            CropAreaRatioY="1"/>
+
+        <dx:DXToolbar Padding="{OnPlatform Android='0', iOS='0,0,0,32'}" Grid.Row="1" VerticalOptions="End" ItemAlignment="Fill" BackgroundColor="{dx:ThemeColor SurfaceContainer}">
+            <dx:ToolbarButton Icon="ic_rotate_left" IconColor="{dx:ThemeColor OnSurfaceVariant}" Command="{Binding Source={x:Reference editor}, Path=Commands.RotateLeft}" IconWidth="40" IconHeight="40"/>
+            <dx:ToolbarButton Icon="ic_rotate_right" IconColor="{dx:ThemeColor OnSurfaceVariant}" Command="{Binding Source={x:Reference editor}, Path=Commands.RotateRight}" IconWidth="40" IconHeight="40"/>
+            <dx:ToolbarButton Icon="{Binding Source={x:Reference editor}, Path=CropAreaShape, Converter={StaticResource frameToImage}}"  IconColor="{dx:ThemeColor OnSurfaceVariant}" Command="{Binding Source={x:Reference editor}, Path=Commands.SwitchCropAreaShape}" IconWidth="40" IconHeight="40"/>
+            <dx:ToolbarButton Icon="ic_mirror_v" IconColor="{dx:ThemeColor OnSurfaceVariant}" Command="{Binding Source={x:Reference editor}, Path=Commands.FlipHorizontal}" IconWidth="40" IconHeight="40"/>
+            <dx:ToolbarButton Icon="ic_mirror_h" IconColor="{dx:ThemeColor OnSurfaceVariant}" Command="{Binding Source={x:Reference editor}, Path=Commands.FlipVertical}" IconWidth="40" IconHeight="40"/>
+        </dx:DXToolbar>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,68 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             x:Class="CrmDemo.Views.Dashboards.OrdersByStatePage"
+             Title="Orders by State">
+    <Grid RowDefinitions="{dx:OnOrientation Landscape='*', Portrait='*,*'}" ColumnDefinitions="{dx:OnOrientation Landscape='*,*', Portrait='*'}">
+        <dx:PieChartView SelectionChanged="PieChartView_SelectionChanged">
+            <dx:PieChartView.Series>
+                <dx:DonutSeries>
+                    <dx:DonutSeries.Data>
+                        <dx:PieSeriesDataAdapter DataSource="{Binding TrafficChannelsData}" LabelDataMember="ChannelName" ValueDataMember="Value"/>
+                    </dx:DonutSeries.Data>
+                    <dx:DonutSeries.Label>
+                        <dx:PieSeriesLabel Position="Inside" TextPattern="{}{V}">
+                            <dx:PieSeriesLabel.Style>
+                                <dx:PieSeriesLabelStyle>
+                                    <dx:PieSeriesLabelStyle.TextStyle>
+                                        <dx:TextStyle Size="12" Color="Black" />
+                                    </dx:PieSeriesLabelStyle.TextStyle>
+                                </dx:PieSeriesLabelStyle>
+                            </dx:PieSeriesLabel.Style>
+                        </dx:PieSeriesLabel>
+                    </dx:DonutSeries.Label>
+                    <dx:DonutSeries.CenterLabel>
+                        <dx:PieCenterTextLabel TextPattern="Orders"/>
+                    </dx:DonutSeries.CenterLabel>
+                </dx:DonutSeries>
+            </dx:PieChartView.Series>
+            <dx:PieChartView.Legend>
+                <dx:Legend Orientation="TopToBottom" HorizontalPosition="RightOutside" VerticalPosition="Center">
+                    <dx:Legend.Style>
+                        <dx:LegendStyle ItemsVerticalIndent="20" IndentFromDiagram="20" BackgroundColor="{dx:ThemeColor Surface}" >
+                            <dx:LegendStyle.TextStyle>
+                                <dx:TextStyle Size="14" Color="{dx:ThemeColor OnSurface}" />
+                            </dx:LegendStyle.TextStyle>
+                        </dx:LegendStyle>
+                    </dx:Legend.Style>
+                </dx:Legend>
+            </dx:PieChartView.Legend>
+            <dx:PieChartView.ChartStyle>
+                <dx:PieChartStyle Palette="{Binding TrafficColors}" BackgroundColor="{dx:ThemeColor Surface}"/>
+            </dx:PieChartView.ChartStyle>
+        </dx:PieChartView>
+        <dx:DXCollectionView Grid.Row="{dx:OnOrientation Landscape='0', Portrait='1'}" Grid.Column="{dx:OnOrientation Landscape='1', Portrait='0'}" ItemsSource="{Binding SegmentOrders}">
+            <dx:DXCollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="12" RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+                        <Label
+                            Text="{Binding Employee.FullName}"
+                            FontSize="16" FontAttributes="Bold"
+                            TextColor="{dx:ThemeColor Key=OnSurface}"/>
+                        <Label
+                            Grid.Row="1"
+                            Text="{Binding Items.Count, StringFormat='{0} items'}"
+                            FontSize="14"
+                            TextColor="{dx:ThemeColor Key=OnSurfaceVariant}"/>
+                        <Label
+                            Grid.Column="1" Grid.RowSpan="2"
+                            Text="{Binding TotalAmount, StringFormat='{0:c}'}"
+                            FontSize="16" FontAttributes="Bold"
+                            TextColor="{dx:ThemeColor Key=OnSurface}"
+                            VerticalOptions="Center"/>
+                    </Grid>
+                </DataTemplate>
+            </dx:DXCollectionView.ItemTemplate>
+        </dx:DXCollectionView>
+    </Grid>
+</ContentPage>

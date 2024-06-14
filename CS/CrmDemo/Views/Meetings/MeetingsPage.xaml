@@ -1,0 +1,50 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:CrmDemo.Views"
+             xmlns:vm="clr-namespace:CrmDemo.ViewModels.Meetings" xmlns:model="clr-namespace:CrmDemo.DataModel.Models;assembly=CrmDemo.DataModel"
+             x:DataType="vm:MeetingsViewModel"
+             x:Class="CrmDemo.Views.MeetingsPage">
+    <ContentPage.Resources>
+        <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter"/>
+        <local:BoolToToolbarIconConverter x:Key="boolToToolbarIconConverter"/>
+        <dx:SchedulerDataStorage x:Name="dataStorage" x:Key="schedulerDataStorage"
+            ItemPropertyChanged="OnSchedulerItemPropertyChanged"
+            ItemsCollectionChanged="OnSchedulerItemCollectionChanged">
+            <dx:SchedulerDataStorage.DataSource>
+                <dx:DataSource AppointmentsSource="{Binding Meetings}">
+                    <dx:DataSource.AppointmentMappings>
+                        <dx:AppointmentMappings Id="Id" AllDay="AllDay" Start="StartTime" End="EndTime" Subject="Subject"/>
+                    </dx:DataSource.AppointmentMappings>
+                </dx:DataSource>
+            </dx:SchedulerDataStorage.DataSource>
+            <dx:SchedulerDataStorage.LabelColors>
+                <dx:ThemeColor Key="PrimaryContainer"/>
+            </dx:SchedulerDataStorage.LabelColors>
+        </dx:SchedulerDataStorage>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding SwitchViewCommand}" IconImageSource="{Binding IsSimpleView, Converter={StaticResource boolToToolbarIconConverter}}"/>
+    </ContentPage.ToolbarItems>
+    <Grid IgnoreSafeArea="{dx:OnOrientation Landscape=False, Portrait=True}">
+        <dx:DayView
+            x:Name="dayView"
+            Tap="OnDayViewTap"
+            DataStorage="{StaticResource schedulerDataStorage}"
+            IsVisible="{Binding IsSimpleView, Converter={StaticResource invertedBoolConverter}}">
+            <dx:DayView.TimeRulerCellAppearance>
+                <dx:TimeRulerCellAppearance SlotLabelFormat=" "/>
+            </dx:DayView.TimeRulerCellAppearance>
+        </dx:DayView>
+
+        <dx:AgendaView
+            IsVisible="{Binding IsSimpleView}"
+            DataStorage="{StaticResource schedulerDataStorage}"
+            ShowEmptyDays="False"
+            Tap="OnDayViewTap"
+        />
+
+        <dx:DXButton Style="{StaticResource fabStyle}" Clicked="OnNewClicked" VerticalOptions="End" HorizontalOptions="End" Grid.Row="1"/>
+    </Grid>
+</ContentPage>

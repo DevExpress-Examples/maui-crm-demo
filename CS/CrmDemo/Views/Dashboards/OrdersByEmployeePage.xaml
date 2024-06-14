@@ -1,0 +1,105 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:dshViews="clr-namespace:CrmDemo.Views.Dashboards"
+             xmlns:dashboards="clr-namespace:CrmDemo.ViewModels.Dashboards"
+             x:Class="CrmDemo.Views.Dashboards.OrdersByEmployeePage"
+             x:DataType="dashboards:OrdersByEmployeeViewModel"
+             Title="Orders by Employee">
+    <ContentPage.Resources>
+        <Style TargetType="dshViews:InfoIconElement">
+            <Setter Property="HorizontalOptions" Value="Center" />
+            <Setter Property="WidthRequest" Value="{dx:OnDisplaySize Medium=70}" />
+        </Style>
+        <Style TargetType="dx:DateEdit">
+            <Setter Property="IsDateIconVisible" Value="False" />
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="BoxMode" Value="Filled" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="*,Auto" IgnoreSafeArea="True" Padding="0, 18, 0, 0" BackgroundColor="{dx:ThemeColor Key=Surface}">
+        <ScrollView Grid.Row="0">
+            <dx:DXStackLayout>
+                <dx:DXButton ButtonType="ToolButton"
+                            Content="{Binding PeriodText}"
+                            HorizontalOptions="Center"
+                            TextColor="{dx:ThemeColor Key=OnSurfaceVariant, Alpha=0.64}"
+                            BackgroundColor="Transparent"
+                            Tap="OnPeriodButtonTap"/>
+                <Label Text="{Binding TotalOrdersCount, StringFormat='Total: {0}'}" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" Grid.Row="1" />
+                <dx:ChartView x:Name="chart" SelectionChanged="ChartView_SelectionChanged" Rotated="True" Grid.Row="2" HeightRequest="{dx:OnDisplaySize Medium=350}">
+                    <dx:ChartView.AxisX>
+                        <dx:QualitativeAxisX>
+                            <dx:QualitativeAxisX.Label>
+                                <dx:AxisLabel>
+                                    <dx:AxisLabel.Style>
+                                        <dx:AxisLabelStyle>
+                                            <dx:AxisLabelStyle.TextStyle>
+                                                <dx:TextStyle Color="{dx:ThemeColor OnSurfaceVariant}" Size="13" />
+                                            </dx:AxisLabelStyle.TextStyle>
+                                        </dx:AxisLabelStyle>
+                                    </dx:AxisLabel.Style>
+                                </dx:AxisLabel>
+                            </dx:QualitativeAxisX.Label>
+                        </dx:QualitativeAxisX>
+                    </dx:ChartView.AxisX>
+                    <dx:ChartView.AxisY>
+                        <dx:NumericAxisY>
+                            <dx:NumericAxisY.Label>
+                                <dx:AxisLabel>
+                                    <dx:AxisLabel.Style>
+                                        <dx:AxisLabelStyle>
+                                            <dx:AxisLabelStyle.TextStyle>
+                                                <dx:TextStyle Color="{dx:ThemeColor OnSurfaceVariant}" Size="13" />
+                                            </dx:AxisLabelStyle.TextStyle>
+                                        </dx:AxisLabelStyle>
+                                    </dx:AxisLabel.Style>
+                                </dx:AxisLabel>
+                            </dx:NumericAxisY.Label>
+                        </dx:NumericAxisY>
+                    </dx:ChartView.AxisY>
+                    <dx:ChartView.ChartStyle>
+                        <dx:ChartStyle BackgroundColor="{dx:ThemeColor Surface}" />
+                    </dx:ChartView.ChartStyle>
+                    <dx:ChartView.Series>
+                        <dx:BarSeries>
+                            <dx:BarSeries.Data>
+                                <dx:SeriesDataAdapter DataSource="{Binding Path=EmployeesProcessedOrdersCollection}" ArgumentDataMember="EmployeeFullName">
+                                    <dx:SeriesDataAdapter.ValueDataMembers>
+                                        <dx:ValueDataMember Type="Value" Member="OrdersProcessed"/>
+                                    </dx:SeriesDataAdapter.ValueDataMembers>
+                                </dx:SeriesDataAdapter>
+                            </dx:BarSeries.Data>
+                            <dx:BarSeries.PointColorizer>
+                                <dx:ColorEachPointColorizer x:Name="col"/>
+                            </dx:BarSeries.PointColorizer>
+                        </dx:BarSeries>
+                    </dx:ChartView.Series>
+                </dx:ChartView>
+            </dx:DXStackLayout>
+        </ScrollView>
+        <dx:DXBorder Grid.Row="1" BackgroundColor="{dx:ThemeColor Key=SurfaceContainerLow}" BorderThickness="0, 1, 0, 0" BorderColor="{dx:ThemeColor Key=OutlineVariant}">
+            <VerticalStackLayout Margin="30,10">
+                <Label Text="{Binding Path=SelectedComponentString}" HorizontalOptions="Center" FontAttributes="Bold" Padding="0, 15" FontSize="16"/>
+                <Grid ColumnDefinitions="*,*" RowDefinitions="*, *" RowSpacing="5">
+                    <Label Text="{Binding ProcessedOrdersCount, StringFormat='{0} Completed'}" HorizontalOptions="Start" Style="{StaticResource primaryLabelStyle}" FontAttributes="Bold"/>
+                    <Label Text="{Binding TotalOrdersCount, StringFormat='Total: {0}'}" HorizontalOptions="End" Grid.Column="1" Style="{StaticResource paleLabelStyle}"/>
+                    <ProgressBar HorizontalOptions="Fill" ProgressColor="{dx:ThemeColor Key=Primary}" Progress="{Binding SelectionCompletedOrdersProgress}" Grid.Row="1" Grid.ColumnSpan="2"/>
+                </Grid>
+                <dx:DXWrapLayout Padding="10,20" HorizontalOptions="Fill" Wrap="Regular" ItemAlignment="SpaceBetween">
+                    <dshViews:InfoIconElement Image="pending" ImageColor="{dx:ThemeColor Key=OnSurfaceVariant}" Value="{Binding PendingOrdersCount}" Description="Pending" />
+                    <dshViews:InfoIconElement Image="intransit" ImageColor="{dx:ThemeColor Key=OnSurfaceVariant}" Value="{Binding ShippingOrdersCount}" Description="Shipping" />
+                    <dshViews:InfoIconElement Image="delivered" ImageColor="{dx:ThemeColor Key=OnSurfaceVariant}" Value="{Binding PaidOrdersCount}" Description="Paid" />
+                </dx:DXWrapLayout>
+            </VerticalStackLayout>
+        </dx:DXBorder>
+        <dx:BottomSheet x:Name="datePicker">
+            <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *" Padding="14">
+                <Label Text="From: " VerticalTextAlignment="Center" />
+                <dx:DateEdit Grid.Column="1" Date="{Binding StartDate, Mode=TwoWay}" MaxDate="{Binding EndDate}" />
+                <Label Text="Till: " Grid.Row="1" VerticalTextAlignment="Center" />
+                <dx:DateEdit Grid.Column="1" Grid.Row="1" Date="{Binding EndDate, Mode=TwoWay}" MinDate="{Binding StartDate}" />
+            </Grid>
+        </dx:BottomSheet>
+    </Grid>
+</ContentPage>

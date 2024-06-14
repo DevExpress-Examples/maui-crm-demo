@@ -1,0 +1,10 @@
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             x:Class="CrmDemo.Views.Dashboards.InfoIconElement">
+    <VerticalStackLayout x:Name="rootPanel">
+        <dx:DXImage x:Name="image" Source="{Binding Image}" HorizontalOptions="Center" HeightRequest="36"/>
+        <Label Text="{Binding Value}" TextColor="{dx:ThemeColor OnSurface}" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" HorizontalTextAlignment="Center"/>
+        <Label Text="{Binding Description}" TextColor="{dx:ThemeColor OnSurface}" HorizontalOptions="Center" LineBreakMode="WordWrap" HorizontalTextAlignment="Center"/>
+    </VerticalStackLayout>
+</ContentView>

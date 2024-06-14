@@ -1,0 +1,34 @@
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             x:Class="CrmDemo.Views.Customers.CustomersFilterForm">
+    <ContentView.Resources>
+        <Style TargetType="dx:FormItemBase">
+            <Setter Property="ImageColor" Value="{dx:ThemeColor Key=OnSurfaceVariant}" />
+        </Style>
+    </ContentView.Resources>
+    <VerticalStackLayout>
+        <dx:FilterRadioListPickerItem FieldName="FullName"
+                                       Text="Name"
+                                       ShowValuesOutOfFilter="true"
+                                       ShowValueCounts="false"
+                                       ShowRadioButtons="false"
+                                       ImageSource="noavatar"
+                                       PickerTitle="Name" />
+        <dx:FilterNumericRangeItem Text="Orders Total" FieldName="OrdersAmount" EditorDisplayFormat="c0"/>
+        <dx:FilterRadioListPickerItem FieldName="City"
+                                       Text="City"
+                                       PickerTitle="City"
+                                       ShowValuesOutOfFilter="false"
+                                       ShowValueCounts="false"
+                                       ShowRadioButtons="false"
+                                       ImageSource="filteringui_location" />
+        <dx:FilterRadioListPickerItem FieldName="Company"
+                                       Text="Company"
+                                       ShowValuesOutOfFilter="false"
+                                       ShowValueCounts="false"
+                                       ImageSource="editorscompany"
+                                       ShowRadioButtons="false" />
+        <dx:FilterCheckItem Text="Has Unpaid Orders" FieldName="HasUnpaidOrders"/>
+    </VerticalStackLayout>
+</ContentView>

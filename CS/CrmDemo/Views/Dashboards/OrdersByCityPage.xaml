@@ -1,0 +1,46 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             x:Class="CrmDemo.Views.Dashboards.OrdersByCityPage"
+             xmlns:dshViewModels="clr-namespace:CrmDemo.ViewModels.Dashboards"
+             Title="Orders by City">
+    <ContentPage.BindingContext>
+        <dshViewModels:OrdersByCityViewModel/>
+    </ContentPage.BindingContext>
+    <Grid>
+        <dx:ChartView Grid.Row="1">
+            <dx:ChartView.SeriesDataTemplate>
+                <dx:SeriesTemplateAdapter DataSource="{Binding DataItems}" SeriesDataMember="Country" ArgumentDataMember="DateString">
+                    <dx:SeriesTemplateAdapter.ValueDataMembers>
+                        <dx:ValueDataMember Type="Value" Member="Revenue"/>
+                    </dx:SeriesTemplateAdapter.ValueDataMembers>
+                    <dx:SeriesTemplateAdapter.SeriesTemplate>
+                        <DataTemplate>
+                            <dx:BarSeries DisplayName="{Binding Path=SeriesDataMemberValue}" />
+                        </DataTemplate>
+                    </dx:SeriesTemplateAdapter.SeriesTemplate>
+                </dx:SeriesTemplateAdapter>
+            </dx:ChartView.SeriesDataTemplate>
+
+            <dx:ChartView.Legend>
+                <dx:Legend HorizontalPosition="Right" VerticalPosition="Top" Orientation="TopToBottom" />
+            </dx:ChartView.Legend>
+
+            <dx:ChartView.Hint>
+                <dx:Hint/>
+            </dx:ChartView.Hint>
+
+            <dx:ChartView.AxisY>
+                <dx:NumericAxisY>
+                    <dx:NumericAxisY.Label>
+                        <dx:AxisLabel TextFormat="$#K"/>
+                    </dx:NumericAxisY.Label>
+                </dx:NumericAxisY>
+            </dx:ChartView.AxisY>
+
+             <dx:ChartView.ChartStyle>
+                <dx:ChartStyle BackgroundColor="{dx:ThemeColor Surface}"/>
+            </dx:ChartView.ChartStyle>
+        </dx:ChartView>
+    </Grid>
+</ContentPage>

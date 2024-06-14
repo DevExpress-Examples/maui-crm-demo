@@ -1,0 +1,46 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+        xmlns:dx="http://schemas.devexpress.com/maui"
+        x:Class="CrmDemo.Views.Reports.SalesByEmployeeReportPage"
+        xmlns:dxi="clr-namespace:DevExpress.Maui.Core.Internal;assembly=DevExpress.Maui.Core"
+        xmlns:rViewModels="clr-namespace:CrmDemo.ViewModels.Reports"
+        Title="Employee Sales">
+    <ContentPage.BindingContext>
+        <rViewModels:SalesByEmployeeReportViewModel/>
+    </ContentPage.BindingContext>
+    <dxi:DXPageExtension.ToolbarItems>
+        <dxi:DXToolbarItem IconImageSource="excelexport" Clicked="OnExportToExcelButtonClicked"/>
+        
+    </dxi:DXPageExtension.ToolbarItems>
+
+    <Grid RowDefinitions="Auto, *">
+        <dx:DXToolbar Grid.Row="0" MinimumHeightRequest="45" HeightRequest="45">
+            <dx:ToolbarButton x:Name="allButton" Content="All" Clicked="OnAllButtonClicked" Style="{StaticResource reportToolbarButtonStyle}" />
+            <dx:ToolbarSeparator />
+            <dx:ToolbarToggleButton x:Name="pendingToggleButton" Content="Pending" IsChecked="{Binding Pending}" Style="{StaticResource reportToolbarToggleButtonStyle}" />
+            <dx:ToolbarToggleButton x:Name="shippingToggleButtonA" Content="Shipping" IsChecked="{Binding Shipping}" Style="{StaticResource reportToolbarToggleButtonStyle}" />
+            <dx:ToolbarToggleButton x:Name="paidToggleButton" Content="Paid" IsChecked="{Binding Paid}" Style="{StaticResource reportToolbarToggleButtonStyle}" />
+            <dx:ToolbarToggleButton x:Name="processedToggleButton" Content="Processed" IsChecked="{Binding Processed}" Style="{StaticResource reportToolbarToggleButtonStyle}" />
+        </dx:DXToolbar>
+
+        <Grid Grid.Row="1" RowDefinitions="Auto, *" ColumnDefinitions="*,*" BackgroundColor="{dx:ThemeColor Surface}">
+            <dx:DateEdit LabelText="From" DisplayFormat="d" Date="{Binding FromFilterDate, Mode=TwoWay}" ClearIconVisibility="Auto" Margin="10,10,5,10" Grid.Column="0" />
+            <dx:DateEdit LabelText="To" DisplayFormat="d" Date="{Binding ToFilterDate, Mode=TwoWay}" ClearIconVisibility="Auto" Margin="5,10,10,10" Grid.Column="1" />
+
+            <dx:DataGridView x:Name="dataGrid" ItemsSource="{Binding SalesData}" AutoGenerateColumnsMode="None" Grid.Row="1" Grid.ColumnSpan="2">
+                <dx:TextColumn FieldName="EmployeeFullName" Width="250" ExportWidth="500"/>
+                <dx:TextColumn FieldName="OrdersCount" Width="150" ExportWidth="300"/>
+                <dx:TextColumn FieldName="OrderItemsCount" Width="150" ExportWidth="300"/>
+                <dx:TextColumn FieldName="TotalAmount" DisplayFormat="N2" Width="150" ExportWidth="300"/>
+                <dx:TextColumn FieldName="AvgOrderAmount" DisplayFormat="N2" Width="150" ExportWidth="300" UnboundExpression="[TotalAmount]/[OrdersCount]" UnboundType="Decimal"/>
+                <dx:TextColumn FieldName="AvgItemsPerOrder" Width="150" ExportWidth="300" UnboundExpression="[OrderItemsCount]/[OrdersCount]" UnboundType="Decimal"/>
+                <dx:DataGridView.TotalSummaries>
+                    <dx:GridColumnSummary FieldName="OrderItemsCount" Type="Sum" DisplayFormat="ㅤ{0:N2}"/>
+                    <dx:GridColumnSummary FieldName="TotalAmount" Type="Sum" DisplayFormat="ㅤ{0:N2}"/>
+                    <dx:GridColumnSummary FieldName="AvgOrderAmount" Type="Average"/>
+                    <dx:GridColumnSummary FieldName="AvgItemsPerOrder" Type="Average"/>
+                </dx:DataGridView.TotalSummaries>
+            </dx:DataGridView>
+        </Grid>
+    </Grid>
+</ContentPage>

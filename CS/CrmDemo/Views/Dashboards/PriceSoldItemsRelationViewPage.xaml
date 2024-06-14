@@ -1,0 +1,54 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             x:Class="CrmDemo.Views.Dashboards.PriceSoldItemsRelationViewPage"
+             xmlns:dshViewModels="clr-namespace:CrmDemo.ViewModels.Dashboards"
+             Title="Price Sold Items Relation">
+    <ContentPage.BindingContext>
+        <dshViewModels:PriceSoldItemsRelationViewModel/>
+    </ContentPage.BindingContext>
+    <Grid>
+        <dx:ChartView x:Name="bubbleChart" SelectionKind="Point" SelectionMode="Single">
+            <dx:ChartView.Series>
+                <dx:BubbleSeries x:Name="bubbleSeries">
+                    <dx:BubbleSeries.Data>
+                        <dx:SeriesDataAdapter DataSource="{Binding DataItems}" ArgumentDataMember="Price">
+                            <dx:ValueDataMember Type="Value" Member="SoldItems" />
+                            <dx:ValueDataMember Type="Weight" Member="Revenue" />
+                        </dx:SeriesDataAdapter>
+                    </dx:BubbleSeries.Data>
+                    <dx:BubbleSeries.PointColorizer>
+                        <dx:ColorEachPointColorizer />
+                    </dx:BubbleSeries.PointColorizer>
+                </dx:BubbleSeries>
+            </dx:ChartView.Series>
+
+            <dx:ChartView.AxisX>
+                <dx:NumericAxisX>
+                    <dx:NumericAxisX.Title>
+                        <dx:AxisTitle Text="Price"/>
+                    </dx:NumericAxisX.Title>
+                </dx:NumericAxisX>
+            </dx:ChartView.AxisX>
+
+            <dx:ChartView.AxisY>
+                <dx:NumericAxisY>
+                    <dx:NumericAxisY.Title>
+                        <dx:AxisTitle Text="Sold Items"/>
+                    </dx:NumericAxisY.Title>
+                    <dx:NumericAxisY.Range>
+                        <dx:NumericRange Min="20000" Max="21000" />
+                    </dx:NumericAxisY.Range>
+                </dx:NumericAxisY>
+            </dx:ChartView.AxisY>
+
+            <dx:ChartView.Hint>
+                <dx:Hint />
+            </dx:ChartView.Hint>
+
+            <dx:ChartView.ChartStyle>
+                <dx:ChartStyle BackgroundColor="{dx:ThemeColor Surface}" />
+            </dx:ChartView.ChartStyle>
+        </dx:ChartView>
+    </Grid>
+</ContentPage>

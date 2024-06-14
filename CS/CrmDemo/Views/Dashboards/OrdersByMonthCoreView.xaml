@@ -1,0 +1,55 @@
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             x:Class="CrmDemo.Views.Dashboards.OrdersByMonthCoreView">
+    <dx:ChartView>
+        <dx:ChartView.ChartStyle>
+            <dx:ChartStyle BackgroundColor="{dx:ThemeColor Surface}" />
+        </dx:ChartView.ChartStyle>
+        <dx:ChartView.Series>
+            <dx:SplineSeries>
+                <dx:SplineSeries.Data>
+                    <dx:SeriesDataAdapter DataSource="{Binding PageViewStats}" ArgumentDataMember="Date">
+                        <dx:SeriesDataAdapter.ValueDataMembers>
+                            <dx:ValueDataMember Type="Value" Member="Count"/>
+                        </dx:SeriesDataAdapter.ValueDataMembers>
+                    </dx:SeriesDataAdapter>
+                </dx:SplineSeries.Data>
+                <dx:SplineSeries.Style>
+                    <dx:LineSeriesStyle Stroke="{dx:ThemeColor Primary}" StrokeThickness="3">
+                    </dx:LineSeriesStyle>
+                </dx:SplineSeries.Style>
+            </dx:SplineSeries>
+        </dx:ChartView.Series>
+        <dx:ChartView.AxisY>
+            <dx:NumericAxisY AlwaysShowZeroLevel="False" AutoRangeMode="VisibleValues">
+                <dx:NumericAxisY.Label>
+                    <dx:AxisLabel TextFormat="$#K">
+                        <dx:AxisLabel.Style>
+                            <dx:AxisLabelStyle>
+                                <dx:AxisLabelStyle.TextStyle>
+                                    <dx:TextStyle Size="12" />
+                                </dx:AxisLabelStyle.TextStyle>
+                            </dx:AxisLabelStyle>
+                        </dx:AxisLabel.Style>
+                    </dx:AxisLabel>
+                </dx:NumericAxisY.Label>
+            </dx:NumericAxisY>
+        </dx:ChartView.AxisY>
+        <dx:ChartView.AxisX>
+            <dx:DateTimeAxisX MeasureUnit="Month" GridAlignment="Month" GridSpacing="2" EmptyRangesVisible="False">
+                <dx:DateTimeAxisX.Label>
+                    <dx:AxisLabel TextFormat="MMM">
+                        <dx:AxisLabel.Style>
+                            <dx:AxisLabelStyle>
+                                <dx:AxisLabelStyle.TextStyle>
+                                    <dx:TextStyle Size="12"/>
+                                </dx:AxisLabelStyle.TextStyle>
+                            </dx:AxisLabelStyle>
+                        </dx:AxisLabel.Style>
+                    </dx:AxisLabel>
+                </dx:DateTimeAxisX.Label>
+            </dx:DateTimeAxisX>
+        </dx:ChartView.AxisX>
+    </dx:ChartView>
+</ContentView>

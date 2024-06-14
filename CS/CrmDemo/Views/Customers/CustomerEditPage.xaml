@@ -1,0 +1,19 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:dxi="clr-namespace:DevExpress.Maui.Core.Internal;assembly=DevExpress.Maui.Core"
+             xmlns:viewsC="clr-namespace:CrmDemo.Views.Customers"
+             x:Class="CrmDemo.Views.Customers.CustomerEditPage"
+             BackgroundColor="{dx:ThemeColor SurfaceContainer}"
+             HideSoftInputOnTapped="True"
+             Title="Edit customer">
+    <ContentPage.Triggers>
+        <DataTrigger Binding="{Binding IsNew}" Value="True" TargetType="ContentPage">
+            <Setter Property="Title" Value="New customer"/>
+        </DataTrigger>
+    </ContentPage.Triggers>
+    <dxi:DXPageExtension.ToolbarItems>
+        <dxi:DXToolbarItem IconImageSource="importfile" Clicked="OnImportCustomersClicked"/>
+    </dxi:DXPageExtension.ToolbarItems>
+    <viewsC:CustomerEditCoreView x:Name="coreEditView"/>
+</ContentPage>

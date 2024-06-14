@@ -1,0 +1,47 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:models="clr-namespace:CrmDemo.DataModel.Models;assembly=CrmDemo.DataModel"
+             xmlns:viewsEmp="clr-namespace:CrmDemo.Views.Employees"
+             xmlns:viewModels="clr-namespace:CrmDemo.ViewModels.Employees"
+             BackgroundColor="{dx:ThemeColor Surface}"
+             x:DataType="viewModels:EmployeesViewModel"
+             x:Class="CrmDemo.Views.EmployeesPage">
+
+    <Grid IgnoreSafeArea="{dx:OnOrientation Landscape=True, Portrait=False}">
+        <dx:DXCollectionView x:Name="collectionView"
+                ItemsSource="{Binding Items}" UseRippleEffect="True"
+                DetailFormTemplate="{DataTemplate viewsEmp:EmployeeDetailPage}"
+                CreateDetailFormViewModel="OnCreateDetailFormViewModel"
+                GroupItemSeparatorThickness="0"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsDataLoading}"
+                PullToRefresh="OnCollectionViewPullToRefresh">
+            <dx:DXCollectionView.GroupDescription>
+                <dx:GroupDescription FieldName="Position"/>
+            </dx:DXCollectionView.GroupDescription>
+            <dx:DXCollectionView.GroupItemAppearance>
+                <dx:CollectionViewGroupItemAppearance BackgroundColor="Transparent" TextColor="{dx:ThemeColor OnSurface}" FontSize="16" FontAttributes="Bold" ContentPadding="24,16" />
+            </dx:DXCollectionView.GroupItemAppearance>
+            <dx:DXCollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Employee">
+                    <dx:DXStackLayout Orientation="Horizontal" Padding="16,14" ItemSpacing="16">
+                        <dx:DXStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference collectionView}, Path=Commands.ShowDetailForm}" CommandParameter="{Binding .}" />
+                        </dx:DXStackLayout.GestureRecognizers>
+
+                        <Image WidthRequest="40" HeightRequest="40" Source="{Binding Avatar.ThumbnailImageSource, FallbackValue=noavatar}" Aspect="AspectFill">
+                            <Image.Clip>
+                                <EllipseGeometry Center="20,20" RadiusX="20" RadiusY="20" />
+                            </Image.Clip>
+                        </Image>
+                        <dx:DXStackLayout ItemSpacing="4">
+                            <Label Text="{Binding FullName}" FontSize="16" TextColor="{dx:ThemeColor OnSurface}"/>
+                            <Label Text="{Binding Email}" FontSize="14" TextColor="{dx:ThemeColor OnSurfaceVariant}"/>
+                        </dx:DXStackLayout>
+                    </dx:DXStackLayout>
+                </DataTemplate>
+            </dx:DXCollectionView.ItemTemplate>
+        </dx:DXCollectionView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,122 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    x:Class="CrmDemo.Views.Customers.CustomersPage"
+    xmlns:viewsCommon="clr-namespace:CrmDemo.Views.Common"
+    xmlns:viewModels="clr-namespace:CrmDemo.ViewModels.Customers"
+    xmlns:models="clr-namespace:CrmDemo.DataModel.Models;assembly=CrmDemo.DataModel"
+    xmlns:viewsCust="clr-namespace:CrmDemo.Views.Customers"
+    x:DataType="viewModels:CustomersViewModel"
+    BackgroundColor="{dx:ThemeColor Surface}"
+    Title="Customers">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="LineBreakMode" Value="TailTruncation" />
+                <Setter Property="MaxLines" Value="1" />
+            </Style>
+        </ResourceDictionary>
+
+        <DataTemplate x:Key="defaultItemTemplate" x:DataType="models:Customer">
+            <dx:DXStackLayout Orientation="Horizontal" Padding="16,14" ItemSpacing="16" ItemAlignment="Fill">
+                <Grid WidthRequest="40" HeightRequest="40" BackgroundColor="{dx:ThemeColor PrimaryContainer}">
+                    <Grid.Clip>
+                        <EllipseGeometry Center="20,20" RadiusX="20" RadiusY="20"/>
+                    </Grid.Clip>
+                    <dx:DXImage Source="noavatar" WidthRequest="18" HeightRequest="18" VerticalOptions="Center" HorizontalOptions="Center" TintColor="{dx:ThemeColor OnPrimaryContainer}"/>
+                    <Image Source="{Binding Avatar.ThumbnailImageSource}" WidthRequest="40" HeightRequest="40" Aspect="AspectFill"/>
+                </Grid>
+
+                <Grid ColumnDefinitions="*,Auto" VerticalOptions="Center" RowSpacing="2" RowDefinitions="Auto,Auto">
+                    <Label Text="{Binding FullName}" Grid.Column="0" Grid.Row="0" TextColor="{dx:ThemeColor Key=OnSurface}" FontSize="16" />
+                    <Label Text="{Binding Company}" Grid.Column="0" Grid.Row="1" TextColor="{dx:ThemeColor Key=OnSurfaceVariant}" FontSize="14" />
+                    <Label Text="{Binding Orders.Count, StringFormat='{0} orders'}" Grid.Column="1" Grid.Row="0" VerticalOptions="Center" TextColor="{dx:ThemeColor Key=OnSurfaceVariant}" FontAttributes="Bold" HorizontalOptions="End" FontSize="11"/>
+                </Grid>
+            </dx:DXStackLayout>
+        </DataTemplate>
+
+        <DataTemplate x:Key="advancedItemTemplate" x:DataType="models:Customer">
+            <dx:DXBorder BackgroundColor="{dx:ThemeColor SurfaceContainer}" CornerRadius="12" Margin="16,8" Padding="12,16,16,16">
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                    <Grid WidthRequest="100" HeightRequest="100" BackgroundColor="{dx:ThemeColor PrimaryContainer}">
+                        <Grid.Clip>
+                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"/>
+                        </Grid.Clip>
+
+                        <dx:DXImage Source="noavatar40" WidthRequest="40" HeightRequest="40" VerticalOptions="Center" HorizontalOptions="Center" TintColor="{dx:ThemeColor OnPrimaryContainer}"/>
+                        <Image Source="{Binding Avatar.ThumbnailImageSource}" WidthRequest="100" HeightRequest="100" Aspect="AspectFill"/>
+                    </Grid>
+
+                    <dx:DXDockLayout Grid.Column="1">
+                        <dx:DXStackLayout dx:DXDockLayout.Dock="Top" VerticalOptions="Start" ItemSpacing="12" ItemAlignment="Fill">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Grid.Column="0" Text="{Binding FullName}" TextColor="{dx:ThemeColor OnSurface}" FontSize="16" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                <Label Grid.Column="1" Text="{Binding Orders.Count, StringFormat='{0} orders'}" TextColor="{dx:ThemeColor OnSurfaceVariant, Alpha=0.7}" FontSize="11" FontAttributes="Bold" VerticalOptions="Center" HorizontalOptions="End"/>
+                            </Grid>
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Grid.Column="0" Text="{Binding Company}" LineBreakMode="TailTruncation" TextColor="{dx:ThemeColor OnSurfaceVariant}" FontSize="14" VerticalOptions="Center" HorizontalOptions="Start"/>
+                                <Label Grid.Column="1" Text="{Binding OrdersAmount, StringFormat='{0:c0}'}" TextColor="{dx:ThemeColor OnSurface}" FontSize="14" VerticalOptions="Center" HorizontalOptions="End"/>
+                            </Grid>
+                        </dx:DXStackLayout>
+
+                        <Grid ColumnDefinitions="Auto,Auto,*" dx:DXDockLayout.Dock="Bottom" VerticalOptions="End" ColumnSpacing="8">
+                            <Label Grid.Column="0" Text="Assigned:" TextColor="{dx:ThemeColor OnSurfaceVariant}" FontSize="14" VerticalOptions="Center"/>
+                            <Image Grid.Column="1" Source="{Binding Employee.Avatar.ThumbnailImageSource, FallbackValue=noavatar}" Aspect="AspectFill" WidthRequest="20" HeightRequest="20" VerticalOptions="Center">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="10,10" RadiusX="10" RadiusY="10"/>
+                                </Image.Clip>
+                            </Image>
+                            <Label Grid.Column="2" Text="{Binding Employee.FullName}" TextColor="{dx:ThemeColor OnSurface}" FontSize="14" VerticalOptions="Center"/>
+                        </Grid>
+                    </dx:DXDockLayout>
+                </Grid>
+            </dx:DXBorder>
+        </DataTemplate>
+
+        <viewsCust:ItemRepresentationToTemplateConverter x:Key="itemRepresentationToTemplateConverter" DefaultTemplate="{StaticResource defaultItemTemplate}" AdvancedTemplate="{StaticResource advancedItemTemplate}"/>
+        <viewsCust:ItemRepresentationToIconConverter x:Key="itemRepresentationToIconConverter" DefaultTemplateIcon="cardview" AdvancedTemplateIcon="listview"/>
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="filter" Command="{Binding Source={x:Reference collectionView}, Path=Commands.ShowFilteringUIForm}" />
+        <ToolbarItem IconImageSource="{Binding IsAdvancedItemRepresentation, Converter={StaticResource itemRepresentationToIconConverter}}" Command="{Binding SwitchItemViewCommand}" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto, *" IgnoreSafeArea="{dx:OnOrientation Landscape=False, Portrait=True}">
+        <dx:FilterChipGroup ItemsSource="{Binding PredefinedFilters}" SelectedItems="{Binding SelectedFilters, Mode=TwoWay}" x:Name="filtersChipGroup" IsMultiline="False" DisplayMember="DisplayText" Padding="10" Grid.Row="0"/>
+
+        <dx:DXCollectionView x:Name="collectionView"
+                Grid.Row="1"
+                ItemsSource="{Binding Items}"
+                ItemTemplate="{Binding IsAdvancedItemRepresentation, Converter={StaticResource itemRepresentationToTemplateConverter}}"
+                Tap="CollectionViewItemTap"
+                ItemSpanCount="{OnIdiom Phone=1, Tablet=2}"
+                DetailFormTemplate="{DataTemplate viewsCust:CustomerDetailPage}"
+                DetailEditFormTemplate="{DataTemplate viewsCust:CustomerEditPage}"
+                DetailNewItemFormTemplate="{DataTemplate viewsCust:CustomerEditPage}"
+                FilteringUITemplate="{DataTemplate viewsCust:CustomersFilterForm}"
+                FilterString="{Binding Filter}" UseRippleEffect="True"
+                CreateDetailFormViewModel="OnCreateDetailFormViewModel"
+                GroupItemSeparatorThickness="0"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsDataLoading}"
+                PullToRefresh="OnCollectionViewPullToRefresh">
+            <dx:DXCollectionView.SortDescriptions>
+                <dx:SortDescription FieldName="FirstName" SortOrder="Ascending" />
+            </dx:DXCollectionView.SortDescriptions>
+            <dx:DXCollectionView.GroupDescription>
+                <dx:GroupDescription FieldName="FirstName" GroupInterval="Alphabetical" />
+            </dx:DXCollectionView.GroupDescription>
+            <dx:DXCollectionView.GroupItemAppearance>
+                <dx:CollectionViewGroupItemAppearance BackgroundColor="Transparent" TextColor="{dx:ThemeColor OnSurface}" FontSize="24" ContentPadding="24,12" />
+            </dx:DXCollectionView.GroupItemAppearance>
+        </dx:DXCollectionView>
+
+        <dx:DXButton x:Name="addButton" Style="{StaticResource fabStyle}"
+            Content="{dx:OnOrientation Landscape='Add customer', Portrait=''}"
+            IconIndent="{dx:OnOrientation Landscape=8, Portrait=0}"
+            Command="{Binding Source={x:Reference collectionView}, Path=Commands.ShowDetailNewItemForm}"
+            Padding="16" FontSize="14"  VerticalOptions="End" HorizontalOptions="End" Grid.Row="1"/>
+    </Grid>
+</ContentPage>

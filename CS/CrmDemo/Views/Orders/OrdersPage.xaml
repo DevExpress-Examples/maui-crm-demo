@@ -1,0 +1,122 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             xmlns:views="clr-namespace:CrmDemo.Views"
+             xmlns:viewModels="clr-namespace:CrmDemo.ViewModels.Orders"
+             xmlns:models="clr-namespace:CrmDemo.DataModel.Models;assembly=CrmDemo.DataModel"
+             xmlns:helpers="clr-namespace:CrmDemo.Helpers"
+             x:Class="CrmDemo.Views.OrdersPage"
+             x:DataType="viewModels:OrdersViewModel"
+             BackgroundColor="{dx:ThemeColor Surface}"
+             Title="Orders">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="export" Clicked="ExportClicked"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Resources>
+        <views:IsFilterEmptyConverter x:Key="isFilterEmptyConverter"/>
+        <helpers:StateToColorConverter x:Key="stateToColorConverter"/>
+        <Style TargetType="dx:DXButton" x:Key="bottomSheetActionButton">
+            <Setter Property="IconPlacement" Value="Top" />
+            <Setter Property="IconColor" Value="{dx:ThemeColor Key=OnSurfaceVariant}" />
+            <Setter Property="TextColor" Value="{dx:ThemeColor Key=OnSurface}" />
+            <Setter Property="IconHeight" Value="26" />
+            <Setter Property="IconWidth" Value="26" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="WidthRequest" Value="76" />
+            <Setter Property="FontAttributes" Value="None" />
+            <Setter Property="ButtonType" Value="Text" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto, *" IgnoreSafeArea="True">
+        <dx:FilterChipGroup ItemsSource="{Binding PredefinedFilters}" SelectedItems="{Binding SelectedFilters, Mode=TwoWay}" x:Name="filtersChipGroup" IsMultiline="False" DisplayMember="DisplayText" Padding="16,8" />
+
+        <dx:DXCollectionView x:Name="collectionView"
+                Grid.Row="1"
+                ItemsSource="{Binding Items}"
+                Tap="dataGrid_Tap"
+                BackgroundColor="Transparent"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
+                DetailEditFormTemplate="{DataTemplate views:OrderEditPage}"
+                DetailNewItemFormTemplate="{DataTemplate views:OrderEditPage}"
+                FilterString="{Binding Filter}"
+                Scrolled="dataGrid_Scrolled"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsDataLoading}"
+                PullToRefresh="OnDataGridPullToRefresh">
+            <dx:DXCollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Order">
+                        <dx:DXBorder CornerRadius="14" BackgroundColor="{dx:ThemeColor Key=SurfaceContainer}" Margin="16,8">
+                            <dx:DXStackLayout Padding="16,16,16,12" ItemSpacing="8">
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <Label Text="{Binding Id}" FontSize="18" TextColor="{dx:ThemeColor Key=OnSurface}" FontAttributes="Bold"/>
+                                    <Label Text="{Binding ItemsCount, StringFormat='{0} items'}" FontSize="14" HorizontalOptions="End" TextColor="{dx:ThemeColor Key=OnSurfaceVariant}" Grid.Column="1"/>
+                                </Grid>
+
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <Label Text="{Binding Customer.FullName}" TextColor="{dx:ThemeColor Key=OnSurface}" FontSize="16"/>
+                                    <Label Text="{Binding TotalAmount, StringFormat='{0:c}'}" FontSize="18" HorizontalOptions="End" TextColor="{dx:ThemeColor Key=OnSurface}" Grid.Column="1"/>
+                                </Grid>
+
+                                <Grid ColumnDefinitions="*, Auto">
+                                    <Label Text="{Binding OrderDate, StringFormat='{0:MMMM d, yyyy}'}" FontSize="14" TextColor="{dx:ThemeColor Key=OnSurfaceVariant, Alpha=0.7}"/>
+                                    <dx:DXBorder BackgroundColor="{Binding State, Converter={StaticResource stateToColorConverter}, ConverterParameter={x:Single 0.2}}" CornerRadius="100" Grid.Column="1" >
+                                        <Label Text="{Binding State}" TextColor="{Binding State, Converter={StaticResource stateToColorConverter}, ConverterParameter={x:Single 1.0}}" HorizontalOptions="Center" Padding="14, 3"/>
+                                    </dx:DXBorder>
+                                </Grid>
+                            </dx:DXStackLayout>
+                        </dx:DXBorder>
+                    </DataTemplate>
+            </dx:DXCollectionView.ItemTemplate>
+        </dx:DXCollectionView>
+
+        <dx:DXButton Command="{Binding Source={x:Reference collectionView}, Path=Commands.ShowDetailNewItemForm}" VerticalOptions="End" HorizontalOptions="End" Style="{StaticResource fabStyle}" Grid.Row="1" />
+
+        <dx:DXPopup x:Name="sharePopup" AllowScrim="True" CloseOnScrimTap="True">
+            <dx:DXStackLayout Margin="24" ItemSpacing="16">
+                <Label Text="Share File" TextColor="{dx:ThemeColor OnSurface}" FontSize="24"/>
+                <Label Text="Select the desired output format" TextColor="{dx:ThemeColor OnSurfaceVariant}" FontSize="14"/>
+                <Grid ColumnDefinitions="Auto,Auto" Margin="8,8,0,0" ColumnSpacing="8" HorizontalOptions="End">
+                    <dx:DXButton Grid.Column="0" Padding="36,10" ButtonType="Text" Content="Excel" Icon="excel" Clicked="ExcelExportClicked"/>
+                    <dx:DXButton Grid.Column="1" Padding="36,10" ButtonType="Text" Content="PDF" Icon="pdf" Clicked="PdfExportClicked"/>
+                </Grid>
+            </dx:DXStackLayout>
+        </dx:DXPopup>
+
+        <dx:BottomSheet HalfExpandedRatio="0.4" x:Name="detailInfoBottomSheet" IsModal="False" Padding="0,12,0,0">
+            <dx:DXDockLayout>
+                <dx:DXStackLayout dx:DXDockLayout.Dock="Top" Orientation="Horizontal" ItemAlignment="Center" Padding="0,8">
+                    <dx:DXButton Icon="delete" Content="Delete" Style="{StaticResource bottomSheetActionButton}" Tap="OnDeleteButtonTap"/>
+                    <dx:DXButton Icon="edit" Content="Edit" Style="{StaticResource bottomSheetActionButton}" Tap="OnEditButtonTap"/>
+                    <dx:DXButton Icon="pdfexport" Content="PDF" Style="{StaticResource bottomSheetActionButton}" Tap="OrderToPdfClick" />
+                </dx:DXStackLayout>
+                <dx:DXSeparator dx:DXDockLayout.Dock="Top" />
+                <Label dx:DXDockLayout.Dock="Top" Text="Ordered items:" TextColor="{dx:ThemeColor OnSurface}" FontSize="16" FontAttributes="Bold" Margin="16,16,16,12"/>
+                <dx:DXCollectionView
+                        dx:DXDockLayout.Dock="Top"
+                        IsScrollBarVisible="False"
+                        ItemsSource="{Binding SelectedOrder.Items}"
+                        SelectionMode="None"
+                        ItemSeparatorColor="{dx:ThemeColor Key=OutlineVariant}"
+                        ItemSeparatorThickness="1" ItemSpacing="5" Margin="16,0">
+                    <dx:DXCollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:OrderItem">
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="*,*" RowSpacing="4" Padding="12,12,0,12">
+                                <Label Text="{Binding Product.Name}" FontSize="16" TextColor="{dx:ThemeColor Key=OnSurface}" VerticalOptions="End" />
+                                <Label TextColor="{dx:ThemeColor Key=OnSurfaceVariant}" VerticalOptions="Start" Grid.Row="1">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0} x {1}">
+                                            <Binding Path="Quantity"/>
+                                            <Binding Path="Product.UnitPrice"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                                <Label Text="{Binding Amount, StringFormat='${0}'}" TextColor="{dx:ThemeColor Key=OnSurface}" FontSize="16" FontAttributes="Bold" VerticalOptions="Center" Grid.Column="1" Grid.RowSpan="2"/>
+                            </Grid>
+                        </DataTemplate>
+                    </dx:DXCollectionView.ItemTemplate>
+                </dx:DXCollectionView>
+            </dx:DXDockLayout>
+        </dx:BottomSheet>
+    </Grid>
+</ContentPage>

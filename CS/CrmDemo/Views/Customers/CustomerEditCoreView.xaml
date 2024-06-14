@@ -1,0 +1,57 @@
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    xmlns:viewsCommon="clr-namespace:CrmDemo.Views.Common"
+    xmlns:local="clr-namespace:CrmDemo.Views.Customers"
+    BackgroundColor="Transparent"
+    x:Class="CrmDemo.Views.Customers.CustomerEditCoreView">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="dx:EditBase" ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor" Value="{dx:ThemeColor Background}" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="0,10">
+            <dx:DataFormView x:Name="dataForm" DataObject="{Binding Item}" IsEditorLabelVisible="False"
+                    IsAutoGenerationEnabled="False" ValidateProperty="dataForm_ValidateProperty"
+                    BackgroundColor="Transparent" Margin="10,0" EditorPadding="0,8">
+                <dx:DataFormCustomItem RowOrder="0" FieldName="Avatar" EditorValue="{Binding Avatar}" IsLabelVisible="False" LabelWidth="0">
+                    <Grid WidthRequest="100" HeightRequest="100" BackgroundColor="{dx:ThemeColor PrimaryContainer}" Margin="0,0,0,8">
+                        <Grid.Clip>
+                            <EllipseGeometry Center="50,50" RadiusX="50" RadiusY="50"/>
+                        </Grid.Clip>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ImageTapped"/>
+                        </Grid.GestureRecognizers>
+
+                        <dx:DXImage Source="addimage" VerticalOptions="Center" HorizontalOptions="Center" TintColor="{dx:ThemeColor OnPrimaryContainer}"/>
+                        <Image Source="{Binding Avatar.ThumbnailImageSource}" WidthRequest="100" HeightRequest="100" Aspect="AspectFill"/>
+                    </Grid>
+                </dx:DataFormCustomItem>
+                <dx:DataFormTextItem FieldName="FirstName" ReturnType="Next" RowOrder="1" Placeholder="First Name"/>
+                <dx:DataFormTextItem FieldName="LastName" ReturnType="Next" RowOrder="1" Placeholder="Last Name"/>
+                <dx:DataFormMaskedItem RowOrder="2" FieldName="Phone" Keyboard="Telephone" Mask="+1 (000) 000-0000" ReturnType="Next" Placeholder="Phone"/>
+                <dx:DataFormTextItem RowOrder="3" FieldName="Email" ReturnType="Next" Placeholder="Email"/>
+                <dx:DataFormComboBoxItem RowOrder="4" FieldName="Company" ReturnType="Next" Placeholder="Company" PickerShowMode="BottomSheet" ItemsSource="{Binding DataControlContext.Companies}"/>
+                <dx:DataFormTextItem RowOrder="5" FieldName="Address.Country" ReturnType="Next" Placeholder="Country" />
+                <dx:DataFormTextItem RowOrder="5" FieldName="Address.City" ReturnType="Next" Placeholder="City" />
+                <dx:DataFormTextItem FieldName="Address.Street" Placeholder="Street" ReturnType="Next"/>
+                <dx:DataFormNumericItem FieldName="Address.ZipCode" Placeholder="Zip"/>
+            </dx:DataFormView>
+            
+            <dx:DXButton Content="Save" Margin="16,0" Padding="0,14" Clicked="OnSaveItemClicked"/>
+            
+            <dx:BottomSheet x:Name="bottomSheet" UpdateSizeToContent="True" AllowedState="HalfExpanded">
+                <dx:DXStackLayout>
+                    <dx:DXButton Icon="gallery" ButtonType="ToolButton" IconIndent="12" FontAttributes="None" IconWidth="24" IconHeight="24" Padding="12,16" HorizontalContentAlignment="Start" Content="Select from Gallery" Tap="SelectPhotoClicked"/>
+                    <dx:DXButton Icon="take_photo" ButtonType="ToolButton" IconIndent="12" FontAttributes="None" IconWidth="24" IconHeight="24" Padding="12,16" HorizontalContentAlignment="Start" Content="Take Photo" Tap="TakePhotoClicked"/>
+                    <dx:DXButton Icon="delete" ButtonType="ToolButton" IconIndent="12" FontAttributes="None"  IconWidth="24" IconHeight="24" Padding="12,16" HorizontalContentAlignment="Start" Content="Remove Photo" Tap="DeletePhotoClicked"/>
+                </dx:DXStackLayout>
+            </dx:BottomSheet>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentView>

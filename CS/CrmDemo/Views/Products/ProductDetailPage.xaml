@@ -1,0 +1,69 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:dx="http://schemas.devexpress.com/maui"
+             x:Class="CrmDemo.Views.Products.ProductDetailPage"
+             BackgroundColor="{dx:ThemeColor Surface}"
+             Title="Product Details">
+
+    <VerticalStackLayout Spacing="10" Padding="16">
+        <Label Text="{Binding Item.Name}" FontSize="24"/>
+        <Label Text="{Binding Item.UnitPrice, StringFormat='Price: {0:c}'}"/>
+        <Label Text="{Binding Item.ItemsLeft, StringFormat='Items Left: {0}'}"/>
+        <Label Text="Product Sales" HorizontalOptions="Center" FontAttributes="Bold" Margin="0,10,0,0"/>
+        <dx:ChartView Grid.Row="2" Margin="0,0,0,10" HeightRequest="300">
+            <dx:ChartView.AxisX>
+                <dx:DateTimeAxisX MeasureUnit="Month">
+                    <dx:DateTimeAxisX.Style>
+                        <dx:AxisStyle MajorTickmarksVisible="True" MinorTickmarksVisible="True"/>
+                    </dx:DateTimeAxisX.Style>
+                    <dx:DateTimeAxisX.Label>
+                        <dx:AxisLabel>
+                            <dx:AxisLabel.Style>
+                                <dx:AxisLabelStyle>
+                                    <dx:AxisLabelStyle.TextStyle>
+                                        <dx:TextStyle Color="{dx:ThemeColor OnSurface}" Size="13"/>
+                                    </dx:AxisLabelStyle.TextStyle>
+                                </dx:AxisLabelStyle>
+                            </dx:AxisLabel.Style>
+                        </dx:AxisLabel>
+                    </dx:DateTimeAxisX.Label>
+                </dx:DateTimeAxisX>
+            </dx:ChartView.AxisX>
+
+            <dx:ChartView.AxisY>
+                <dx:NumericAxisY>
+                    <dx:NumericAxisY.Label>
+                        <dx:AxisLabel TextFormat="$#">
+                            <dx:AxisLabel.Style>
+                                <dx:AxisLabelStyle>
+                                    <dx:AxisLabelStyle.TextStyle>
+                                        <dx:TextStyle Color="{dx:ThemeColor OnSurface}" Size="13"/>
+                                    </dx:AxisLabelStyle.TextStyle>
+                                </dx:AxisLabelStyle>
+                            </dx:AxisLabel.Style>
+                        </dx:AxisLabel>
+                    </dx:NumericAxisY.Label>
+                </dx:NumericAxisY>
+            </dx:ChartView.AxisY>
+
+            <dx:ChartView.ChartStyle>
+                <dx:ChartStyle BackgroundColor="{dx:ThemeColor Surface}" />
+            </dx:ChartView.ChartStyle>
+
+            <dx:ChartView.Series>
+                <dx:BarSeries>
+                    <dx:BarSeries.Data>
+                        <dx:SeriesDataAdapter DataSource="{Binding Path=Context.Sales}" ArgumentDataMember="Date">
+                            <dx:SeriesDataAdapter.ValueDataMembers>
+                                <dx:ValueDataMember Type="Value" Member="SalesAmount"/>
+                            </dx:SeriesDataAdapter.ValueDataMembers>
+                        </dx:SeriesDataAdapter>
+                    </dx:BarSeries.Data>
+                    <dx:BarSeries.PointColorizer>
+                        <dx:ColorEachPointColorizer x:Name="col"/>
+                    </dx:BarSeries.PointColorizer>
+                </dx:BarSeries>
+            </dx:ChartView.Series>
+        </dx:ChartView>
+    </VerticalStackLayout>
+</ContentPage>
