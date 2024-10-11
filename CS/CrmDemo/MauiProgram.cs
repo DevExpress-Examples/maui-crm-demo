@@ -1,4 +1,4 @@
-using CommunityToolkit.Maui;
+﻿using CommunityToolkit.Maui;
 using DevExpress.Maui;
 using DevExpress.Maui.Core;
 using DevExpress.XtraReports.Security;
@@ -48,11 +48,9 @@ namespace CrmDemo {
                 .ConfigureMauiHandlers(handlers => {
                     handlers.AddHandler<Shell, CustomShellRenderer>();
                 });
-
 #if DEBUG
             DotNet.Meteor.HotReload.Plugin.BuilderExtensions.EnableHotReload(builder);
 #endif
-
             DevExpress.Security.Resources.AccessSettings.ReportingSpecificResources.SetRules(SerializationFormatRule.Allow(SerializationFormat.Code, SerializationFormat.Xml));
             DevExpress.Maui.Core.Localizer.StringLoader = new StringLoader();
 

@@ -1,6 +1,4 @@
 using System.Globalization;
-
-using DevExpress.CodeParser;
 using DevExpress.Maui.Charts;
 
 namespace CrmDemo.Views.Dashboards;
@@ -8,6 +6,7 @@ namespace CrmDemo.Views.Dashboards;
 public partial class OrderStateEvolutionPage : ContentPage {
     public OrderStateEvolutionPage() {
         InitializeComponent();
+
     }
 }
 

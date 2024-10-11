@@ -9,6 +9,7 @@ public partial class OrdersByStatePage : ContentPage {
     public OrdersByStatePage() {
         InitializeComponent();
         BindingContext = viewModel = new OrdersByStateViewModel();
+
     }
 
     private void PieChartView_SelectionChanged(object sender, DevExpress.Maui.Charts.SelectionChangedEventArgs e) {

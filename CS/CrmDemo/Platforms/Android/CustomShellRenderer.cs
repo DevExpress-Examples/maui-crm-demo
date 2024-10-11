@@ -1,6 +1,4 @@
 using Android.Content.Res;
-using Android.Text;
-using Android.Text.Style;
 using AndroidX.DrawerLayout.Widget;
 using DevExpress.Maui.Core;
 using Microsoft.Maui.Controls.Handlers.Compatibility;

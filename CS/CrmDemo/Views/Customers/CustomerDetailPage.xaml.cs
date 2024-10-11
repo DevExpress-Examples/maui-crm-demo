@@ -1,7 +1,4 @@
-using System.ComponentModel;
-
 using DevExpress.Maui.Core;
-using DevExpress.Maui.Editors;
 using DevExpress.Maui.DataGrid;
 
 using CrmDemo.DataLayer;
@@ -18,6 +15,7 @@ public partial class CustomerDetailPage : ContentPage {
     public CustomerDetailPage() {
         InitializeComponent();
         checkListItemsGrid.ValidateAndSave += OnCheckListItemsGridValidateAndSave;
+
     }
 
     private void OnDataGridViewCustomCellAppearance(object sender, CustomCellAppearanceEventArgs e) {
@@ -34,17 +32,17 @@ public partial class CustomerDetailPage : ContentPage {
     private void CancelDeleteClick(object sender, EventArgs e) {
         popup.IsOpen = false;
     }
-    private void DeleteConfirmedClick(object sender, EventArgs e) {
+    private async void DeleteConfirmedClick(object sender, EventArgs e) {
         try {
             viewModel.CloseOnDelete = false;
-            if (viewModel.Delete()) {
+            if (await viewModel.DeleteAsync()) {
                 Customer customer = (Customer)viewModel.Item;
                 crmContext.Customers.Remove(customer);
                 crmContext.SaveChanges();
                 viewModel.Close();
             }
         } catch (Exception ex) {
-            DisplayAlert("Error", ex.Message, "OK");
+            await DisplayAlert("Error", ex.Message, "OK");
         }
     }
     private void OnAddTaskButtonClicked(object sender, EventArgs e) {

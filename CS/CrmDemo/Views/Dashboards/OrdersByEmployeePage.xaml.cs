@@ -1,7 +1,6 @@
 using DevExpress.Maui.Charts;
 using DevExpress.Maui.Core;
 using DevExpress.Maui.Core.Internal;
-using CrmDemo.DataModel.Models;
 using CrmDemo.ViewModels.Dashboards;
 
 namespace CrmDemo.Views.Dashboards;
@@ -12,6 +11,7 @@ public partial class OrdersByEmployeePage : ContentPage {
     public OrdersByEmployeePage() {
         InitializeComponent();
         BindingContext = viewModel = new OrdersByEmployeeViewModel();
+
     }
     protected override void OnAppearing() {
         base.OnAppearing();

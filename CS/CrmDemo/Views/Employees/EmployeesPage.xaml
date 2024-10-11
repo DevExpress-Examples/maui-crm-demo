@@ -16,12 +16,13 @@
                 GroupItemSeparatorThickness="0"
                 IsPullToRefreshEnabled="True"
                 IsRefreshing="{Binding IsDataLoading}"
-                PullToRefresh="OnCollectionViewPullToRefresh">
+                PullToRefresh="OnCollectionViewPullToRefresh"
+                AllowFixedGroupHeaders="True">
             <dx:DXCollectionView.GroupDescription>
                 <dx:GroupDescription FieldName="Position"/>
             </dx:DXCollectionView.GroupDescription>
             <dx:DXCollectionView.GroupItemAppearance>
-                <dx:CollectionViewGroupItemAppearance BackgroundColor="Transparent" TextColor="{dx:ThemeColor OnSurface}" FontSize="16" FontAttributes="Bold" ContentPadding="24,16" />
+                <dx:CollectionViewGroupItemAppearance BackgroundColor="{dx:ThemeColor Surface}" TextColor="{dx:ThemeColor OnSurface}" FontSize="16" FontAttributes="Bold" ContentPadding="24,16" />
             </dx:DXCollectionView.GroupItemAppearance>
             <dx:DXCollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Employee">

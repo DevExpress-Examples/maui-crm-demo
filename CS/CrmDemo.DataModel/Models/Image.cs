@@ -12,7 +12,8 @@ public class CrmImage {
     public string ThumbnailImageCachePath { get; set; }
 
     [NotMapped] private ImageSource thumbnailImageSource;
-    [NotMapped] public ImageSource ThumbnailImageSource {
+    [NotMapped]
+    public ImageSource ThumbnailImageSource {
         get {
             if (thumbnailImageSource != null || ThumbnailImage.Data == null || ThumbnailImage.Data.Length == 0)
                 return thumbnailImageSource;

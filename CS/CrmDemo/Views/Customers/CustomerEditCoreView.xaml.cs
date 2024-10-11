@@ -15,12 +15,11 @@ public partial class CustomerEditCoreView : ContentView {
     public CustomerEditCoreView() {
         InitializeComponent();
     }
-
-    public bool TrySaveChanges() {
+    public async Task<bool> TrySaveChangesAsync() {
         bool result = false;
         if (dataForm.Validate()) {
             dataForm.Commit();
-            viewModel.Save();
+            await viewModel.SaveAsync();
             result = true;
         }
         return result;
@@ -42,9 +41,9 @@ public partial class CustomerEditCoreView : ContentView {
     private void ImageTapped(object sender, EventArgs e) {
         bottomSheet.State = BottomSheetState.HalfExpanded;
     }
-    private void OnSaveItemClicked(object sender, EventArgs e) {
+    private async void OnSaveItemClicked(object sender, EventArgs e) {
         viewModel.CloseOnSave = false;
-        if (TrySaveChanges()) {
+        if (await TrySaveChangesAsync()) {
             Customer customer = (Customer)viewModel.Item;
             if (crmContext.Entry(customer).State == EntityState.Detached) {
                 customer.RegistrationDate = DateTime.Now.Date;
@@ -93,7 +92,7 @@ public partial class CustomerEditCoreView : ContentView {
 
         var cropResult = await editorPage.WaitForResultAsync();
         if (cropResult != null && viewModel.Item is Person person) {
-            person.Avatar = new CrmImage() { ThumbnailImage = new ImageData() { Data = cropResult }};
+            person.Avatar = new CrmImage() { ThumbnailImage = new ImageData() { Data = cropResult } };
             person.Avatar.ClearCache();
         }
 

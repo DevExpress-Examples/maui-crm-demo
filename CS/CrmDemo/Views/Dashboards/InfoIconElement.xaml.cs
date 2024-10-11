@@ -27,6 +27,7 @@ public partial class InfoIconElement : ContentView {
     public InfoIconElement() {
         InitializeComponent();
         rootPanel.BindingContext = this;
+
     }
 
     private void OnImageColorChanged() {

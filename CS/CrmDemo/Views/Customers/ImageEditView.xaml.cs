@@ -1,9 +1,5 @@
-using System;
 using System.Globalization;
-using System.Threading.Tasks;
-using DevExpress.Maui.Core.Internal;
 using DevExpress.Maui.Editors;
-using Microsoft.Maui.Controls;
 
 namespace CrmDemo.Views.Customers;
 
@@ -12,6 +8,7 @@ public partial class ImageEditView : ContentPage {
     
     public ImageEditView() {
         InitializeComponent();
+
     }
 
     public ImageEditView(ImageSource imageSource) {
@@ -20,6 +17,7 @@ public partial class ImageEditView : ContentPage {
         
         
         editor.Source = imageSource;
+
     }
 
     public Task<byte[]> WaitForResultAsync() {
@@ -41,7 +39,19 @@ public partial class ImageEditView : ContentPage {
     }
     void OnResetClicked(object sender, EventArgs e) {
         editor.Commands.Reset.Execute(null);
-    }    
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 public class FrameTypeToImageStringConverter : IValueConverter {

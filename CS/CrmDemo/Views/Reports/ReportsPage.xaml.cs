@@ -2,7 +2,6 @@ using DevExpress.XtraReports.UI;
 using DevExpress.DataAccess.Sql;
 using DevExpress.DataAccess.ConnectionParameters;
 using CrmDemo.ViewModels.Reports;
-using DevExpress.Maui.Controls;
 
 namespace CrmDemo.Views;
 
@@ -31,7 +30,7 @@ public partial class ReportsPage : ContentPage {
 
         string ouputFilePath = Path.Combine(FileSystem.Current.AppDataDirectory, outputFileName);
         customerOrdersReport.ExportToPdf(ouputFilePath);
-        Dispatcher.Dispatch(async() => {
+        Dispatcher.Dispatch(async () => {
             await bottomSheet.CloseAsync();
             await Share.Default.RequestAsync(new ShareFileRequest {
                 Title = "Share the report",

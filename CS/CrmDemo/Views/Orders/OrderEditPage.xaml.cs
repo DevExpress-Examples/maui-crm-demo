@@ -32,11 +32,11 @@ public partial class OrderEditPage : ContentPage {
 #endif
     
 
-    private bool TrySaveChanges() {
+    private async Task<bool> TrySaveChangesAsync() {
         bool result = false;
         if (dataForm.Validate()) {
             dataForm.Commit();
-            viewModel.Save();
+            await viewModel.SaveAsync();
             result = true;
         }
         return result;
@@ -51,9 +51,9 @@ public partial class OrderEditPage : ContentPage {
             order.Items.Add(orderItem);
         }
     }
-    private void OnSaveToolbarItemClicked(object sender, EventArgs e) {
+    private async void OnSaveToolbarItemClicked(object sender, EventArgs e) {
         viewModel.CloseOnSave = false;
-        if (TrySaveChanges()) {
+        if (await TrySaveChangesAsync()) {
             Order order = (Order)viewModel.Item;
             if (crmContext.Entry(order).State == EntityState.Detached) {
                 order.OrderDate = DateTime.Now;

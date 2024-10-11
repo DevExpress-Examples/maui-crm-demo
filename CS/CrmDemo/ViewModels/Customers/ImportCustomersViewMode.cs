@@ -24,7 +24,7 @@ public class ImportCustomersViewModel : BindableBase {
 
     public Command UploadCommand { get; }
     public Command SaveCommand { get; }
-    
+
     private Action<string> errorHandler;
     private Action backAction;
     private CrmContext context;
@@ -49,7 +49,7 @@ public class ImportCustomersViewModel : BindableBase {
         return openResult?.FullPath;
     }
     private async Task<string> GetDefaultFile() {
-        return await FileHelper.EnsureAssetInAppDataAsync("sample_customers_sheeet.xlsx"); 
+        return await FileHelper.EnsureAssetInAppDataAsync("sample_customers_sheeet.xlsx");
     }
     private async Task LoadDataFromExcel(string filePath) {
         using Workbook newCustomersWorkbook = new Workbook();

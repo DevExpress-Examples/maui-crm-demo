@@ -101,7 +101,8 @@
                 GroupItemSeparatorThickness="0"
                 IsPullToRefreshEnabled="True"
                 IsRefreshing="{Binding IsDataLoading}"
-                PullToRefresh="OnCollectionViewPullToRefresh">
+                PullToRefresh="OnCollectionViewPullToRefresh"
+                AllowFixedGroupHeaders="True">
             <dx:DXCollectionView.SortDescriptions>
                 <dx:SortDescription FieldName="FirstName" SortOrder="Ascending" />
             </dx:DXCollectionView.SortDescriptions>
@@ -109,7 +110,7 @@
                 <dx:GroupDescription FieldName="FirstName" GroupInterval="Alphabetical" />
             </dx:DXCollectionView.GroupDescription>
             <dx:DXCollectionView.GroupItemAppearance>
-                <dx:CollectionViewGroupItemAppearance BackgroundColor="Transparent" TextColor="{dx:ThemeColor OnSurface}" FontSize="24" ContentPadding="24,12" />
+                <dx:CollectionViewGroupItemAppearance BackgroundColor="{dx:ThemeColor Surface}" TextColor="{dx:ThemeColor OnSurface}" FontSize="24" ContentPadding="24,12" />
             </dx:DXCollectionView.GroupItemAppearance>
         </dx:DXCollectionView>
 

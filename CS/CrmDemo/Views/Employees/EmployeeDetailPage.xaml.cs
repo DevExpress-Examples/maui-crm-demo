@@ -9,6 +9,7 @@ public partial class EmployeeDetailPage : ContentPage {
 
     public EmployeeDetailPage() {
         InitializeComponent();
+
     }
 
     protected override void OnAppearing() {

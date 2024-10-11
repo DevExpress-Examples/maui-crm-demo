@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using Microsoft.EntityFrameworkCore;
 
 using DevExpress.Maui.Core;
 using CrmDemo.DataLayer;

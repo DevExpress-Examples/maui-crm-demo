@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-using DevExpress.Maui.Core;
+﻿using DevExpress.Maui.Core;
 
 using CrmDemo.DataLayer;
 using CrmDemo.DataModel.Models;
