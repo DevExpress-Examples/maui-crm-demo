@@ -26,10 +26,11 @@ namespace CrmDemo {
             builder
                 .UseMauiApp<App>()
                 .UseDevExpress(useLocalization: true)
+                .UseDevExpressDataGridExport()
+                .UseDevExpressTreeView()
                 .UseDevExpressGauges()
                 .UseDevExpressCharts()
                 .UseDevExpressScheduler()
-                .UseDevExpressDataGridExport()
                 .UseDevExpressDataGrid()
                 .UseDevExpressEditors()
                 .UseDevExpressCollectionView()
@@ -48,11 +49,9 @@ namespace CrmDemo {
                 .ConfigureMauiHandlers(handlers => {
                     handlers.AddHandler<Shell, CustomShellRenderer>();
                 });
-#if DEBUG
-            DotNet.Meteor.HotReload.Plugin.BuilderExtensions.EnableHotReload(builder);
-#endif
+
             DevExpress.Security.Resources.AccessSettings.ReportingSpecificResources.SetRules(SerializationFormatRule.Allow(SerializationFormat.Code, SerializationFormat.Xml));
-            DevExpress.Maui.Core.Localizer.StringLoader = new StringLoader();
+            DevExpress.Maui.Core.Localizer.DXStringLoader = new StringLoader();
 
             RegisterReportTrustedTypes();
 

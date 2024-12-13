@@ -10,6 +10,5 @@ public partial class ImportCustomersPage : ContentPage {
             async (s) => await DisplayAlert("Error", s, "Ok")
         );
         BindingContext = viewModel;
-
     }
 }

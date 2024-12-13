@@ -27,7 +27,6 @@ public partial class AppShell : Shell {
         Routing.RegisterRoute("orderStateEvolutionDashboard", typeof(OrderStateEvolutionPage));
         Routing.RegisterRoute("ordersByCountryDashboard", typeof(OrdersByCityPage));
         Routing.RegisterRoute("priceSoldItemsRelationDashboard", typeof(PriceSoldItemsRelationViewPage));
-
     }
 
 #if ANDROID

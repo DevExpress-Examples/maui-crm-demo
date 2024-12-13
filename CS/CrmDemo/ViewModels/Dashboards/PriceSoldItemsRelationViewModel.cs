@@ -1,9 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using Microsoft.EntityFrameworkCore;
-
-using DevExpress.Maui.Core;
 using CrmDemo.DataLayer;
 using CrmDemo.DataModel.Models;
+using DevExpress.Maui.Mvvm;
 
 namespace CrmDemo.ViewModels.Dashboards;
 
@@ -22,14 +21,14 @@ public class ProductSalesInfo {
     }
 }
 
-public class PriceSoldItemsRelationViewModel : BindableBase {
+public class PriceSoldItemsRelationViewModel : DXObservableObject {
     private ObservableCollection<ProductSalesInfo> dataItems;
 
     public ObservableCollection<ProductSalesInfo> DataItems {
         get => dataItems;
         set {
             dataItems = value;
-            RaisePropertyChanged(nameof(DataItems));
+            OnPropertyChanged(nameof(DataItems));
         }
     }
     public PriceSoldItemsRelationViewModel() {

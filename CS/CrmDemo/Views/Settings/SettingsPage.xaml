@@ -35,7 +35,7 @@
             <dx:FormGroupItem ItemSpacing="28">
                 <dx:FormItem Detail="{Binding CurrentUser.Email}" Text="{Binding CurrentUser.FullName}" TextMargin="0,10,0,0" TextFontSize="18">
                     <dx:FormItem.ImageTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="viewModels:SettingsViewModel">
                             <Image Margin="0,0,10,0" Aspect="AspectFill" HeightRequest="60" Source="{Binding CurrentUser.Avatar.ThumbnailImageSource}" WidthRequest="60">
                                 <Image.Clip>
                                     <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30" />

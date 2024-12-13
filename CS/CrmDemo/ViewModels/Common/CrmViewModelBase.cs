@@ -1,11 +1,10 @@
 ﻿using System.Collections.ObjectModel;
-
-using DevExpress.Maui.Core;
+using DevExpress.Maui.Mvvm;
 using CrmDemo.DataLayer;
 
 namespace CrmDemo.ViewModels.Common;
 
-public abstract class CrmViewModelBase<TEntity> : BindableBase where TEntity : class {
+public abstract class CrmViewModelBase<TEntity> : DXObservableObject where TEntity : class {
     private CrmContext crmContext;
     private ObservableCollection<TEntity> items;
     private bool isDataLoading;
@@ -14,14 +13,14 @@ public abstract class CrmViewModelBase<TEntity> : BindableBase where TEntity : c
         get => items;
         protected set {
             items = value;
-            RaisePropertyChanged(nameof(Items));
+            OnPropertyChanged(nameof(Items));
         }
     }
     public bool IsDataLoading {
         get => isDataLoading;
         set {
             isDataLoading = value;
-            RaisePropertyChanged(nameof(IsDataLoading));
+            OnPropertyChanged(nameof(IsDataLoading));
         }
     }
     public CrmViewModelBase(UserSessionService sessionService) {

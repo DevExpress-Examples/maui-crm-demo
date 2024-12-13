@@ -6,7 +6,6 @@ public partial class CustomerEditPage : ContentPage {
     public CustomerEditPage() {
         InitializeComponent();
         importCustomersPage = new ImportCustomersPage();
-
     }
 
     private async void OnImportCustomersClicked(object sender, EventArgs e) {

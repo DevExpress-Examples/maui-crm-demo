@@ -15,7 +15,6 @@ public partial class CustomerDetailPage : ContentPage {
     public CustomerDetailPage() {
         InitializeComponent();
         checkListItemsGrid.ValidateAndSave += OnCheckListItemsGridValidateAndSave;
-
     }
 
     private void OnDataGridViewCustomCellAppearance(object sender, CustomCellAppearanceEventArgs e) {

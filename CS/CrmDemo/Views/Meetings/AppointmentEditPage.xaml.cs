@@ -26,7 +26,6 @@ public partial class AppointmentEditPage : ContentPage, IDialogService {
             deleteButton.IsVisible = false;
             deleteButtonSeparator.IsVisible = false;
         }
-
     }
     protected override void OnAppearing() {
         base.OnAppearing();
@@ -61,7 +60,7 @@ public partial class AppointmentEditPage : ContentPage, IDialogService {
         this.eventNameEntry.Focus();
     }
     private void OnAllDayTapped(object sender, EventArgs e) {
-        this.allDaySwitch.IsToggled = !this.allDaySwitch.IsToggled;
+        this.allDaySwitch.IsChecked = !this.allDaySwitch.IsChecked;
     }
     private void UpdateToolbarItems() {
         string actualPostfix = String.Empty;
@@ -72,7 +71,6 @@ public partial class AppointmentEditPage : ContentPage, IDialogService {
         Thickness safeInsets = On<Microsoft.Maui.Controls.PlatformConfiguration.iOS>().SafeAreaInsets();
         this.RecreateStyleWithHorizontalInsets("FormItemStyle", "FormItemStyleBase", typeof(Grid), safeInsets);
         this.RecreateStyleWithHorizontalInsets("FormDateTimeItemStyle", "FormDateTimeItemStyleBase", typeof(StackLayout), safeInsets);
-        this.RecreateStyleWithHorizontalInsets("Wrapper", "WrapperBase", typeof(Frame), safeInsets);
         this.root.Margin = new Thickness(0, safeInsets.Top, 0, safeInsets.Bottom);
     }
     private async void OnDeleteClicked(object sender, EventArgs e) {

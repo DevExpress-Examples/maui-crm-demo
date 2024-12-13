@@ -1,13 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-
-using DevExpress.Maui.Core;
-
 using CrmDemo.DataLayer;
 using CrmDemo.DataModel.Models;
+using DevExpress.Maui.Mvvm;
 
 namespace CrmDemo.ViewModels.Reports;
 
-public class OrdersReportViewModel : BindableBase {
+public class OrdersReportViewModel : DXObservableObject {
     public bool Pending {
         get => pending;
         set {
@@ -54,7 +52,7 @@ public class OrdersReportViewModel : BindableBase {
         get => orders;
         set {
             orders = value;
-            RaisePropertyChanged(nameof(Orders));
+            OnPropertyChanged(nameof(Orders));
         }
     }
     public OrdersReportViewModel() {
@@ -70,7 +68,10 @@ public class OrdersReportViewModel : BindableBase {
         paid = true;
         processed = true;
         LoadDataAsync();
-        RaisePropertiesChanged("Pending", "Shipping", "Paid", "Processed");
+        OnPropertyChanged(nameof(Pending));
+        OnPropertyChanged(nameof(Shipping));
+        OnPropertyChanged(nameof(Paid));
+        OnPropertyChanged(nameof(Processed));
     }
 
     private bool pending;

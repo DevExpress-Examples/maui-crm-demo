@@ -1,13 +1,11 @@
 ﻿using System.Collections.ObjectModel;
-
-using DevExpress.Maui.Core;
-
 using CrmDemo.DataLayer;
 using CrmDemo.DataModel.Models;
+using DevExpress.Maui.Mvvm;
 
 namespace CrmDemo.ViewModels.Dashboards;
 
-public class OrdersByStateViewModel : BindableBase {
+public class OrdersByStateViewModel : DXObservableObject {
     private CrmContext crmContext;
     private List<Order> allOrders;
     private TrafficChannel selectedTrafficChannel;
@@ -26,7 +24,7 @@ public class OrdersByStateViewModel : BindableBase {
         get => segmentOrders;
         set {
             segmentOrders = value;
-            RaisePropertyChanged(nameof(SegmentOrders));
+            OnPropertyChanged(nameof(SegmentOrders));
         }
     }
     public OrdersByStateViewModel() {

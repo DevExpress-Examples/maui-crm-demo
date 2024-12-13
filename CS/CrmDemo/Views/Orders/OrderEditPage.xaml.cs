@@ -15,7 +15,6 @@ public partial class OrderEditPage : ContentPage {
 
     public OrderEditPage() {
         InitializeComponent();
-
     }
     
 #if IOS

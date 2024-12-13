@@ -1,34 +1,54 @@
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:dx="http://schemas.devexpress.com/maui"
-             x:Class="CrmDemo.Views.Customers.CustomersFilterForm">
+<ContentView
+    x:Class="CrmDemo.Views.Customers.CustomersFilterForm"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui">
     <ContentView.Resources>
         <Style TargetType="dx:FormItemBase">
             <Setter Property="ImageColor" Value="{dx:ThemeColor Key=OnSurfaceVariant}" />
         </Style>
     </ContentView.Resources>
     <VerticalStackLayout>
-        <dx:FilterRadioListPickerItem FieldName="FullName"
-                                       Text="Name"
-                                       ShowValuesOutOfFilter="true"
-                                       ShowValueCounts="false"
-                                       ShowRadioButtons="false"
-                                       ImageSource="noavatar"
-                                       PickerTitle="Name" />
-        <dx:FilterNumericRangeItem Text="Orders Total" FieldName="OrdersAmount" EditorDisplayFormat="c0"/>
-        <dx:FilterRadioListPickerItem FieldName="City"
-                                       Text="City"
-                                       PickerTitle="City"
-                                       ShowValuesOutOfFilter="false"
-                                       ShowValueCounts="false"
-                                       ShowRadioButtons="false"
-                                       ImageSource="filteringui_location" />
-        <dx:FilterRadioListPickerItem FieldName="Company"
-                                       Text="Company"
-                                       ShowValuesOutOfFilter="false"
-                                       ShowValueCounts="false"
-                                       ImageSource="editorscompany"
-                                       ShowRadioButtons="false" />
-        <dx:FilterCheckItem Text="Has Unpaid Orders" FieldName="HasUnpaidOrders"/>
+        <dx:FilterRadioListPickerItem
+            FieldName="FullName"
+            Text="Name"
+            ShowValuesOutOfFilter="true"
+            ShowValueCounts="false"
+            ShowRadioButtons="false"
+            ImageSource="noavatar"
+            PickerTitle="Name"
+            ShowSeparator="False" />
+
+        <dx:FilterNumericRangeSliderItem
+            FieldName="OrdersAmount"
+            Text="Orders Total"
+            DisplayFormat="c0"
+            ValueStep="100"
+            ShowEditors="False"
+            ShowSeparator="False" />
+
+        <dx:FilterRadioListPickerItem
+            FieldName="City"
+            Text="City"
+            PickerTitle="City"
+            ShowValuesOutOfFilter="false"
+            ShowValueCounts="false"
+            ShowRadioButtons="false"
+            ImageSource="filteringui_location"
+            ShowSeparator="False" />
+
+        <dx:FilterRadioListPickerItem
+            FieldName="Company"
+            Text="Company"
+            ShowValuesOutOfFilter="false"
+            ShowValueCounts="false"
+            ImageSource="editorscompany"
+            ShowRadioButtons="false"
+            ShowSeparator="True" />
+
+        <dx:FilterCheckItem
+            FieldName="HasUnpaidOrders"
+            Text="Has Unpaid Orders"
+            ShowSeparator="False" />
     </VerticalStackLayout>
 </ContentView>

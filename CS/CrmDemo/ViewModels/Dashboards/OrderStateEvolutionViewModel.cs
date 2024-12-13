@@ -1,10 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using Microsoft.EntityFrameworkCore;
-
-using DevExpress.Maui.Core;
-
 using CrmDemo.DataLayer;
 using CrmDemo.DataModel.Models;
+using DevExpress.Maui.Mvvm;
 
 namespace CrmDemo.ViewModels.Dashboards;
 
@@ -28,14 +26,14 @@ public class Segment {
     public Color Color { get; set; }
 }
 
-public class OrdersStateEvolutionViewModel : BindableBase {
+public class OrdersStateEvolutionViewModel : DXObservableObject {
     private ObservableCollection<StateRevenue> dataItems;
 
     public ObservableCollection<StateRevenue> DataItems {
         get => dataItems;
         set {
             dataItems = value;
-            RaisePropertyChanged();
+            OnPropertyChanged();
         }
     }
 

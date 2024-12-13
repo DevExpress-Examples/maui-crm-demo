@@ -1,9 +1,9 @@
 ﻿using System.Collections.ObjectModel;
-using DevExpress.Maui.Core;
+using DevExpress.Maui.Mvvm;
 
 namespace CrmDemo.ViewModels.Products;
 
-public class ProductDetailsViewModel : BindableBase {
+public class ProductDetailsViewModel : DXObservableObject {
     public ObservableCollection<DateSales> Sales { get; set; }
     public ProductDetailsViewModel() {
         Sales = new ObservableCollection<DateSales>() {

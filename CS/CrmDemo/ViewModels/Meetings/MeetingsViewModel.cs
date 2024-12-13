@@ -1,14 +1,13 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-
-using DevExpress.Maui.Core;
+using DevExpress.Maui.Mvvm;
 using CrmDemo.DataLayer;
 using CrmDemo.DataModel.Models;
 using CrmDemo.ViewModels.Common;
 
 namespace CrmDemo.ViewModels.Meetings;
 
-public class MeetingsViewModel : BindableBase, IQueryAttributable {
+public class MeetingsViewModel : DXObservableObject, IQueryAttributable {
     
 
     private UserSessionService userSessionService;
@@ -26,7 +25,7 @@ public class MeetingsViewModel : BindableBase, IQueryAttributable {
         }
         set {
             calendarSelectedDate = value;
-            RaisePropertyChanged();
+            OnPropertyChanged();
             SelectedDateMeetings = Meetings?.Where(meeting => meeting.StartTime.Date == calendarSelectedDate.Date);
         }
     }
@@ -36,7 +35,7 @@ public class MeetingsViewModel : BindableBase, IQueryAttributable {
         }
         set {
             isSimpleView = value;
-            RaisePropertyChanged();
+            OnPropertyChanged();
         }
     }
     public ICommand SwitchViewCommand { get; set; }
@@ -46,14 +45,14 @@ public class MeetingsViewModel : BindableBase, IQueryAttributable {
         }
         set {
             selectedDateMeetings = value;
-            RaisePropertyChanged();
+            OnPropertyChanged();
         }
     }
     public ObservableCollection<Meeting> Meetings {
         get => meetings;
         set {
             meetings = value;
-            RaisePropertiesChanged(nameof(Meetings));
+            OnPropertyChanged(nameof(Meetings));
         }
     }
 
@@ -68,7 +67,7 @@ public class MeetingsViewModel : BindableBase, IQueryAttributable {
         IsSimpleView = !IsSimpleView;
     }
     public void SaveChanges() {
-        Employee currentEmployee = (Employee)crmContext.Find(typeof(Employee), userSessionService.CurrentUserId);
+        Employee currentEmployee = (Employee)crmContext.Find<Employee>(userSessionService.CurrentUserId);
         foreach (Meeting meeting in crmContext.Meetings.Local) {
             if (meeting.Id == 0) {
                 meeting.Employees.Add(currentEmployee);

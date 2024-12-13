@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-
-using DevExpress.Maui.Core;
+using DevExpress.Maui.Mvvm;
 using CrmDemo.DataLayer;
 using CrmDemo.DataModel.Models;
 using CrmDemo.ViewModels.Common;
@@ -12,7 +11,7 @@ public class CheckListItemInfo {
     public Customer Customer { get; init; }
 }
 
-public class HomeViewModel : BindableBase {
+public class HomeViewModel : DXObservableObject {
     
 
     private readonly UserSessionService userSessionService;
@@ -32,14 +31,14 @@ public class HomeViewModel : BindableBase {
         get => newOrdersCount;
         set {
             newOrdersCount = value;
-            RaisePropertyChanged(nameof(NewOrdersCount));
+            OnPropertyChanged(nameof(NewOrdersCount));
         }
     }
     public IEnumerable<Order> NewOrders {
         get => newOrders;
         set {
             newOrders = value;
-            RaisePropertyChanged(nameof(NewOrders));
+            OnPropertyChanged(nameof(NewOrders));
         }
     }
 
@@ -47,21 +46,21 @@ public class HomeViewModel : BindableBase {
         get => assignedTasksCount;
         set {
             assignedTasksCount = value;
-            RaisePropertyChanged(nameof(AssignedTasksCount));
+            OnPropertyChanged(nameof(AssignedTasksCount));
         }
     }
     public int CompletedAssignedTasksCount {
         get => completedAssignedTasksCount;
         set {
             completedAssignedTasksCount = value;
-            RaisePropertyChanged(nameof(CompletedAssignedTasksCount));
+            OnPropertyChanged(nameof(CompletedAssignedTasksCount));
         }
     }
     public List<CheckListItemInfo> Tasks {
         get => tasks;
         set {
             tasks = value;
-            RaisePropertyChanged(nameof(Tasks));
+            OnPropertyChanged(nameof(Tasks));
         }
     }
 
@@ -69,14 +68,14 @@ public class HomeViewModel : BindableBase {
         get => meetingsAllCount;
         set {
             meetingsAllCount = value;
-            RaisePropertyChanged(nameof(MeetingsAllCount));
+            OnPropertyChanged(nameof(MeetingsAllCount));
         }
     }
     public IEnumerable<Meeting> MeetingsToday {
         get => meetingsToday;
         set {
             meetingsToday = value;
-            RaisePropertiesChanged(nameof(MeetingsToday));
+            OnPropertyChanged(nameof(MeetingsToday));
         }
     }
 
