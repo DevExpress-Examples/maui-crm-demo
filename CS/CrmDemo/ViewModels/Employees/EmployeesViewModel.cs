@@ -19,11 +19,11 @@ public class EmployeesViewModel : CrmViewModelBase<Employee> {
     }
 
     private async void NavigateToRelatedOrders(Employee currentEmployee) {
-        var navigationParameter = new Dictionary<string, object> { { "ParentEmployeeId", currentEmployee.Id } };
+        var navigationParameter = new Dictionary<string, object> { { "EmployeeFullName", currentEmployee.FullName } };
         await Shell.Current.GoToAsync("relatedOrders", navigationParameter);
     }
     private async void NavigateToRelatedCustomers(Employee currentEmployee) {
-        var navigationParameter = new Dictionary<string, object> { { "ParentEmployeeId", currentEmployee.Id } };
+        var navigationParameter = new Dictionary<string, object> { { "EmployeeFullName", currentEmployee.FullName } };
         await Shell.Current.GoToAsync("customers", navigationParameter);
     }
 }

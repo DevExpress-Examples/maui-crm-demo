@@ -11,7 +11,7 @@ namespace CrmDemo.ViewModels.Dashboards;
 public class OrdersByEmployeeViewModel : DXObservableObject {
     private static readonly CompositeFormat compositeFormat = CompositeFormat.Parse("{0:M} - {1:M}");
     private int processedOrdersCount;
-    private Employee selectedEmployee;
+    private int selectedEmployeeId;
     private DateTime startDate = DateTime.Now.Date.AddMonths(-1);
     private DateTime endDate = DateTime.Now.Date;
     private int totalOrdersCount;
@@ -20,19 +20,17 @@ public class OrdersByEmployeeViewModel : DXObservableObject {
     private int paidOrdersCount;
     private float selectionCompletedOrdersProgress;
 
-    public string EmptySelectionString = "All Employees";
+    public const string EmptySelectionString = "All Employees";
     public string PeriodText => String.Format(CultureInfo.CurrentCulture, compositeFormat, StartDate, EndDate);
-    public Employee SelectedEmployee {
-        get => selectedEmployee;
+    public int SelectedEmployeeId {
+        get => selectedEmployeeId;
         set {
-            selectedEmployee = value;
+            selectedEmployeeId = value;
             OnPropertyChanged(nameof(SelectedComponentString));
             Update();
         }
     }
-    public string SelectedComponentString {
-        get => (selectedEmployee != null) ? $"{selectedEmployee.FirstName} {selectedEmployee.LastName}" : EmptySelectionString;
-    }
+    public string SelectedComponentString { get; set; } = EmptySelectionString;
     public int PendingOrdersCount {
         get => pendingOrdersCount;
         set {
@@ -121,6 +119,7 @@ public class OrdersByEmployeeViewModel : DXObservableObject {
                 )
             );
             EmployeesProcessedOrdersCollection = new ObservableCollection<EmployeeProcessedOrdersData>(data);
+            var selectedEmployee = employees.FirstOrDefault(it => it.Id == SelectedEmployeeId);
             if (selectedEmployee == null) {
                 PendingOrdersCount = employees.Sum(it => it.AssociatedOrders.Count(x => x.OrderDate >= StartDate && x.OrderDate <= EndDate && x.State == OrderState.Pending));
                 ShippingOrdersCount = employees.Sum(it => it.AssociatedOrders.Count(x => x.OrderDate >= StartDate && x.OrderDate <= EndDate && x.State == OrderState.Shipping));

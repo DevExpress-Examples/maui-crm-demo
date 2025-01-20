@@ -1,18 +1,16 @@
-using System.Windows.Input;
-using DevExpress.Drawing;
+﻿using System.Windows.Input;
 using DevExpress.Maui.Mvvm;
 using DevExpress.Office.DigitalSignatures;
 using DevExpress.Pdf;
 using CrmDemo.Helpers;
-using SkiaSharp;
-using SkiaSharp.Views.Maui.Controls;
+using DevExpress.Maui.Pdf;
 
 namespace CrmDemo.ViewModels.Orders;
 
 [QueryProperty(nameof(DocumentFullPath), "documentFullPath")]
 public class OrderPdfPreviewViewModel : DXObservableObject {
     #region fields
-    ImageSource pdfPreview;
+    PdfDocumentSource pdfPreview;
     const string defaultCertificateName = "pfxCertificate.pfx";
     const string defaultCertificatePassword = "123";
     string certificateFullPath;
@@ -30,8 +28,7 @@ public class OrderPdfPreviewViewModel : DXObservableObject {
             UpdatePreview();
         }
     }
-
-    public ImageSource PdfPreview {
+    public PdfDocumentSource PdfPreview {
         get {
             return pdfPreview;
         }
@@ -59,7 +56,7 @@ public class OrderPdfPreviewViewModel : DXObservableObject {
         InitFiles();
 
         SignPdfCommand = new Command<byte[]>(SignPdf);
-        
+        //OpenFileCommand = new Command(OpenFile);
         SharePdfCommand = new Command(SharePdf);
         OpenSignatureViewCommand = new Command(OpenSignatureView);
         CloseSignatureViewCommand = new Command(CloseSignatureView);
@@ -79,7 +76,7 @@ public class OrderPdfPreviewViewModel : DXObservableObject {
 
     async void InitFiles() {
         certificateFullPath = await FileHelper.EnsureAssetInAppDataAsync(defaultCertificateName);
-        
+        //documentFullPath = await CopyWorkingFilesToAppData(defaultDocumentName);
     }
 
     async void SignPdf(byte[] signatureImage) {
@@ -122,39 +119,29 @@ public class OrderPdfPreviewViewModel : DXObservableObject {
         return userSignature;
     }
     void UpdatePreview() {
-        using Stream pdfStream = File.OpenRead(DocumentFullPath);
-        var processor = new PdfDocumentProcessor() { RenderingEngine = PdfRenderingEngine.Skia };
-        processor.LoadDocument(pdfStream);
-        DXBitmap image = processor.CreateDXBitmap(1, 1200);
-
-        using MemoryStream previewImageStream = new MemoryStream();
-        image.Save(previewImageStream, DXImageFormat.Png);
-        previewImageStream.Seek(0, SeekOrigin.Begin);
-        var img = SKBitmap.Decode(previewImageStream);
-
-        PdfPreview = (SKBitmapImageSource)img;
+        PdfPreview = PdfDocumentSource.FromFile(DocumentFullPath);
     }
-    
-    
-    
-    
-    
-    
+    //private async void OpenFile() {
+    //    await PickAndShow(new PickOptions {
+    //        PickerTitle = "Select a PDF file",
+    //        FileTypes = FilePickerFileType.Pdf
+    //    });
+    //}
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    //public async Task PickAndShow(PickOptions options) {
+    //    try {
+    //        var result = await FilePicker.Default.PickAsync(options);
+    //        if (result != null) {
+    //            if (result.FileName.EndsWith("pdf", StringComparison.OrdinalIgnoreCase)) {
+    //                var stream = await result.OpenReadAsync();
+    //                documentFullPath = result.FullPath;
+    //                UpdatePreview();
+    //            }
+    //        }
+    //    }
+    //    catch {
+    //        // The user canceled or something went wrong
+    //    }
 
-    
+    //}
 }

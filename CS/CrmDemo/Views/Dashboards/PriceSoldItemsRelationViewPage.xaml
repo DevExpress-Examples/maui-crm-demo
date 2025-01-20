@@ -1,16 +1,17 @@
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:dx="http://schemas.devexpress.com/maui"
-             x:Class="CrmDemo.Views.Dashboards.PriceSoldItemsRelationViewPage"
-             xmlns:dshViewModels="clr-namespace:CrmDemo.ViewModels.Dashboards"
-             Title="Price Sold Items Relation">
+<ContentPage
+    x:Class="CrmDemo.Views.Dashboards.PriceSoldItemsRelationViewPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    xmlns:dshViewModels="clr-namespace:CrmDemo.ViewModels.Dashboards"
+    Title="Price Sold Items Relation">
     <ContentPage.BindingContext>
-        <dshViewModels:PriceSoldItemsRelationViewModel/>
+        <dshViewModels:PriceSoldItemsRelationViewModel />
     </ContentPage.BindingContext>
     <Grid>
-        <dx:ChartView x:Name="bubbleChart" SelectionKind="Point" SelectionMode="Single">
+        <dx:ChartView SelectionKind="Point" SelectionMode="Single">
             <dx:ChartView.Series>
-                <dx:BubbleSeries x:Name="bubbleSeries">
+                <dx:BubbleSeries>
                     <dx:BubbleSeries.Data>
                         <dx:SeriesDataAdapter DataSource="{Binding DataItems}" ArgumentDataMember="Price">
                             <dx:ValueDataMember Type="Value" Member="SoldItems" />
@@ -20,25 +21,28 @@
                     <dx:BubbleSeries.PointColorizer>
                         <dx:ColorEachPointColorizer />
                     </dx:BubbleSeries.PointColorizer>
+                    <dx:BubbleSeries.HintOptions>
+                        <dx:SeriesHintOptions PointTextPattern="Sold: {V}, Revenue: {W$$}"/>
+                    </dx:BubbleSeries.HintOptions>
                 </dx:BubbleSeries>
             </dx:ChartView.Series>
 
             <dx:ChartView.AxisX>
                 <dx:NumericAxisX>
                     <dx:NumericAxisX.Title>
-                        <dx:AxisTitle Text="Price"/>
+                        <dx:AxisTitle Text="Price" />
                     </dx:NumericAxisX.Title>
+                    <dx:NumericAxisX.Label>
+                        <dx:AxisLabel TextFormat="#$" />
+                    </dx:NumericAxisX.Label>
                 </dx:NumericAxisX>
             </dx:ChartView.AxisX>
 
             <dx:ChartView.AxisY>
-                <dx:NumericAxisY>
+                <dx:NumericAxisY AlwaysShowZeroLevel="False" AutoRangeMode="VisibleValues">
                     <dx:NumericAxisY.Title>
-                        <dx:AxisTitle Text="Sold Items"/>
+                        <dx:AxisTitle Text="Sold Items" />
                     </dx:NumericAxisY.Title>
-                    <dx:NumericAxisY.Range>
-                        <dx:NumericRange Min="20000" Max="21000" />
-                    </dx:NumericAxisY.Range>
                 </dx:NumericAxisY>
             </dx:ChartView.AxisY>
 

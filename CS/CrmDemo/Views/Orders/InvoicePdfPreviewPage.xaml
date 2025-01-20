@@ -15,8 +15,7 @@
         <viewModels:OrderPdfPreviewViewModel/>
     </ContentPage.BindingContext>
     <Grid>
-        <dx:ImageEdit Source="{Binding PdfPreview}" x:Name="previewImage" CropAreaBorderColor="Transparent" ScrimColor="Transparent" CropAreaOffset="0" MaxScaleFactor="2"/>
-
+        <dx:PdfViewer DocumentSource="{Binding PdfPreview}"/>
         <dx:DXButton Style="{StaticResource fabStyle}" Icon="signature" Command="{Binding OpenSignatureViewCommand}" HorizontalOptions="End" VerticalOptions="End"/>
         <dx:DXPopup x:Name="signatureDrawerPopup" IsOpen="{Binding IsSignatureViewOpened, Mode=TwoWay}" ScrimColor="#50505050" AllowScrim="true">
             <Grid RowDefinitions="*,Auto">

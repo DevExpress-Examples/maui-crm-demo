@@ -4,6 +4,7 @@ using DevExpress.Maui.DataGrid;
 using CrmDemo.DataLayer;
 using CrmDemo.DataModel.Models;
 using CrmDemo.ViewModels.Customers;
+using CommunityToolkit.Maui.Alerts;
 
 namespace CrmDemo.Views.Customers;
 
@@ -97,8 +98,13 @@ public partial class CustomerDetailPage : ContentPage {
     }
     async void CopyPhoneClick(object sender, EventArgs e) {
         await Clipboard.Default.SetTextAsync(Item.Phone);
+        await ShowCopyToast();
     }
     async void CopyEmailClick(object sender, EventArgs e) {
         await Clipboard.Default.SetTextAsync(Item.Email);
+        await ShowCopyToast();
+    }
+    Task ShowCopyToast() {
+        return Toast.Make("Copied to clipboard").Show();
     }
 }

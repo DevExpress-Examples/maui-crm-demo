@@ -16,7 +16,11 @@
                     </dx:SeriesTemplateAdapter.ValueDataMembers>
                     <dx:SeriesTemplateAdapter.SeriesTemplate>
                         <DataTemplate>
-                            <dx:BarSeries DisplayName="{Binding Path=SeriesDataMemberValue}" />
+                            <dx:BarSeries DisplayName="{Binding Path=SeriesDataMemberValue}">
+                                <dx:BarSeries.HintOptions>
+                                    <dx:SeriesHintOptions PointTextPattern="Revenue: {V$$#K}"/>
+                                </dx:BarSeries.HintOptions>
+                            </dx:BarSeries>
                         </DataTemplate>
                     </dx:SeriesTemplateAdapter.SeriesTemplate>
                 </dx:SeriesTemplateAdapter>

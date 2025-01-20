@@ -22,19 +22,21 @@ namespace CrmDemo {
     public static class MauiProgram {
         public static MauiApp CreateMauiApp() {
             ThemeManager.ApplyThemeToSystemBars = true;
+            ThemeManager.Theme = new Theme(ThemeSeedColor.TealGreen);
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
                 .UseDevExpress(useLocalization: true)
-                .UseDevExpressDataGridExport()
                 .UseDevExpressTreeView()
                 .UseDevExpressGauges()
                 .UseDevExpressCharts()
                 .UseDevExpressScheduler()
+                .UseDevExpressDataGridExport()
                 .UseDevExpressDataGrid()
                 .UseDevExpressEditors()
                 .UseDevExpressCollectionView()
                 .UseDevExpressControls()
+                .UseDevExpressPdf()
                 .RegisterViewModels()
                 .RegisterViews()
                 .RegisterAppServices()

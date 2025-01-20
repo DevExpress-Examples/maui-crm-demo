@@ -84,7 +84,17 @@
     </ContentPage.ToolbarItems>
 
     <Grid RowDefinitions="Auto, *" IgnoreSafeArea="{dx:OnOrientation Landscape=False, Portrait=True}">
-        <dx:FilterChipGroup ItemsSource="{Binding PredefinedFilters}" SelectedItems="{Binding SelectedFilters, Mode=TwoWay}" x:Name="filtersChipGroup" IsMultiline="False" DisplayMember="DisplayText" Padding="10" Grid.Row="0"/>
+        <dx:PredefinedFilterCheckedChipGroupItem 
+            Context="{Binding Source={x:Reference collectionView}, Path=FilteringContext}" 
+            IsMultiline="False" 
+            FieldName="RegistrationDate" 
+            ShowSeparator="False"
+            Padding="10" 
+            Grid.Row="0">
+            <dx:PredefinedFilter Text="Assigned to Me" FilterExpression="{Binding AssignedToMeFilterExpression}"/>
+            <dx:PredefinedFilter Text="New" FilterExpression="IsThisWeek([RegistrationDate])"/>
+            <dx:PredefinedFilter Text="Orders > $200k" FilterExpression="[OrdersAmount] > 200000"/>
+        </dx:PredefinedFilterCheckedChipGroupItem>
 
         <dx:DXCollectionView x:Name="collectionView"
                 Grid.Row="1"
@@ -95,8 +105,8 @@
                 DetailFormTemplate="{DataTemplate viewsCust:CustomerDetailPage}"
                 DetailEditFormTemplate="{DataTemplate viewsCust:CustomerEditPage}"
                 DetailNewItemFormTemplate="{DataTemplate viewsCust:CustomerEditPage}"
-                FilteringUITemplate="{DataTemplate viewsCust:CustomersFilterForm}"
-                FilterString="{Binding Filter}" UseRippleEffect="True"
+                FilteringUITemplate="{DataTemplate viewsCust:CustomersFilterForm}" 
+                UseRippleEffect="True"
                 CreateDetailFormViewModel="OnCreateDetailFormViewModel"
                 GroupItemSeparatorThickness="0"
                 IsPullToRefreshEnabled="True"

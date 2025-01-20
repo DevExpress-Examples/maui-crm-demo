@@ -85,14 +85,6 @@ public partial class MeetingsPage : ContentPage {
             return;
         SaveChanges();
     }
-    private void OnSchedulerItemCollectionChanged(object sender, ItemsCollectionChangedEventArgs e) {
-        var storage = (SchedulerDataStorage)sender;
-        if (storage.Parent == null)
-            return;
-        if (e.ItemType != ItemType.AppointmentItem)
-            return;
-        SaveChanges();
-    }
     private void OnCalendarCustomDayCellAppearance(object sender, DevExpress.Maui.Editors.CustomSelectableCellAppearanceEventArgs e) {
         if (e.Date == ((MeetingsViewModel)BindingContext).CalendarSelectedDate.Date) {
             e.EllipseBackgroundColor = ThemeManager.Theme.Scheme.Primary;

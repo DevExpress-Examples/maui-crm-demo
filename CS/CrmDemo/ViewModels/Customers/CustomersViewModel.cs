@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows.Input;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,10 +11,7 @@ namespace CrmDemo.ViewModels.Customers;
 public class CustomersViewModel : CrmViewModelBase<Customer>, IQueryAttributable {
     private ObservableCollection<Employee> employees;
     private ObservableCollection<string> companies;
-    private ObservableCollection<FilterItem> predefinedFilters;
-    private string filter;
     private bool isAdvancedItemRepresentation;
-    private BindingList<FilterItem> pendingSelectedFilters;
 
     public ObservableCollection<Employee> Employees {
         get => employees;
@@ -31,21 +27,6 @@ public class CustomersViewModel : CrmViewModelBase<Customer>, IQueryAttributable
             OnPropertyChanged(nameof(Companies));
         }
     }
-    public ObservableCollection<FilterItem> PredefinedFilters {
-        get => predefinedFilters;
-        set {
-            predefinedFilters = value;
-            OnPropertyChanged(nameof(PredefinedFilters));
-        }
-    }
-    public BindingList<FilterItem> SelectedFilters { get; set; }
-    public string Filter {
-        get => filter;
-        set {
-            filter = value;
-            OnPropertyChanged(nameof(Filter));
-        }
-    }
     public ICommand NavigateToRelatedOrdersCommand { get; }
     public ICommand SwitchItemViewCommand { get; set; }
     public bool IsAdvancedItemRepresentation {
@@ -58,12 +39,9 @@ public class CustomersViewModel : CrmViewModelBase<Customer>, IQueryAttributable
     public CustomersViewModel(UserSessionService sessionService) : base(sessionService) {
         NavigateToRelatedOrdersCommand = new Command<Customer>(NavigateToRelatedOrders);
         SwitchItemViewCommand = new Command(SwitchItemView);
-        PopulatePredefinedFilters();
-        SelectedFilters = new BindingList<FilterItem>();
-        SelectedFilters.ListChanged += SelectedFiltersChanged;
     }
     public async void NavigateToRelatedOrders(Customer currentCustomer) {
-        var navigationParameter = new Dictionary<string, object> { { "ParentCustomerId", currentCustomer.Id } };
+        var navigationParameter = new Dictionary<string, object> { { "CustomerFullName", currentCustomer.FullName } };
         await Shell.Current.GoToAsync("relatedOrders", navigationParameter);
     }
 
@@ -80,44 +58,27 @@ public class CustomersViewModel : CrmViewModelBase<Customer>, IQueryAttributable
         Employees = new ObservableCollection<Employee>(crmContext.Employees.Include(e => e.Avatar).ToList());
     }
 
-    private void PopulatePredefinedFilters() {
-        PredefinedFilters = new ObservableCollection<FilterItem>() {
-            new FilterItem(){ DisplayText= "Assigned to Me", Filter = $"[Employee.FullName] = '{SessionService.CurrentUserFullName}'" },
-            new FilterItem(){ DisplayText= "New", Filter = "IsThisWeek([RegistrationDate])" },
-            new FilterItem(){ DisplayText= "Orders > $200k", Filter = "[OrdersAmount] > 200000" },
-        };
-        if (pendingSelectedFilters != null && pendingSelectedFilters.Count > 0) {
-            foreach (var item in pendingSelectedFilters) {
-                PredefinedFilters.Insert(0, item);
-                SelectedFilters.Add(item);
-            }
-        }
-        pendingSelectedFilters = null;
-    }
     private void SwitchItemView(object obj) {
         IsAdvancedItemRepresentation = !IsAdvancedItemRepresentation;
     }
-    private void SelectedFiltersChanged(object sender, ListChangedEventArgs e) {
-        if (SelectedFilters.Count > 0) {
-            Filter = string.Join(" And ", SelectedFilters.Select(f => f.Filter));
-        } else {
-            Filter = string.Empty;
+
+    private string employeeFullName;
+    void IQueryAttributable.ApplyQueryAttributes(IDictionary<string, object> query) {
+        object parameter;
+        if (query.TryGetValue("CustomerId", out parameter)) {
+            pendingNavigationCustomerId = (int)parameter;
+        }
+        if (query.TryGetValue("EmployeeFullName", out parameter)) {
+            employeeFullName = (string)parameter;
         }
     }
 
-    void IQueryAttributable.ApplyQueryAttributes(IDictionary<string, object> query) {
-        object parameter;
-        if (query.TryGetValue("ParentEmployeeId", out parameter)) {
-            FilterItem item = new FilterItem() { Filter = $"[Employee.Id] = '{parameter}'", DisplayText = $"Employee.Id = {parameter}" };
-            if (PredefinedFilters is null) {
-                pendingSelectedFilters = new() {
-                    item,
-                };
-            } else {
-                SelectedFilters.Add(item);
-            }
-        } else if (query.TryGetValue("CustomerId", out parameter)) {
-            pendingNavigationCustomerId = (int)parameter;
+    protected override void OnApplyData(List<Customer> list) {
+        if (!string.IsNullOrEmpty(employeeFullName)) {
+            Items = new ObservableCollection<Customer>(list.Where(x => x.Employee?.FullName == employeeFullName));
+            return;
         }
+
+        base.OnApplyData(list);
     }
 }

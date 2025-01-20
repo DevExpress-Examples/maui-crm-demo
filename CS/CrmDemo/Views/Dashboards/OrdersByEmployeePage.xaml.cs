@@ -26,9 +26,11 @@ public partial class OrdersByEmployeePage : ContentPage {
 
     private void ChartView_SelectionChanged(object sender, DevExpress.Maui.Charts.SelectionChangedEventArgs e) {
         if (e.SelectedObjects.Count > 0) {
-            viewModel.SelectedEmployee = ((EmployeeProcessedOrdersData)((DataSourceKey)e.SelectedObjects[0]).DataObject).Employee;
+            viewModel.SelectedComponentString = ((EmployeeProcessedOrdersData)((DataSourceKey)e.SelectedObjects[0]).DataObject).Employee.FullName;
+            viewModel.SelectedEmployeeId = ((EmployeeProcessedOrdersData)((DataSourceKey)e.SelectedObjects[0]).DataObject).Employee.Id;
         } else {
-            viewModel.SelectedEmployee = null;
+            viewModel.SelectedComponentString = OrdersByEmployeeViewModel.EmptySelectionString;
+            viewModel.SelectedEmployeeId = -1;
         }
     }
     private void OnPeriodButtonTap(object sender, DevExpress.Maui.Core.DXTapEventArgs e) {

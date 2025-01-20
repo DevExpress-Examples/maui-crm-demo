@@ -1,9 +1,10 @@
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using DevExpress.Maui.Mvvm;
 using CrmDemo.DataLayer;
 using CrmDemo.DataModel.Models;
 using CrmDemo.ViewModels.Common;
+using System.Collections.Specialized;
 
 namespace CrmDemo.ViewModels.Meetings;
 
@@ -81,6 +82,34 @@ public class MeetingsViewModel : DXObservableObject, IQueryAttributable {
     private void LoadData() {
         crmContext = new CrmContext();
         Meetings = new ObservableCollection<Meeting>(crmContext.Meetings.ToList());
+        Meetings.CollectionChanged += OnCollectionChanged;
+    }
+
+    void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
+        switch (e.Action) {
+            case NotifyCollectionChangedAction.Add:
+                if (e.NewItems == null)
+                    return;
+
+                foreach (object item in e.NewItems)
+                    crmContext.Meetings.Add((Meeting)item);
+                break;
+            case NotifyCollectionChangedAction.Remove:
+                if (e.OldItems == null)
+                    return;
+
+                foreach (object item in e.OldItems)
+                    crmContext.Meetings.Remove((Meeting)item);
+                break;
+            case NotifyCollectionChangedAction.Reset:
+                if (e.NewItems == null || e.OldItems == null)
+                    return;
+
+                foreach (object item in e.OldItems)
+                    crmContext.Meetings.Remove((Meeting)item);
+                break;
+        }
+        SaveChanges();
     }
     void IQueryAttributable.ApplyQueryAttributes(IDictionary<string, object> query) {
         object parameter;

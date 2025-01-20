@@ -8,6 +8,7 @@ using CrmDemo.DataModel.Models;
 using Microsoft.EntityFrameworkCore;
 using CrmDemo.ViewModels.Customers;
 using CrmDemo.DataLayer;
+using System.Globalization;
 
 namespace CrmDemo.Views.Customers;
 
@@ -98,5 +99,17 @@ public partial class CustomerEditCoreView : ContentView {
 
         editorPage.Handler.DisconnectHandler();
         OnSaveItemClicked(null, null);
+    }
+}
+
+public class ValueToIsVisibleConverter : IValueConverter {
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
+        if (value is string stringValue)
+            return !string.IsNullOrEmpty(stringValue);
+
+        return value != null;
+    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
+        throw new NotImplementedException();
     }
 }

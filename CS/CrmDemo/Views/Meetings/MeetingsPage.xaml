@@ -10,8 +10,7 @@
         <toolkit:InvertedBoolConverter x:Key="invertedBoolConverter"/>
         <local:BoolToToolbarIconConverter x:Key="boolToToolbarIconConverter"/>
         <dx:SchedulerDataStorage x:Name="dataStorage" x:Key="schedulerDataStorage"
-            ItemPropertyChanged="OnSchedulerItemPropertyChanged"
-            ItemsCollectionChanged="OnSchedulerItemCollectionChanged">
+            ItemPropertyChanged="OnSchedulerItemPropertyChanged">
             <dx:SchedulerDataStorage.DataSource>
                 <dx:DataSource AppointmentsSource="{Binding Meetings}">
                     <dx:DataSource.AppointmentMappings>

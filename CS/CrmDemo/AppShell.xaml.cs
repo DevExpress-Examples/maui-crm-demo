@@ -1,4 +1,4 @@
-using CrmDemo.DataLayer;
+﻿using CrmDemo.DataLayer;
 using CrmDemo.Views;
 using CrmDemo.Views.Customers;
 using CrmDemo.Views.Dashboards;
@@ -31,12 +31,17 @@ public partial class AppShell : Shell {
 
 #if ANDROID
     private bool isNavigation;
+    private IList<string> openedPages = new List<string>();
     private bool IsNavigationViaFlyout(ShellNavigationState target) {
         return target.Location.OriginalString.StartsWith("//");
     }
     protected override async void OnNavigating(ShellNavigatingEventArgs args) {
         base.OnNavigating(args);
-        if (!isNavigation && IsNavigationViaFlyout(args.Target)) {
+        bool isNavigationViaFlyout = IsNavigationViaFlyout(args.Target);
+        if (openedPages.Contains(args.Target.Location.OriginalString) && isNavigationViaFlyout)
+            return;
+
+        if (!isNavigation && isNavigationViaFlyout) {
             isNavigation = true;
             try {
                 args.Cancel();
@@ -44,6 +49,7 @@ public partial class AppShell : Shell {
                 await GoToAsync(args.Target, false);
             } finally {
                 isNavigation = false;
+                openedPages.Add(args.Target.Location.OriginalString);
             }
         }
     }

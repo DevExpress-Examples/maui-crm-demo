@@ -13,7 +13,6 @@
         <ToolbarItem IconImageSource="export" Clicked="ExportClicked"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
-        <views:IsFilterEmptyConverter x:Key="isFilterEmptyConverter"/>
         <helpers:StateToColorConverter x:Key="stateToColorConverter"/>
         <Style TargetType="dx:DXButton" x:Key="bottomSheetActionButton">
             <Setter Property="IconPlacement" Value="Top" />
@@ -28,7 +27,21 @@
         </Style>
     </ContentPage.Resources>
     <Grid RowDefinitions="Auto, *" IgnoreSafeArea="True">
-        <dx:FilterChipGroup ItemsSource="{Binding PredefinedFilters}" SelectedItems="{Binding SelectedFilters, Mode=TwoWay}" x:Name="filtersChipGroup" IsMultiline="False" DisplayMember="DisplayText" Padding="16,8" />
+        <dx:PredefinedFilterCheckedChipGroupItem 
+            Context="{Binding Source={x:Reference collectionView}, Path=FilteringContext}" 
+            IsMultiline="False" 
+            FieldName="OrderDate" 
+            ShowSeparator="False"
+            Padding="16,8" 
+            Grid.Row="0">
+            <dx:PredefinedFilter Text="Assigned to Me" FilterExpression="{Binding AssignedToMeFilterExpression}"/>
+            <dx:PredefinedFilter Text="New" FilterExpression="IsThisWeek([OrderDate])"/>
+            <dx:PredefinedFilter Text="Amount > $3000" FilterExpression="[TotalAmount] > 3000"/>
+            <dx:PredefinedFilter Text="Pending" FilterExpression="[State] == 'Pending'"/>
+            <dx:PredefinedFilter Text="Shipping" FilterExpression="[State] == 'Shipping'"/>
+            <dx:PredefinedFilter Text="Paid" FilterExpression="[State] == 'Paid'"/>
+            <dx:PredefinedFilter Text="Processed" FilterExpression="[State] == 'Processed'"/>
+        </dx:PredefinedFilterCheckedChipGroupItem>
 
         <dx:DXCollectionView x:Name="collectionView"
                 Grid.Row="1"
@@ -39,7 +52,6 @@
                 SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
                 DetailEditFormTemplate="{DataTemplate views:OrderEditPage}"
                 DetailNewItemFormTemplate="{DataTemplate views:OrderEditPage}"
-                FilterString="{Binding Filter}"
                 Scrolled="dataGrid_Scrolled"
                 IsPullToRefreshEnabled="True"
                 IsRefreshing="{Binding IsDataLoading}"
@@ -61,7 +73,7 @@
                                 <Grid ColumnDefinitions="*, Auto">
                                     <Label Text="{Binding OrderDate, StringFormat='{0:MMMM d, yyyy}'}" FontSize="14" TextColor="{dx:ThemeColor Key=OnSurfaceVariant, Alpha=0.7}"/>
                                     <dx:DXBorder BackgroundColor="{Binding State, Converter={StaticResource stateToColorConverter}, ConverterParameter={x:Single 0.2}}" CornerRadius="100" Grid.Column="1" >
-                                        <Label Text="{Binding State}" TextColor="{Binding State, Converter={StaticResource stateToColorConverter}, ConverterParameter={x:Single 1.0}}" HorizontalOptions="Center" Padding="14, 3"/>
+                                        <Label Text="{Binding State}" TextColor="{Binding State, Converter={StaticResource stateToColorConverter}, ConverterParameter={x:Single 1.0}}" HorizontalOptions="Center" VerticalOptions="Center" Padding="14, 3"/>
                                     </dx:DXBorder>
                                 </Grid>
                             </dx:DXStackLayout>

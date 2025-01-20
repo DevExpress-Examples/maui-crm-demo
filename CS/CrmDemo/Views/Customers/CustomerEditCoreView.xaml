@@ -32,15 +32,15 @@
                         <Image Source="{Binding Avatar.ThumbnailImageSource}" WidthRequest="100" HeightRequest="100" Aspect="AspectFill"/>
                     </Grid>
                 </dx:DataFormCustomItem>
-                <dx:DataFormTextItem FieldName="FirstName" ReturnType="Next" RowOrder="1" Placeholder="First Name"/>
-                <dx:DataFormTextItem FieldName="LastName" ReturnType="Next" RowOrder="1" Placeholder="Last Name"/>
-                <dx:DataFormMaskedItem RowOrder="2" FieldName="Phone" Keyboard="Telephone" Mask="+1 (000) 000-0000" ReturnType="Next" Placeholder="Phone"/>
-                <dx:DataFormTextItem RowOrder="3" FieldName="Email" ReturnType="Next" Placeholder="Email"/>
-                <dx:DataFormComboBoxItem RowOrder="4" FieldName="Company" ReturnType="Next" Placeholder="Company" PickerShowMode="BottomSheet" ItemsSource="{Binding DataControlContext.Companies}"/>
-                <dx:DataFormTextItem RowOrder="5" FieldName="Address.Country" ReturnType="Next" Placeholder="Country" />
-                <dx:DataFormTextItem RowOrder="5" FieldName="Address.City" ReturnType="Next" Placeholder="City" />
-                <dx:DataFormTextItem FieldName="Address.Street" Placeholder="Street" ReturnType="Next"/>
-                <dx:DataFormNumericItem FieldName="Address.ZipCode" Placeholder="Zip"/>
+                <dx:DataFormTextItem FieldName="FirstName" ReturnType="Next" RowOrder="1" IsInplaceLabelFloating="True" InplaceLabelText=" First Name"/>
+                <dx:DataFormTextItem FieldName="LastName" ReturnType="Next" RowOrder="1" IsInplaceLabelFloating="True" InplaceLabelText=" Last Name"/>
+                <dx:DataFormMaskedItem RowOrder="2" FieldName="Phone" Keyboard="Telephone" Mask="(000) 000-0000" ReturnType="Next" IsInplaceLabelFloating="True" InplaceLabelText=" Phone"/>
+                <dx:DataFormTextItem RowOrder="3" FieldName="Email" ReturnType="Next" IsInplaceLabelFloating="True" InplaceLabelText=" Email"/>
+                <dx:DataFormComboBoxItem RowOrder="4" FieldName="Company" ReturnType="Next" IsInplaceLabelFloating="True" InplaceLabelText=" Company" PickerShowMode="BottomSheet" ItemsSource="{Binding DataControlContext.Companies}"/>
+                <dx:DataFormTextItem RowOrder="5" FieldName="Address.Country" ReturnType="Next" IsInplaceLabelFloating="True" InplaceLabelText=" Country" />
+                <dx:DataFormTextItem RowOrder="5" FieldName="Address.City" ReturnType="Next" IsInplaceLabelFloating="True" InplaceLabelText=" City" />
+                <dx:DataFormTextItem FieldName="Address.Street" IsInplaceLabelFloating="True" InplaceLabelText=" Street" ReturnType="Next"/>
+                <dx:DataFormNumericItem FieldName="Address.ZipCode" IsInplaceLabelFloating="True" InplaceLabelText=" Zip"/>
             </dx:DataFormView>
             
             <dx:DXButton Content="Save" Margin="16,0" Padding="0,14" Clicked="OnSaveItemClicked"/>
@@ -49,7 +49,7 @@
                 <dx:DXStackLayout>
                     <dx:DXButton Icon="gallery" ButtonType="ToolButton" IconIndent="12" FontAttributes="None" IconWidth="24" IconHeight="24" Padding="12,16" HorizontalContentAlignment="Start" Content="Select from Gallery" Tap="SelectPhotoClicked"/>
                     <dx:DXButton Icon="take_photo" ButtonType="ToolButton" IconIndent="12" FontAttributes="None" IconWidth="24" IconHeight="24" Padding="12,16" HorizontalContentAlignment="Start" Content="Take Photo" Tap="TakePhotoClicked"/>
-                    <dx:DXButton Icon="delete" ButtonType="ToolButton" IconIndent="12" FontAttributes="None"  IconWidth="24" IconHeight="24" Padding="12,16" HorizontalContentAlignment="Start" Content="Remove Photo" Tap="DeletePhotoClicked"/>
+                    <dx:DXButton IsEnabled="{Binding Item.Avatar, Converter={local:ValueToIsVisibleConverter}}" Icon="delete" ButtonType="ToolButton" IconIndent="12" FontAttributes="None"  IconWidth="24" IconHeight="24" Padding="12,16" HorizontalContentAlignment="Start" Content="Remove Photo" Tap="DeletePhotoClicked"/>
                 </dx:DXStackLayout>
             </dx:BottomSheet>
         </VerticalStackLayout>

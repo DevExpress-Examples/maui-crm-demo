@@ -52,7 +52,7 @@ public partial class OrdersPage : ContentPage {
     }
     private DataGridView CreateDataGridView() {
         DataGridView result = new DataGridView();
-        result.FilterString = viewModel.Filter;
+        result.FilterExpression = collectionView.FilterExpression;
         result.Columns.Add(CreateColumn("Id"));
         result.Columns.Add(CreateColumn("OrderDate"));
         result.Columns.Add(CreateColumn("TotalAmount"));

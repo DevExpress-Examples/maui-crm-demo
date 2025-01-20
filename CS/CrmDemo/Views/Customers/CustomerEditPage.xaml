@@ -13,7 +13,7 @@
         </DataTrigger>
     </ContentPage.Triggers>
     <dxi:DXPageExtension.ToolbarItems>
-        <dxi:DXToolbarItem IconImageSource="importfile" Clicked="OnImportCustomersClicked"/>
+        <dxi:DXToolbarItem IconImageSource="importfile" Clicked="OnImportCustomersClicked" IsEnabled="{Binding IsNew}"/>
     </dxi:DXPageExtension.ToolbarItems>
     <viewsC:CustomerEditCoreView x:Name="coreEditView"/>
 </ContentPage>

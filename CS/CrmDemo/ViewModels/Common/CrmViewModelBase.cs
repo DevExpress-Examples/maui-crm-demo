@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using DevExpress.Maui.Mvvm;
 using CrmDemo.DataLayer;
+using DevExpress.Data.Filtering;
 
 namespace CrmDemo.ViewModels.Common;
 
@@ -9,6 +10,7 @@ public abstract class CrmViewModelBase<TEntity> : DXObservableObject where TEnti
     private ObservableCollection<TEntity> items;
     private bool isDataLoading;
 
+    public CriteriaOperator AssignedToMeFilterExpression => CriteriaOperator.Parse($"[Employee.FullName] = '{SessionService.CurrentUserFullName}'");
     public ObservableCollection<TEntity> Items {
         get => items;
         protected set {
@@ -45,10 +47,13 @@ public abstract class CrmViewModelBase<TEntity> : DXObservableObject where TEnti
         if (sortComparison != null) {
             list.Sort(sortComparison);
         }
-        Items = new ObservableCollection<TEntity>(list);
+        OnApplyData(list);
         OnLoadData(crmContext);
 
         IsDataLoading = false;
+    }
+    protected virtual void OnApplyData(List<TEntity> list) {
+        Items = new ObservableCollection<TEntity>(list);
     }
     protected abstract IQueryable<TEntity> GetQueryable(CrmContext crmContext);
     protected virtual void OnLoadData(CrmContext crmContext) { }

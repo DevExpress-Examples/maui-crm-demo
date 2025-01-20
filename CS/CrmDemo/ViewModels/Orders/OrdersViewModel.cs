@@ -1,4 +1,4 @@
-using System.ComponentModel;
+﻿
 using System.Collections;
 using System.Collections.ObjectModel;
 
@@ -11,8 +11,6 @@ using CrmDemo.ViewModels.Common;
 namespace CrmDemo.ViewModels.Orders;
 
 public class OrdersViewModel : CrmViewModelBase<Order>, IQueryAttributable {
-    
-
     public Order SelectedOrder {
         get => selectedOrder;
         set {
@@ -37,13 +35,6 @@ public class OrdersViewModel : CrmViewModelBase<Order>, IQueryAttributable {
     public IEnumerable States {
         get => Enum.GetValues<OrderState>();
     }
-    public ObservableCollection<FilterItem> PredefinedFilters {
-        get => predefinedFilters;
-        set {
-            predefinedFilters = value;
-            OnPropertyChanged(nameof(PredefinedFilters));
-        }
-    }
     public ObservableCollection<Product> Products {
         get => products;
         set {
@@ -51,18 +42,7 @@ public class OrdersViewModel : CrmViewModelBase<Order>, IQueryAttributable {
             OnPropertyChanged();
         }
     }
-    public BindingList<FilterItem> SelectedFilters { get; set; }
-    public string Filter {
-        get => filter;
-        set {
-            filter = value;
-            OnPropertyChanged();
-        }
-    }
     public OrdersViewModel(UserSessionService sessionService) : base(sessionService) {
-        PopulatePredefinedFiltersAsync();
-        SelectedFilters = new BindingList<FilterItem>();
-        SelectedFilters.ListChanged += SelectedFiltersChanged;
         sortComparison = (Order o1, Order o2) => -Comparer.Default.Compare(o1.Id, o2.Id);
     }
     public bool DeleteCurrentOrder() {
@@ -94,56 +74,35 @@ public class OrdersViewModel : CrmViewModelBase<Order>, IQueryAttributable {
     
 
     private Order selectedOrder;
-    private string filter;
-    private ObservableCollection<FilterItem> predefinedFilters;
     private ObservableCollection<Employee> employees;
     private ObservableCollection<Product> products;
     private ObservableCollection<Customer> customers;
-    private BindingList<FilterItem> pendingSelectedFilters;
-
-    private void AddFilter(object parameter, string filter) {
-        var item = new FilterItem() { Filter = $"[{filter}].[Id] == '{parameter}'", DisplayText = $"{filter}.Id = {parameter}" };
-        if (PredefinedFilters is null) {
-            pendingSelectedFilters = new() {
-                item
-            };
-        } else {
-            SelectedFilters.Add(item);
-        }
-    }
-    private void SelectedFiltersChanged(object sender, ListChangedEventArgs e) {
-        if (SelectedFilters.Count > 0)
-            Filter = string.Join(" AND ", SelectedFilters.Select(f => f.Filter));
-        else
-            Filter = string.Empty;
-    }
-    private void PopulatePredefinedFiltersAsync() {
-        PredefinedFilters = new ObservableCollection<FilterItem>() {
-            new FilterItem(){ DisplayText= "Assigned to Me", Filter = $"[Employee].[FullName] == '{SessionService.CurrentUserFullName}'" },
-            new FilterItem(){ DisplayText= "New", Filter = "IsThisWeek([OrderDate])" },
-            new FilterItem(){ DisplayText= "Amount > $3000", Filter = "[TotalAmount] > 3000" },
-            new FilterItem(){ DisplayText= "Pending", Filter = "[State] == 'Pending'" },
-            new FilterItem(){ DisplayText= "Shipping", Filter = "[State] == 'Shipping'" },
-            new FilterItem(){ DisplayText= "Paid", Filter = "[State] == 'Paid'" },
-            new FilterItem(){ DisplayText= "Processed", Filter = "[State] == 'Processed'" },
-        };
-        if (pendingSelectedFilters != null && pendingSelectedFilters.Count > 0) {
-            foreach (var item in pendingSelectedFilters) {
-                PredefinedFilters.Insert(0, item);
-                SelectedFilters.Add(item);
-            }
-        }
-        pendingSelectedFilters = null;
-    }
+    private string customerFullName;
+    private string employeeFullName;
 
     void IQueryAttributable.ApplyQueryAttributes(IDictionary<string, object> query) {
         object parameter;
-        if (query.TryGetValue("ParentEmployeeId", out parameter)) {
-            AddFilter(parameter, "Employee");
-        } else if (query.TryGetValue("ParentCustomerId", out parameter)) {
-            AddFilter(parameter, "Customer");
-        } else if (query.TryGetValue("OrderId", out parameter)) {
+        if (query.TryGetValue("OrderId", out parameter)) {
             pendingNavigationOrderId = (int)parameter;
         }
+        if (query.TryGetValue("CustomerFullName", out parameter)) {
+            customerFullName = (string)parameter;
+        }
+        if (query.TryGetValue("EmployeeFullName", out parameter)) {
+            employeeFullName = (string)parameter;
+        }
+    }
+
+    protected override void OnApplyData(List<Order> list) {
+        if (!string.IsNullOrEmpty(customerFullName)) {
+            Items = new ObservableCollection<Order>(list.Where(x => x.Customer?.FullName == customerFullName));
+            return;
+        }
+        if (!string.IsNullOrEmpty(employeeFullName)) {
+            Items = new ObservableCollection<Order>(list.Where(x => x.Employee?.FullName == employeeFullName));
+            return;
+        }
+
+        base.OnApplyData(list);
     }
 }

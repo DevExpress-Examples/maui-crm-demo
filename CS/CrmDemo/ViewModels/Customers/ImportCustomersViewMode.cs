@@ -34,7 +34,7 @@ public class ImportCustomersViewModel : DXObservableObject {
         this.errorHandler = errorHandler;
         context = new CrmContext();
         UploadCommand = new Command(UploadFile);
-        SaveCommand = new Command(SaveCustomers);
+        SaveCommand = new Command(SaveCustomers, (o) => Customers?.Any() == true);
     }
 
     private async void UploadFile() {
@@ -53,9 +53,15 @@ public class ImportCustomersViewModel : DXObservableObject {
     }
     private async Task LoadDataFromExcel(string filePath) {
         using Workbook newCustomersWorkbook = new Workbook();
-        bool excelOpenResult = await newCustomersWorkbook.LoadDocumentAsync(filePath);
-        if (!excelOpenResult) {
-            errorHandler?.Invoke("Couldn't open the file");
+        try {
+            using var inputStream = await FileSystem.Current.OpenAppPackageFileAsync(filePath);
+            bool excelOpenResult = newCustomersWorkbook.LoadDocument(inputStream);
+            if (!excelOpenResult) {
+                errorHandler?.Invoke("Couldn't open the file");
+                return;
+            }
+        } catch (Exception e) {
+            errorHandler?.Invoke("Couldn't open the file: " + e.Message);
             return;
         }
         CellRange valuesRange = newCustomersWorkbook.Worksheets[0].GetDataRange();
@@ -77,6 +83,7 @@ public class ImportCustomersViewModel : DXObservableObject {
         }
 
         Customers = newCustomers;
+        SaveCommand?.ChangeCanExecute();
     }
     private bool IsValidDataStructure(Worksheet workSheet, int topRowIndex, int leftColumnIndex) {
         return workSheet.Rows[topRowIndex][leftColumnIndex].Value.TextValue == "First Name" &&

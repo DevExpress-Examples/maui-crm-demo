@@ -52,11 +52,11 @@ public class SettingsViewModel : DXObservableObject {
 #if ANDROID
             new ColorModel(Colors.Black, "System Color", true),
 #endif
+            new ColorModel(ThemeManager.GetSeedColor(ThemeSeedColor.TealGreen), ThemeSeedColor.TealGreen.ToString()),
             new ColorModel(ThemeManager.GetSeedColor(ThemeSeedColor.Purple), ThemeSeedColor.Purple.ToString()),
             new ColorModel(ThemeManager.GetSeedColor(ThemeSeedColor.Violet), ThemeSeedColor.Violet.ToString()),
             new ColorModel(ThemeManager.GetSeedColor(ThemeSeedColor.Red), ThemeSeedColor.Red.ToString()),
             new ColorModel(ThemeManager.GetSeedColor(ThemeSeedColor.Brown), ThemeSeedColor.Brown.ToString()),
-            new ColorModel(ThemeManager.GetSeedColor(ThemeSeedColor.TealGreen), ThemeSeedColor.TealGreen.ToString()),
             new ColorModel(ThemeManager.GetSeedColor(ThemeSeedColor.Green), ThemeSeedColor.Green.ToString()),
             new ColorModel(ThemeManager.GetSeedColor(ThemeSeedColor.DarkGreen), ThemeSeedColor.DarkGreen.ToString()),
             new ColorModel(ThemeManager.GetSeedColor(ThemeSeedColor.DarkCyan), ThemeSeedColor.DarkCyan.ToString()),

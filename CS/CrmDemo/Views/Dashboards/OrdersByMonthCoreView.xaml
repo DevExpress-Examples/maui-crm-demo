@@ -16,7 +16,7 @@
                     </dx:SeriesDataAdapter>
                 </dx:SplineSeries.Data>
                 <dx:SplineSeries.Style>
-                    <dx:LineSeriesStyle Stroke="{dx:ThemeColor Primary}" StrokeThickness="3">
+                    <dx:LineSeriesStyle Stroke="{dx:ThemeColor Primary}" StrokeThickness="1">
                     </dx:LineSeriesStyle>
                 </dx:SplineSeries.Style>
             </dx:SplineSeries>

@@ -41,6 +41,9 @@
     <PackageReference Include="DevExpress.Maui.DataGrid.Export">
       <Version>24.2.*</Version>
     </PackageReference>
+    <PackageReference Include="DevExpress.Maui.Pdf">
+      <Version>24.2.*</Version>
+    </PackageReference>
     <PackageReference Include="DevExpress.Maui.Editors">
       <Version>24.2.*</Version>
     </PackageReference>

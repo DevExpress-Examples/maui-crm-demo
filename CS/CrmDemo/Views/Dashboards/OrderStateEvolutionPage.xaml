@@ -24,6 +24,9 @@
                                 <dx:StackedBarSeries.Style>
                                     <dx:BarSeriesStyle Fill="{Binding Path=., Converter={StaticResource stackedBarColorConverter}}" />
                                 </dx:StackedBarSeries.Style>
+                                <dx:FullStackedBarSeries.HintOptions>
+                                    <dx:SeriesHintOptions PointTextPattern="Revenue: {V$$}"/>
+                                </dx:FullStackedBarSeries.HintOptions>
                             </dx:FullStackedBarSeries>
                         </DataTemplate>
                     </dx:SeriesTemplateAdapter.SeriesTemplate>

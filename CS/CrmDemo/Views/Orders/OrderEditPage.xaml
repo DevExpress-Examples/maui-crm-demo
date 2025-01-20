@@ -58,7 +58,7 @@
             </dx:DXCollectionView>
 
             <dx:ComboBoxEdit x:Name="productComboBox" LabelText="Product" ItemsSource="{Binding DataControlContext.Products}" DisplayMember="Name" PickerShowMode="BottomSheet" Margin="0,14,0,0" />
-            <dx:NumericEdit x:Name="quantityEditor" LabelText="Quantity" MinValue="0" StepValue="1" AllowLooping="False" IsUpDownIconVisible="True" UpDownIconAlignment="End" Margin="0,14,0,0" />
+            <dx:NumericEdit x:Name="quantityEditor" LabelText="Quantity" Value="0" MinValue="0" StepValue="1" AllowLooping="False" IsUpDownIconVisible="True" UpDownIconAlignment="End" Margin="0,14,0,0" />
             <dx:DXButton Content="Add Product" Padding="16,14" Clicked="OnAddOrderItemClicked" Margin="0,16,0,0" />
         </VerticalStackLayout>
     </ScrollView>

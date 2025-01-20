@@ -4,6 +4,7 @@
              xmlns:dxi="clr-namespace:DevExpress.Maui.Core.Internal;assembly=DevExpress.Maui.Core"
              xmlns:model="clr-namespace:CrmDemo.DataModel.Models;assembly=CrmDemo.DataModel"
              xmlns:viewsCommon="clr-namespace:CrmDemo.Views.Common"
+             xmlns:local="clr-namespace:CrmDemo.Views.Customers"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Customer"
              x:Class="CrmDemo.Views.Customers.CustomerDetailPage">
@@ -59,9 +60,9 @@
                         <Label Text="{Binding Item.FullName}" TextColor="{dx:ThemeColor OnSurface}" FontSize="16" FontAttributes="Bold" HorizontalOptions="Center" Margin="0,10,0,16"/>
 
                         <dx:DXStackLayout HorizontalOptions="Center" Margin="16,0,16,24" Orientation="Horizontal" ItemSpacing="14">
-                            <dx:DXButton Icon="phone" Style="{StaticResource ActionButtonStyle}" Clicked="CallClick"/>
-                            <dx:DXButton Icon="mail" Style="{StaticResource ActionButtonStyle}" Clicked="MailClick"/>
-                            <dx:DXButton Icon="message" Style="{StaticResource ActionButtonStyle}" Clicked="MessageClick"/>
+                            <dx:DXButton IsEnabled="{Binding Item.Phone, Converter={local:ValueToIsVisibleConverter}}" Icon="phone" Style="{StaticResource ActionButtonStyle}" Clicked="CallClick"/>
+                            <dx:DXButton IsEnabled="{Binding Item.Email, Converter={local:ValueToIsVisibleConverter}}" Icon="mail" Style="{StaticResource ActionButtonStyle}" Clicked="MailClick"/>
+                            <dx:DXButton IsEnabled="{Binding Item.Phone, Converter={local:ValueToIsVisibleConverter}}" Icon="message" Style="{StaticResource ActionButtonStyle}" Clicked="MessageClick"/>
                         </dx:DXStackLayout>
 
                         <toolkit:Expander IsExpanded="True" x:Name="checkListExpander">
@@ -143,7 +144,7 @@
                         <dx:FormItem Style="{StaticResource overviewFormItem}" Margin="16,0" ImageSource="orders" ImageWidth="24" ImageHeight="24" Text="Orders" TextFontSize="16" TapCommand="{Binding DataControlContext.NavigateToRelatedOrdersCommand}" TapCommandParameter="{Binding Item}" ShowArrow="True" AllowTap="True">
                             <dx:FormItem.InlineContent>
                                 <MultiBinding StringFormat="{}{0:N2} ({1})">
-                                    <Binding Path="Item.OrdersAmount"/>
+                                    <Binding Path="Item.OrdersAmount" StringFormat="{}{0:C2}"/>
                                     <Binding Path="Item.Orders.Count"/>
                                 </MultiBinding>
                             </dx:FormItem.InlineContent>
