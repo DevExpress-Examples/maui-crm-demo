@@ -8,7 +8,6 @@ public partial class ImageEditView : ContentPage {
     
     public ImageEditView() {
         InitializeComponent();
-
     }
 
     public ImageEditView(ImageSource imageSource) {
@@ -17,7 +16,6 @@ public partial class ImageEditView : ContentPage {
         
         
         editor.Source = imageSource;
-
     }
 
     public Task<byte[]> WaitForResultAsync() {

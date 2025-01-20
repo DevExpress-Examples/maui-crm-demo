@@ -17,38 +17,38 @@ public class OrdersViewModel : CrmViewModelBase<Order>, IQueryAttributable {
         get => selectedOrder;
         set {
             selectedOrder = value;
-            RaisePropertiesChanged(nameof(SelectedOrder));
+            OnPropertyChanged(nameof(SelectedOrder));
         }
     }
     public ObservableCollection<Customer> Customers {
         get => customers;
         set {
             customers = value;
-            RaisePropertiesChanged();
+            OnPropertyChanged();
         }
     }
     public ObservableCollection<Employee> Employees {
         get => employees;
         set {
             employees = value;
-            RaisePropertiesChanged();
+            OnPropertyChanged();
         }
     }
     public IEnumerable States {
-        get => Enum.GetValues(typeof(OrderState));
+        get => Enum.GetValues<OrderState>();
     }
     public ObservableCollection<FilterItem> PredefinedFilters {
         get => predefinedFilters;
         set {
             predefinedFilters = value;
-            RaisePropertiesChanged(nameof(PredefinedFilters));
+            OnPropertyChanged(nameof(PredefinedFilters));
         }
     }
     public ObservableCollection<Product> Products {
         get => products;
         set {
             products = value;
-            RaisePropertiesChanged();
+            OnPropertyChanged();
         }
     }
     public BindingList<FilterItem> SelectedFilters { get; set; }
@@ -56,7 +56,7 @@ public class OrdersViewModel : CrmViewModelBase<Order>, IQueryAttributable {
         get => filter;
         set {
             filter = value;
-            RaisePropertiesChanged();
+            OnPropertyChanged();
         }
     }
     public OrdersViewModel(UserSessionService sessionService) : base(sessionService) {

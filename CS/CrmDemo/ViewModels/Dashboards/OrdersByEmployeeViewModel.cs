@@ -2,15 +2,13 @@
 using System.Globalization;
 using System.Collections.ObjectModel;
 using Microsoft.EntityFrameworkCore;
-
-using DevExpress.Maui.Core;
-
+using DevExpress.Maui.Mvvm;
 using CrmDemo.DataLayer;
 using CrmDemo.DataModel.Models;
 
 namespace CrmDemo.ViewModels.Dashboards;
 
-public class OrdersByEmployeeViewModel : BindableBase {
+public class OrdersByEmployeeViewModel : DXObservableObject {
     private static readonly CompositeFormat compositeFormat = CompositeFormat.Parse("{0:M} - {1:M}");
     private int processedOrdersCount;
     private Employee selectedEmployee;
@@ -28,7 +26,7 @@ public class OrdersByEmployeeViewModel : BindableBase {
         get => selectedEmployee;
         set {
             selectedEmployee = value;
-            RaisePropertyChanged(nameof(SelectedComponentString));
+            OnPropertyChanged(nameof(SelectedComponentString));
             Update();
         }
     }
@@ -39,42 +37,42 @@ public class OrdersByEmployeeViewModel : BindableBase {
         get => pendingOrdersCount;
         set {
             pendingOrdersCount = value;
-            RaisePropertyChanged();
+            OnPropertyChanged();
         }
     }
     public int ShippingOrdersCount {
         get => shippingOrdersCount;
         set {
             shippingOrdersCount = value;
-            RaisePropertyChanged();
+            OnPropertyChanged();
         }
     }
     public int PaidOrdersCount {
         get => paidOrdersCount;
         set {
             paidOrdersCount = value;
-            RaisePropertyChanged();
+            OnPropertyChanged();
         }
     }
     public int ProcessedOrdersCount {
         get => processedOrdersCount;
         set {
             processedOrdersCount = value;
-            RaisePropertyChanged();
+            OnPropertyChanged();
         }
     }
     public int TotalOrdersCount {
         get => totalOrdersCount;
         set {
             totalOrdersCount = value;
-            RaisePropertyChanged();
+            OnPropertyChanged();
         }
     }
     public float SelectionCompletedOrdersProgress {
         get => selectionCompletedOrdersProgress;
         set {
             selectionCompletedOrdersProgress = value;
-            RaisePropertyChanged();
+            OnPropertyChanged();
         }
     }
 
@@ -84,7 +82,8 @@ public class OrdersByEmployeeViewModel : BindableBase {
             if (startDate != value) {
                 startDate = value;
                 Update();
-                RaisePropertiesChanged(nameof(StartDate), nameof(PeriodText));
+                OnPropertyChanged(nameof(StartDate));
+                OnPropertyChanged(nameof(PeriodText));
             }
         }
     }
@@ -94,7 +93,8 @@ public class OrdersByEmployeeViewModel : BindableBase {
             if (endDate != value) {
                 endDate = value;
                 Update();
-                RaisePropertiesChanged(nameof(EndDate), nameof(PeriodText));
+                OnPropertyChanged(nameof(EndDate));
+                OnPropertyChanged(nameof(PeriodText));
             }
         }
     }

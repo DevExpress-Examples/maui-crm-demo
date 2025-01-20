@@ -6,7 +6,6 @@ namespace CrmDemo.Views.Products;
 public partial class ProductDetailPage : ContentPage {
     public ProductDetailPage() {
         InitializeComponent();
-
     }
 
     protected override void OnAppearing() {

@@ -21,21 +21,21 @@ public class CustomersViewModel : CrmViewModelBase<Customer>, IQueryAttributable
         get => employees;
         set {
             employees = value;
-            RaisePropertiesChanged(nameof(Employees));
+            OnPropertyChanged(nameof(Employees));
         }
     }
     public ObservableCollection<string> Companies {
         get => companies;
         set {
             companies = value;
-            RaisePropertiesChanged(nameof(Companies));
+            OnPropertyChanged(nameof(Companies));
         }
     }
     public ObservableCollection<FilterItem> PredefinedFilters {
         get => predefinedFilters;
         set {
             predefinedFilters = value;
-            RaisePropertiesChanged(nameof(PredefinedFilters));
+            OnPropertyChanged(nameof(PredefinedFilters));
         }
     }
     public BindingList<FilterItem> SelectedFilters { get; set; }
@@ -43,7 +43,7 @@ public class CustomersViewModel : CrmViewModelBase<Customer>, IQueryAttributable
         get => filter;
         set {
             filter = value;
-            RaisePropertiesChanged(nameof(Filter));
+            OnPropertyChanged(nameof(Filter));
         }
     }
     public ICommand NavigateToRelatedOrdersCommand { get; }
@@ -52,7 +52,7 @@ public class CustomersViewModel : CrmViewModelBase<Customer>, IQueryAttributable
         get => isAdvancedItemRepresentation;
         set {
             isAdvancedItemRepresentation = value;
-            RaisePropertiesChanged(nameof(IsAdvancedItemRepresentation));
+            OnPropertyChanged(nameof(IsAdvancedItemRepresentation));
         }
     }
     public CustomersViewModel(UserSessionService sessionService) : base(sessionService) {

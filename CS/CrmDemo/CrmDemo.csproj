@@ -1,63 +1,67 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
+    <TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <UseMaui>true</UseMaui>
     <ImplicitUsings>enable</ImplicitUsings>
     <SingleProject>true</SingleProject>
     <RootNamespace>CrmDemo</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>$(NoWarn);NU1504;CA1422;CA1416;NU1603</NoWarn>
-    <NoWarn>$(NoWarn);XC0023;XC0022</NoWarn>
+    <NoWarn>$(NoWarn);NU1504;CA1422;CA1416;NU1603;XC0023;XC0022;NU1903;XC0103</NoWarn>
     <ApplicationTitle>DevExpress CRM Demo</ApplicationTitle>
     <ApplicationId>com.devexpress.crmdemo</ApplicationId>
     <ApplicationIdGuid>6384272E-FB63-46CB-9EC1-61690D3C3265</ApplicationIdGuid>
-    <ApplicationDisplayVersion>5.0</ApplicationDisplayVersion>
-    <ApplicationVersion>5</ApplicationVersion>
-    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+    <ApplicationDisplayVersion>4.0</ApplicationDisplayVersion>
+    <ApplicationVersion>4</ApplicationVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">12.2</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
     <Company>Developer Express Inc.</Company>
-    <DXVer>24.2.1</DXVer>
+    <DXVer>24.2.3</DXVer>
     <AssemblyVersion>$(DXVer)</AssemblyVersion>
     <AssemblyFileVersion>$(DXVer)</AssemblyFileVersion>
+    <MauiVersion>9.0.10</MauiVersion>
   </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)..\Packages.Build.props" />
   <ItemGroup>
     <PackageReference Include="DevExpress.Maui.Charts">
-      <Version>24.2.1-alpha-24260</Version>
+      <Version>24.2.*</Version>
     </PackageReference>
     <PackageReference Include="DevExpress.Maui.CollectionView">
-      <Version>24.2.1-alpha-24260</Version>
+      <Version>24.2.*</Version>
     </PackageReference>
     <PackageReference Include="DevExpress.Maui.Controls">
-      <Version>24.2.1-alpha-24260</Version>
+      <Version>24.2.*</Version>
     </PackageReference>
     <PackageReference Include="DevExpress.Maui.Core">
-      <Version>24.2.1-alpha-24260</Version>
+      <Version>24.2.*</Version>
     </PackageReference>
     <PackageReference Include="DevExpress.Maui.DataGrid">
-      <Version>24.2.1-alpha-24260</Version>
+      <Version>24.2.*</Version>
     </PackageReference>
     <PackageReference Include="DevExpress.Maui.DataGrid.Export">
-      <Version>24.2.1-alpha-24260</Version>
+      <Version>24.2.*</Version>
     </PackageReference>
     <PackageReference Include="DevExpress.Maui.Editors">
-      <Version>24.2.1-alpha-24260</Version>
+      <Version>24.2.*</Version>
     </PackageReference>
     <PackageReference Include="DevExpress.Maui.Gauges">
-      <Version>24.2.1-alpha-24260</Version>
+      <Version>24.2.*</Version>
     </PackageReference>
     <PackageReference Include="DevExpress.Maui.Scheduler">
-      <Version>24.2.1-alpha-24260</Version>
+      <Version>24.2.*</Version>
+    </PackageReference>
+    <PackageReference Include="DevExpress.Maui.TreeView">
+      <Version>24.2.*</Version>
     </PackageReference>
     <ProjectReference Include="..\CrmDemo.DataModel\CrmDemo.DataModel.csproj" />
-    <PackageReference Include="DotNetMeteor.HotReload.Plugin" Version="3.*" />
-    <PackageReference Include="CommunityToolkit.Maui" Version="5.3.0" />
-    <PackageReference Include="DevExpress.Reporting.Core" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.Pdf.SkiaRenderer" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="DevExpress.Document.Processor" Version="24.2.1-alpha-24260" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="$(Microsoft_Maui_Controls)" />
+    <PackageReference Include="CommunityToolkit.Maui" Version="$(CommunityToolkit_Maui)" />
+    <PackageReference Include="DevExpress.Reporting.Core" Version="24.2.*" />
+    <PackageReference Include="DevExpress.Pdf.SkiaRenderer" Version="24.2.*" />
+    <PackageReference Include="DevExpress.Document.Processor" Version="24.2.*" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(Microsoft_EntityFrameworkCore)" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="$(Microsoft_EntityFrameworkCore)" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(Microsoft_EntityFrameworkCore)" />
   </ItemGroup>
   <ItemGroup>
     <MauiIcon Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) != 'android'" Include="Resources\AppIcon\appicon.svg" Color="White" />

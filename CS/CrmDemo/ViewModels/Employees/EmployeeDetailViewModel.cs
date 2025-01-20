@@ -1,12 +1,12 @@
 ﻿using System.Collections.ObjectModel;
-using DevExpress.Maui.Core;
+using DevExpress.Maui.Mvvm;
 using CrmDemo.DataLayer;
 using CrmDemo.DataModel.Models;
 using CrmDemo.ViewModels.Dashboards;
 
 namespace CrmDemo.ViewModels.Employees;
 
-public class EmployeeDetailViewModel : BindableBase {
+public class EmployeeDetailViewModel : DXObservableObject {
     private readonly int employeeId;
     private ObservableCollection<DateCountValue> processedOrdersStats;
 
@@ -14,7 +14,7 @@ public class EmployeeDetailViewModel : BindableBase {
         get => processedOrdersStats;
         set {
             processedOrdersStats = value;
-            RaisePropertiesChanged(nameof(ProcessedOrdersStats));
+            OnPropertyChanged(nameof(ProcessedOrdersStats));
         }
     }
     public EmployeeDetailViewModel(Employee employee) {

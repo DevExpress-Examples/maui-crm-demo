@@ -1,6 +1,6 @@
 using System.Windows.Input;
 using DevExpress.Drawing;
-using DevExpress.Maui.Core;
+using DevExpress.Maui.Mvvm;
 using DevExpress.Office.DigitalSignatures;
 using DevExpress.Pdf;
 using CrmDemo.Helpers;
@@ -10,7 +10,7 @@ using SkiaSharp.Views.Maui.Controls;
 namespace CrmDemo.ViewModels.Orders;
 
 [QueryProperty(nameof(DocumentFullPath), "documentFullPath")]
-public class OrderPdfPreviewViewModel : BindableBase {
+public class OrderPdfPreviewViewModel : DXObservableObject {
     #region fields
     ImageSource pdfPreview;
     const string defaultCertificateName = "pfxCertificate.pfx";
@@ -26,7 +26,7 @@ public class OrderPdfPreviewViewModel : BindableBase {
         }
         set {
             documentFullPath = value;
-            RaisePropertyChanged(nameof(DocumentFullPath));
+            OnPropertyChanged(nameof(DocumentFullPath));
             UpdatePreview();
         }
     }
@@ -37,7 +37,7 @@ public class OrderPdfPreviewViewModel : BindableBase {
         }
         set {
             pdfPreview = value;
-            RaisePropertyChanged(nameof(PdfPreview));
+            OnPropertyChanged(nameof(PdfPreview));
         }
     }
     public bool IsSignatureViewOpened {
@@ -46,7 +46,7 @@ public class OrderPdfPreviewViewModel : BindableBase {
         }
         set {
             isSignatureViewOpened = value;
-            RaisePropertyChanged(nameof(IsSignatureViewOpened));
+            OnPropertyChanged(nameof(IsSignatureViewOpened));
         }
     }
     public ICommand SignPdfCommand { get; set; }

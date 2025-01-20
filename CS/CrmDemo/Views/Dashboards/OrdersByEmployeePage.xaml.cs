@@ -11,7 +11,6 @@ public partial class OrdersByEmployeePage : ContentPage {
     public OrdersByEmployeePage() {
         InitializeComponent();
         BindingContext = viewModel = new OrdersByEmployeeViewModel();
-
     }
     protected override void OnAppearing() {
         base.OnAppearing();

@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using Microsoft.EntityFrameworkCore;
-
-using DevExpress.Maui.Core;
+using DevExpress.Maui.Mvvm;
 using CrmDemo.DataLayer;
 using CrmDemo.DataModel.Models;
 
@@ -21,13 +20,13 @@ public class CityRevenue {
     }
 }
 
-public class OrdersByCityViewModel : BindableBase {
+public class OrdersByCityViewModel : DXObservableObject {
     private ObservableCollection<CityRevenue> dataItems;
     public ObservableCollection<CityRevenue> DataItems {
         get => dataItems;
         set {
             dataItems = value;
-            RaisePropertiesChanged(nameof(DataItems));
+            OnPropertyChanged(nameof(DataItems));
         }
     }
     public OrdersByCityViewModel() {

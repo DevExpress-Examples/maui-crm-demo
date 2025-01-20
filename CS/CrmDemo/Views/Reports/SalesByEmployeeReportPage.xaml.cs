@@ -7,7 +7,6 @@ namespace CrmDemo.Views.Reports;
 public partial class SalesByEmployeeReportPage : ContentPage {
     public SalesByEmployeeReportPage() {
         InitializeComponent();
-
     }
 
     private void OnAllButtonClicked(object sender, EventArgs e) {

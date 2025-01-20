@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 using CrmDemo.Helpers;
 using CrmDemo.DataLayer;
@@ -11,10 +12,16 @@ public partial class App : Application {
         get => Path.Combine(FileSystem.AppDataDirectory, DbFileName);
     }
     public App() {
+        var culture = new CultureInfo("en-US");
+        Thread.CurrentThread.CurrentCulture = culture;
+        Thread.CurrentThread.CurrentUICulture = culture;
+
         InitializeComponent();
         EnsureDbFile();
-        MainPage = new AppShell();
         UpdateDbAsync();
+    }
+    protected override Window CreateWindow(IActivationState activationState) {
+        return new Window(new AppShell());
     }
 
     private void EnsureDbFile() {

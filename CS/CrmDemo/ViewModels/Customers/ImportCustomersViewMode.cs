@@ -1,23 +1,23 @@
 using CrmDemo.DataLayer;
 using CrmDemo.DataModel.Models;
 using CrmDemo.Helpers;
-using DevExpress.Maui.Core;
+using DevExpress.Maui.Mvvm;
 using DevExpress.Spreadsheet;
 
 namespace CrmDemo.ViewModels.Customers;
 
-public class ImportCustomersViewModel : BindableBase {
+public class ImportCustomersViewModel : DXObservableObject {
     private bool useDefaultFile;
     public bool UseDefaultFile {
         get => useDefaultFile;
-        set => SetValue(ref useDefaultFile, value);
+        set => SetProperty(ref useDefaultFile, value);
     }
 
     private IEnumerable<Customer> customers;
     public IEnumerable<Customer> Customers {
         get => customers;
         set {
-            SetValue(ref customers, value);
+            SetProperty(ref customers, value);
             
         }
     }

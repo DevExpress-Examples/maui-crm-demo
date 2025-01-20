@@ -1,0 +1,17 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <sqlite_net_pcl>1.9.172</sqlite_net_pcl>
+    <SQLite>3.13.0</SQLite>
+    <SQLitePCLRaw_core>2.1.10</SQLitePCLRaw_core>
+	<SQLitePCLRaw_bundle_green>2.1.10</SQLitePCLRaw_bundle_green>
+    <Microsoft_EntityFrameworkCore>9.0.0</Microsoft_EntityFrameworkCore>
+	
+	<Microsoft_Maui_Controls>9.0.10</Microsoft_Maui_Controls>
+	<Microsoft_Extensions_Logging_Debug>9.0.0</Microsoft_Extensions_Logging_Debug>
+	<CommunityToolkit_Maui>9.1.1</CommunityToolkit_Maui>
+
+    <System_Private_Uri>4.3.2</System_Private_Uri>
+  </PropertyGroup>
+
+</Project>

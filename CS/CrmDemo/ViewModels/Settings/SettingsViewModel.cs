@@ -4,28 +4,29 @@ using DevExpress.Maui.Core;
 using CrmDemo.DataLayer;
 using CrmDemo.DataModel.Models;
 using CrmDemo.ViewModels.Common;
+using DevExpress.Maui.Mvvm;
 
 namespace CrmDemo.ViewModels.Settings;
 
-public class SettingsViewModel : BindableBase {
+public class SettingsViewModel : DXObservableObject {
     private readonly UserSessionService sessionService;
 
     private Employee currentUser;
     public Employee CurrentUser {
         get => currentUser;
-        set => SetValue(ref currentUser, value);
+        set => SetProperty(ref currentUser, value);
     }
 
     private string language;
     public string Language {
         get => language;
-        set => SetValue(ref language, value);
+        set => SetProperty(ref language, value);
     }
 
     private string previewColorName;
     public string PreviewColorName {
         get => previewColorName;
-        set => SetValue(ref previewColorName, value);
+        set => SetProperty(ref previewColorName, value);
     }
 
 #if ANDROID
@@ -35,7 +36,7 @@ public class SettingsViewModel : BindableBase {
 #endif
     public int SelectedColorIndex {
         get => selectedColorIndex;
-        set => SetValue(ref selectedColorIndex, value);
+        set => SetProperty(ref selectedColorIndex, value);
     }
 
     public List<ColorModel> Items { get; set; }

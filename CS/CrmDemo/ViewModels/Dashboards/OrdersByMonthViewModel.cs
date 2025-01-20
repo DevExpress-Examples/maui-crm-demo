@@ -1,18 +1,18 @@
 ﻿using System.Collections.ObjectModel;
 using CrmDemo.DataLayer;
-using DevExpress.Maui.Core;
+using DevExpress.Maui.Mvvm;
 using Microsoft.EntityFrameworkCore;
 
 namespace CrmDemo.ViewModels.Dashboards;
 
-public class OrdersByMonthViewModel : BindableBase {
+public class OrdersByMonthViewModel : DXObservableObject {
     private ObservableCollection<DateCountValue> pageViewStats;
 
     public ObservableCollection<DateCountValue> PageViewStats {
         get => pageViewStats;
         set {
             pageViewStats = value;
-            RaisePropertiesChanged(nameof(PageViewStats));
+            OnPropertyChanged(nameof(PageViewStats));
         }
     }
     public ObservableCollection<string> OrderStatusFilters { get; set; }

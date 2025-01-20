@@ -6,7 +6,6 @@ namespace CrmDemo.Views.Dashboards;
 public partial class OrderStateEvolutionPage : ContentPage {
     public OrderStateEvolutionPage() {
         InitializeComponent();
-
     }
 }
 
