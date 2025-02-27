@@ -52,7 +52,6 @@ namespace CrmDemo {
                     handlers.AddHandler<Shell, CustomShellRenderer>();
                 });
 
-            DevExpress.Security.Resources.AccessSettings.ReportingSpecificResources.SetRules(SerializationFormatRule.Allow(SerializationFormat.Code, SerializationFormat.Xml));
             DevExpress.Maui.Core.Localizer.DXStringLoader = new StringLoader();
 
             RegisterReportTrustedTypes();
