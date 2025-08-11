@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using DevExpress.Maui;
 using DevExpress.Maui.Core;
-using DevExpress.XtraReports.Security;
+// using DevExpress.XtraReports.Security;
 using DevExpress.XtraReports.UI;
 using CrmDemo.DataModel.Models;
 using CrmDemo.ViewModels.Common;
@@ -50,7 +50,7 @@ namespace CrmDemo {
                     handlers.AddHandler<Shell, CustomShellRenderer>();
                 });
 
-            DevExpress.Security.Resources.AccessSettings.ReportingSpecificResources.SetRules(SerializationFormatRule.Allow(SerializationFormat.Code, SerializationFormat.Xml));
+            // DevExpress.Security.Resources.AccessSettings.ReportingSpecificResources.SetRules(SerializationFormatRule.Allow(SerializationFormat.Code, SerializationFormat.Xml));
             DevExpress.Maui.Core.Localizer.DXStringLoader = new StringLoader();
 
             RegisterReportTrustedTypes();
