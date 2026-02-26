@@ -48,7 +48,7 @@
       <Version>24.2.13</Version>
     </PackageReference>
     <PackageReference Include="DevExpress.Maui.Scheduler">
-      <Version>24.2.*</Version>
+      <Version>24.2.13</Version>
     </PackageReference>
     <PackageReference Include="DevExpress.Maui.TreeView">
       <Version>24.2.13</Version>
