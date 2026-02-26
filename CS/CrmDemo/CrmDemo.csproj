@@ -33,7 +33,7 @@
       <Version>24.2.*</Version>
     </PackageReference>
     <PackageReference Include="DevExpress.Maui.Core">
-      <Version>24.2.*</Version>
+      <Version>24.2.12</Version>
     </PackageReference>
     <PackageReference Include="DevExpress.Maui.DataGrid">
       <Version>24.2.*</Version>
@@ -56,7 +56,7 @@
     <ProjectReference Include="..\CrmDemo.DataModel\CrmDemo.DataModel.csproj" />
     <PackageReference Include="Microsoft.Maui.Controls" Version="$(Microsoft_Maui_Controls)" />
     <PackageReference Include="CommunityToolkit.Maui" Version="$(CommunityToolkit_Maui)" />
-    <PackageReference Include="DevExpress.Reporting.Core" Version="24.2.*" />
+    <PackageReference Include="DevExpress.Reporting.Core" Version="24.2.12" />
     <PackageReference Include="DevExpress.Pdf.SkiaRenderer" Version="24.2.*" />
     <PackageReference Include="DevExpress.Document.Processor" Version="24.2.*" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(Microsoft_EntityFrameworkCore)" />
