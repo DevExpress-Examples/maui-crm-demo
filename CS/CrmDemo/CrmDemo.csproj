@@ -39,7 +39,8 @@
     <PackageReference Include="DevExpress.Reporting.Core" Version="24.2.13" />
     <PackageReference Include="DevExpress.Pdf.SkiaRenderer" Version="24.2.13" />
     <PackageReference Include="DevExpress.Document.Processor" Version="24.2.13" />
-    <PackageReference Include="DevExpress.Data" Version="25.1.3" />
+    <PackageReference Include="DevExpress.Data" Version="24.2.13" />
+    <PackageReference Include="DevExpress.Drawing" Version="24.2.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(Microsoft_EntityFrameworkCore)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="$(Microsoft_EntityFrameworkCore)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(Microsoft_EntityFrameworkCore)" />
