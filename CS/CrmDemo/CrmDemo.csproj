@@ -16,29 +16,29 @@
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">12.2</SupportedOSPlatformVersion>
     <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
     <Company>Developer Express Inc.</Company>
-    <DXVer>24.2.13</DXVer>
+    <DXVer>24.2.3</DXVer>
     <AssemblyVersion>$(DXVer)</AssemblyVersion>
     <AssemblyFileVersion>$(DXVer)</AssemblyFileVersion>
     <MauiVersion>9.0.10</MauiVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildThisFileDirectory)..\Packages.Build.props" />
   <ItemGroup>
-    <PackageReference Include="DevExpress.Maui.Charts" Version="24.2.13" />
-    <PackageReference Include="DevExpress.Maui.CollectionView" Version="24.2.13" />
-    <PackageReference Include="DevExpress.Maui.Controls" Version="24.2.13" />
-    <PackageReference Include="DevExpress.Maui.Core" Version="24.2.13" />
-    <PackageReference Include="DevExpress.Maui.DataGrid" Version="24.2.13" />
-    <PackageReference Include="DevExpress.Maui.DataGrid.Export" Version="24.2.13" />
-    <PackageReference Include="DevExpress.Maui.Editors" Version="24.2.13" />
-    <PackageReference Include="DevExpress.Maui.Gauges" Version="24.2.13" />
-    <PackageReference Include="DevExpress.Maui.Scheduler" Version="24.2.13" />
-    <PackageReference Include="DevExpress.Maui.TreeView" Version="24.2.13" />
+    <PackageReference Include="DevExpress.Maui.Charts" Version="24.2.*" />
+    <PackageReference Include="DevExpress.Maui.CollectionView" Version="24.2.*" />
+    <PackageReference Include="DevExpress.Maui.Controls" Version="24.2.*" />
+    <PackageReference Include="DevExpress.Maui.Core" Version="24.2.*" />
+    <PackageReference Include="DevExpress.Maui.DataGrid" Version="24.2.*" />
+    <PackageReference Include="DevExpress.Maui.DataGrid.Export" Version="24.2.*" />
+    <PackageReference Include="DevExpress.Maui.Editors" Version="24.2.*" />
+    <PackageReference Include="DevExpress.Maui.Gauges" Version="24.2.*" />
+    <PackageReference Include="DevExpress.Maui.Scheduler" Version="24.2.*" />
+    <PackageReference Include="DevExpress.Maui.TreeView" Version="24.2.*" />
     <ProjectReference Include="..\CrmDemo.DataModel\CrmDemo.DataModel.csproj" />
     <PackageReference Include="Microsoft.Maui.Controls" Version="$(Microsoft_Maui_Controls)" />
     <PackageReference Include="CommunityToolkit.Maui" Version="$(CommunityToolkit_Maui)" />
-    <PackageReference Include="DevExpress.Reporting.Core" Version="24.2.13" />
-    <PackageReference Include="DevExpress.Pdf.SkiaRenderer" Version="24.2.13" />
-    <PackageReference Include="DevExpress.Document.Processor" Version="24.2.13" />
+    <PackageReference Include="DevExpress.Reporting.Core" Version="24.2.*" />
+    <PackageReference Include="DevExpress.Pdf.SkiaRenderer" Version="24.2.*" />
+    <PackageReference Include="DevExpress.Document.Processor" Version="24.2.*" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="$(Microsoft_EntityFrameworkCore)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="$(Microsoft_EntityFrameworkCore)" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="$(Microsoft_EntityFrameworkCore)" />
