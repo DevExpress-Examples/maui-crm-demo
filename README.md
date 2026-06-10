@@ -86,14 +86,6 @@ Data visualization using charts and circular gauge:
 
 [Related Documentation Topic](https://docs.devexpress.com/MAUI/403300/charts/charts)
 
-## Requirements
-
-To build the project, please register the DevExpress NuGet Gallery in Visual Studio and restore NuGet packages used in this solution. See the following topic for more information in this regard: [Get Started with DevExpress Mobile UI for .NET MAUI](https://docs.devexpress.com/MAUI/403249/get-started).
-
-> The DevExpress .NET MAUI PDF Viewer and HTML Edit controls require a DevExpress [Universal Subscription](https://www.devexpress.com/subscriptions/universal.xml). Without a valid/active license, you cannot use these controls within your .NET MAUI application.
-
-If you are new to our .NET MAUI product line, please refer to the following YouTube video to get started and learn some of what’s possible when using our .NET MAUI libraries: [Setting up a .NET MAUI Project](https://www.youtube.com/watch?v=juJvl5UicIQ).
-
 ## Documentation
 
 - [Data Grid](https://docs.devexpress.com/MAUI/403255/data-grid/data-grid)
