@@ -22,9 +22,9 @@ Mobile-friendly CRUD flow (using an SQLite database):
 
 <img src="./images/crm-crud.png" alt="DevExpress CRM Demo - CRUD" height="700"> 
 
-[Related Documentation Topic](https://docs.devexpress.com/MAUI/404421/collection-view/crud/crud-overview)
-
 </br>
+
+[Related Documentation Topic](https://docs.devexpress.com/MAUI/404421/collection-view/crud/crud-overview)
 
 ## Filtering UI
 
