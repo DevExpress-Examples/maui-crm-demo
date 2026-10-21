@@ -22,13 +22,17 @@ Mobile-friendly CRUD flow (using an SQLite database):
 
 <img src="./images/crm-crud.png" alt="DevExpress CRM Demo - CRUD" height="700"> 
 
-[Related Documentation Topic](https://docs.devexpress.com/MAUI/404421/collection-view/crud/crud-overview)</br>
+[Related Documentation Topic](https://docs.devexpress.com/MAUI/404421/collection-view/crud/crud-overview)
+
+&#x000A;
 
 ## Filtering UI
 
 Basic and advanced .NET MAUI filtering UI elements:
 
-<img src="./images/crm-filter-elements.png" alt="DevExpress CRM Demo - Filtering UI" height="700"></br>
+<img src="./images/crm-filter-elements.png" alt="DevExpress CRM Demo - Filtering UI" height="700">
+
+&#x000A;
 
 [Related Documentation Topic](https://docs.devexpress.com/MAUI/404126/collection-view/filter-sort-and-group-data#create-filtering-ui)
 
@@ -36,7 +40,9 @@ Basic and advanced .NET MAUI filtering UI elements:
 
 Master-detail view that leverages the DevExpress .NET MAUI BottomSheet control to display selected item info:
 
-<img src="./images/crm-master-detail.png" alt="DevExpress CRM Demo - Master-Detail" height="700"></br> 
+<img src="./images/crm-master-detail.png" alt="DevExpress CRM Demo - Master-Detail" height="700">
+
+&#x000A;
 
 [Related Documentation Topic](https://docs.devexpress.com/MAUI/404351/scenarios/bottomsheet)
 
@@ -44,7 +50,9 @@ Master-detail view that leverages the DevExpress .NET MAUI BottomSheet control t
 
 Export .NET MAUI DataGrid data to Excel and PDF:
 
-<img src="./images/crm-export-data.png" alt="DevExpress CRM Demo - DataGrid Export" height="700"></br> 
+<img src="./images/crm-export-data.png" alt="DevExpress CRM Demo - DataGrid Export" height="700">
+
+&#x000A;
 
 [Related Documentation Topic](https://docs.devexpress.com/MAUI/404377/data-grid/export)
 
@@ -52,13 +60,17 @@ Export .NET MAUI DataGrid data to Excel and PDF:
 
 Import Excel file data and display it within the DevExpress .NET MAUI DataGrid:
 
-<img src="./images/crm-import-from-excel.png" alt="DevExpress CRM Demo - Import to a DataGrid" height="700"></br> 
+<img src="./images/crm-import-from-excel.png" alt="DevExpress CRM Demo - Import to a DataGrid" height="700">
+
+&#x000A;
 
 ## Document Processing
 
 Document processing using the DevExpress Office File API library:
 
-<img src="./images/crm-document-processing.png" alt="DevExpress CRM Demo - Document Processing" height="700"></br> 
+<img src="./images/crm-document-processing.png" alt="DevExpress CRM Demo - Document Processing" height="700">
+
+&#x000A;
 
 [Related Documentation Topic](https://docs.devexpress.com/MAUI/404434/office-file-api-support)
 
@@ -66,7 +78,9 @@ Document processing using the DevExpress Office File API library:
 
 Report generation powered by DevExpress Reports:
 
-<img src="./images/crm-reports.png" alt="DevExpress CRM Demo - Reporting" height="700"></br> 
+<img src="./images/crm-reports.png" alt="DevExpress CRM Demo - Reporting" height="700">
+
+&#x000A;
 
 [Related Documentation Topic](https://docs.devexpress.com/XtraReports/404425/dot-net-maui-reporting/use-reporting-in-maui-apps)
 
@@ -74,7 +88,9 @@ Report generation powered by DevExpress Reports:
 
 Material Design 3 theme support:
 
-<img src="./images/crm-material-design.png" alt="DevExpress CRM Demo - Material Design 3" height="700"></br> 
+<img src="./images/crm-material-design.png" alt="DevExpress CRM Demo - Material Design 3" height="700">
+
+&#x000A;
 
 [Related Documentation Topic](https://docs.devexpress.com/MAUI/404636/common-concepts/themes)
 
@@ -82,7 +98,9 @@ Material Design 3 theme support:
 
 Data visualization using charts and circular gauge:
 
-<img src="./images/crm-charts.png" alt="DevExpress CRM Demo - Charts" height="700"></br> 
+<img src="./images/crm-charts.png" alt="DevExpress CRM Demo - Charts" height="700">
+
+&#x000A;
 
 [Related Documentation Topic](https://docs.devexpress.com/MAUI/403300/charts/charts)
 
